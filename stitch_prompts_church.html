@@ -1,0 +1,546 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .wrap { padding: 1rem 0; }
+  .top-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .top-bar h2 { font-size: 16px; font-weight: 500; color: var(--color-text-primary); }
+  .top-bar p { font-size: 13px; color: var(--color-text-secondary); }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .tab { font-size: 12px; padding: 5px 12px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; }
+  .tab:hover { background: var(--color-background-secondary); }
+  .tab.active { background: var(--color-background-secondary); color: var(--color-text-primary); border-color: var(--color-border-primary); font-weight: 500; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .card-head { padding: 14px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: flex-start; gap: 10px; }
+  .badge { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: var(--border-radius-md); white-space: nowrap; }
+  .card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+  .section-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-tertiary); margin-bottom: 6px; }
+  .prompt-box { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px 14px; font-family: var(--font-mono); font-size: 12px; line-height: 1.65; color: var(--color-text-primary); white-space: pre-wrap; word-break: break-word; position: relative; }
+  .copy-btn { position: absolute; top: 8px; right: 8px; font-size: 11px; padding: 3px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); cursor: pointer; }
+  .copy-btn:hover { color: var(--color-text-primary); }
+  .chip-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { font-size: 11px; padding: 3px 8px; border-radius: var(--border-radius-md); border: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
+  .goal-row { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+  .note { font-size: 11px; color: var(--color-text-tertiary); padding: 8px 12px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); border-left: 2px solid var(--color-border-secondary); }
+  .hidden { display: none; }
+</style>
+
+<div class="wrap">
+  <div class="top-bar">
+    <div>
+      <h2>Stitch Prompts — ระบบงานคริสตจักร ทีม G</h2>
+      <p>เลือก Module แล้ว copy prompt ไปวางใน stitch.withgoogle.com</p>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="content"></div>
+</div>
+
+<script>
+const MODULES = [
+  {
+    id: "dashboard",
+    num: "01",
+    icon: "▦",
+    title: "Dashboard ภาพรวม",
+    color: "blue",
+    goal: "หน้าแรก แสดง 8 เสาหลัก พร้อม progress bar, sparkline และ summary chip",
+    components: ["8 pillar cards", "sparkline charts", "progress bars", "header stat chips", "nav tabs"],
+    screens: ["หน้า Dashboard หลัก"],
+    prompt: `Create a dark-themed dashboard UI for a Thai church management system called "ระบบงานคริสตจักร ทีม G".
+
+Screen: Main Dashboard — ภาพรวม 8 เสาหลัก
+
+═══ HEADER ═══
+• App bar: left = church icon + "ระบบงานคริสตจักร ทีม G" (bold) + "คริสตจักรชีวิตสุขสันต์กาฬสินธุ์" (muted subtitle)
+• Right of header: 3 stat chips side by side
+  - "ภาพรวมทีม  290" (blue tint)
+  - "มาแคร์  130" (red tint)  
+  - "รับเชื่อ  53" (orange tint)
+
+═══ NAV TABS (below header) ═══
+Tabs: ภาพรวม | กรอกข้อมูล | แนวโน้ม | ผู้นำ | แคร์กรุ๊ป | ตาราง
+Active tab = "ภาพรวม" with blue underline indicator
+
+═══ PILLAR CARDS GRID (4 columns × 2 rows) ═══
+Each card contains:
+  TOP-LEFT: small muted label "เสาที่ N" + pillar name in Thai
+  TOP-RIGHT: icon emoji
+  CENTER: large bold number (current value), small colored delta badge "▲ +5" or "▼ -3"
+  BELOW NUMBER: muted text "เป้า 200 คน · 65%"
+  PROGRESS BAR: thin colored horizontal bar
+  BOTTOM: tiny 8-point sparkline line chart
+
+Card data (number / goal / accent color):
+  เสาที่ 1 การประกาศ       53 / 60    orange
+  เสาที่ 2 การติดตามผล     682 / 800   blue
+  เสาที่ 3 การอภิบาล       82 / 82    green
+  เสาที่ 4 การสร้างผู้นำ    51 / 94    purple
+  เสาที่ 5 อธิษฐานเช้าพุธ  20 / 25    pink
+  เสาที่ 6 การเข้าพพช.     40 / 60    teal
+  เสาที่ 7 การมาคริสตจักร  160 / 200  amber
+  เสาที่ 8 การมาแคร์       130 / 200  red
+
+═══ STYLE ═══
+• Dark navy background: #020917
+• Cards: #0F172A with 1px border matching pillar accent at 20% opacity
+• Each card: top-right corner has a subtle accent colored circle (quarter circle)
+• Font: clean sans-serif, Thai-readable
+• Overall: dense data layout, professional — similar to Linear or Vercel analytics`
+  },
+  {
+    id: "entry",
+    num: "02",
+    icon: "✎",
+    title: "ฟอร์มกรอกข้อมูล",
+    color: "teal",
+    goal: "ฟอร์มกรอก 8 เสาต่อสัปดาห์ พร้อม inline validation และ progress ขณะพิมพ์",
+    components: ["date picker", "8 number inputs", "inline progress bars", "ghost placeholder", "success toast"],
+    screens: ["หน้ากรอกข้อมูล"],
+    prompt: `Create a weekly data entry form screen for a Thai church management app.
+
+Screen: กรอกข้อมูลรายสัปดาห์
+
+═══ HEADER ═══
+• Title: "กรอกข้อมูลประจำสัปดาห์"
+• Subtitle (muted): "ทีม G · สัปดาห์ที่ 22 มีนาคม 2026"
+• Right: small "ประวัติ" text button
+
+═══ WEEK SELECTOR ═══
+• Card at top with label "เลือกสัปดาห์"
+• Date picker field showing "22 มีนาคม 2026"
+• Below: row of 4 quick-select chips: "สป.นี้" (active, filled) | "สป.ที่แล้ว" | "2 สป." | "3 สป."
+
+═══ FORM GRID (2 columns) ═══
+Each input field card contains:
+  • Colored icon circle (left) matching pillar accent color
+  • Thai pillar name as label (bold, 14px)
+  • Number input field (large, centered number)
+  • Below input: "เป้า: [goal]  ·  สป.ที่แล้ว: [prev_value]" in muted 12px
+  • Thin progress bar that fills proportionally as user types (colored per pillar)
+
+Field layout (2 per row, 4 rows):
+Row 1: การประกาศ (เป้า 60, prev 41, orange)    |  การติดตามผล (เป้า 800, prev 614, blue)
+Row 2: การอภิบาล (เป้า 82, prev 82, green)     |  การสร้างผู้นำ (เป้า 94, prev 51, purple)
+Row 3: อธิษฐานเช้าพุธ (เป้า 25, prev 20, pink) |  การเข้าพพช. (เป้า 60, prev 30, teal)
+Row 4: การมาคริสตจักร (เป้า 200, prev 164, amber) |  การมาแคร์ (เป้า 200, prev 127, red)
+
+Show a few fields in "active typing" state: e.g. การประกาศ = 53 typed (progress bar at 88%)
+
+═══ BOTTOM ═══
+• Full-width primary button: "บันทึกข้อมูล" (blue, rounded)
+• Below button: small text link "ล้างฟอร์ม"
+• Success state overlay: green checkmark + "บันทึกสำเร็จ!" toast notification at top
+
+═══ STYLE ═══
+• Light gray background (#F8FAFC), white cards
+• Each card has left colored border matching pillar
+• Clean, form-app aesthetic — similar to Notion or Linear forms`
+  },
+  {
+    id: "trend",
+    num: "03",
+    icon: "↗",
+    title: "กราฟแนวโน้ม",
+    color: "purple",
+    goal: "กราฟเส้น 12 สัปดาห์ เลือกดูแต่ละเสาได้ พร้อม tooltip และ stat summary",
+    components: ["pillar toggle pills", "line chart", "goal dashed line", "hover tooltip", "3 stat cards"],
+    screens: ["หน้าแนวโน้ม"],
+    prompt: `Create a trend chart screen for a Thai church management app.
+
+Screen: แนวโน้มรายสัปดาห์
+
+═══ HEADER ═══
+• Title: "แนวโน้มรายสัปดาห์"
+• Subtitle: "12 สัปดาห์ล่าสุด · ม.ค. – มี.ค. 2026"
+
+═══ PILLAR SELECTOR ═══
+• 8 pill toggle buttons in a horizontal scrollable row
+• Each pill: small colored dot + short name in Thai
+• Active pill = "การมาคริสตจักร" (amber, filled pill style)
+• Inactive pills = outlined, muted text
+
+Pill labels:
+  ● การประกาศ (orange)   ● การติดตามผล (blue)    ● การอภิบาล (green)
+  ● ผู้นำ (purple)        ● อธิษฐาน (pink)        ● พพช. (teal)
+  ● มาคจ. (amber) ◄active ● มาแคร์ (red)
+
+═══ MAIN CHART ═══
+• Full-width area, height ~280px
+• Line chart showing 12 weeks of "การมาคริสตจักร" data:
+  Values: 176, 192, 161, 145, 144, 144, 150, 169, 159, 157, 164, 160
+• X-axis: date labels in Thai (4 ม.ค., 11 ม.ค., 18 ม.ค., 25 ม.ค., 1 ก.พ., 8 ก.พ., 15 ก.พ., 22 ก.พ., 1 มี.ค., 8 มี.ค., 15 มี.ค., 22 มี.ค.)
+• Y-axis: auto-scaled (100 to 220)
+• LINE: amber colored, 2.5px stroke, smooth curves
+• DATA POINTS: small amber filled circles, last point is 2× larger
+• GOAL LINE: dashed red horizontal line at y=200, with "เป้า 200" label on right
+• TOOLTIP (show on last data point as default): card popup showing "22 มี.ค. 2026 / 160 คน / ▼ 4 จากสัปดาห์ก่อน / 80% ของเป้า"
+
+═══ STAT SUMMARY (3 cards below chart) ═══
+• ค่าสูงสุด: 192 คน (11 ม.ค.)
+• ค่าต่ำสุด: 144 คน (25 ม.ค.)
+• ค่าเฉลี่ย: 160 คน
+
+═══ STYLE ═══
+• Dark background consistent with main dashboard (#020917)
+• Chart area: slightly lighter card (#0F172A), subtle grid lines
+• Amber as primary accent throughout this screen
+• Clean data visualization — similar to GitHub contribution graph or Vercel analytics`
+  },
+  {
+    id: "leaders",
+    num: "04",
+    icon: "★",
+    title: "ระบบสร้างผู้นำ",
+    color: "amber",
+    goal: "ติดตาม หนบ./หนค./พล.1/พล.2 พร้อม pipeline การเลื่อนระดับ",
+    components: ["4-tab role switcher", "leader profile cards", "progress summary bar", "pipeline kanban", "promote button"],
+    screens: ["หน้าผู้นำ"],
+    prompt: `Create a leader development tracking screen for a Thai church management app.
+
+Screen: การสร้างผู้นำ
+
+═══ PROGRESS SUMMARY (top row, 4 cards) ═══
+Each card: role name + current/target + mini horizontal bar
+  หนบ. (หัวหน้าบอดี้)    5 / 5     100%  purple  ✓ complete
+  หนค. (หัวหน้าแคร์)    17 / 25    68%   teal
+  พล.1 (พี่เลี้ยงระดับ 1) 17 / 26   65%   blue
+  พล.2 (พี่เลี้ยงระดับ 2) 12 / 38   32%   orange  ← needs attention
+
+═══ ROLE TABS ═══
+Horizontal tab row: หนบ. | หนค. | พล.1 | พล.2 | กำลังสร้าง
+Active = "หนบ."
+
+═══ หนบ. TAB CONTENT — Leader Cards Grid (3 per row) ═══
+Each card:
+  • Large initials circle (colored per area — purple, teal, blue, orange, red)
+  • Name (bold): เดชา สีหนาจ
+  • Area badge: สมเด็จ
+  • Role badge: หนบ. (filled small pill)
+  • Bottom: "ดูรายละเอียด" ghost button
+
+Show all 5 leaders:
+  เดชา สีหนาจ — สมเด็จ
+  เก่งกาจ สีหนาจ — ท่าคันโท
+  เพลินพิศ ประสิทธิ์นอก — กุฉินารายณ์
+  ผุสดี แซ่ก่วย — เมือง 1
+  รัตนาภรณ์ แก้วเกตุ — คำใหญ่
+
+═══ "กำลังสร้าง" TAB — Pipeline View ═══
+• 4 horizontal columns (kanban style):
+  เริ่มสร้าง | กำลังพัฒนา | ใกล้พร้อม | พร้อมแต่งตั้ง
+• Small person cards in each column with name + target role badge
+• Example: อาย (→ หนค.) in "ใกล้พร้อม", ส้ม (→ หนค.) in "กำลังพัฒนา"
+• Column count badges at top of each column
+
+═══ FLOATING BUTTON ═══
+• Bottom right: "+ เพิ่มผู้นำ" FAB in amber/gold color
+
+═══ STYLE ═══
+• Warm amber/gold accent on dark navy
+• Profile circles use color to encode area (spatial grouping)
+• Cards: subtle border, no heavy shadows`
+  },
+  {
+    id: "care",
+    num: "05",
+    icon: "♡",
+    title: "แคร์กรุ๊ป G1–G20",
+    color: "red",
+    goal: "จัดการ 20 กลุ่ม กรองตามพื้นที่ ดูสมาชิกและ attendance ได้",
+    components: ["area filter bar", "search input", "20 group cards", "member count", "attendance bar", "FAB"],
+    screens: ["หน้าแคร์กรุ๊ป"],
+    prompt: `Create a care group management screen for a Thai church app showing G1–G20.
+
+Screen: แคร์กรุ๊ป
+
+═══ HEADER ═══
+• Title: "แคร์กรุ๊ป"
+• Subtitle: "20 กลุ่ม · สมาชิก 165 คน"
+• Right: search icon
+
+═══ FILTER BAR ═══
+Horizontal scrollable area filter chips:
+  ทั้งหมด (active, filled red) | เมือง 1 | เมือง 2 | สมเด็จ | ท่าคันโท | กุฉินารายณ์ | คำใหญ่
+
+═══ SEARCH BAR ═══
+• Full-width input: placeholder "ค้นหาชื่อสมาชิก หรือผู้นำ..."
+
+═══ GROUP CARDS GRID (3 columns) ═══
+Each card contains:
+  TOP: large colored circle badge "G1" (red/coral)
+  LEADER: "ผุสดี แซ่ก่วย" (bold, 14px)
+  AREA: small gray chip "เมือง 1"
+  MEMBERS: "♡ 8 สมาชิก" (small, muted)
+  ATTENDANCE: "มา 6 / 8 คน  ██████░░" — mini bar showing attendance ratio
+  Tap = expand to show member list inline
+
+Show 9 cards visible (first 3 rows):
+G1 ผุสดี เมือง 1    G2 เบญจมัย เมือง 1    G3 ปุนนภา เมือง 1
+G4 ทัศนา เมือง 2    G5 ดาวใจ เมือง 2     G6 สถิต เมือง 2
+G7 สุริยงค์ เมือง 2  G8 ชนาภา สมเด็จ      G9 บุญจันทร์ สมเด็จ
+
+Show G8 "ชนาภา สมเด็จ" in expanded state: member list slides down showing 5 names
+
+═══ BOTTOM BAR ═══
+• Summary row: "รวม 20 กลุ่ม · สมาชิกทั้งหมด 165 คน · มาสัปดาห์นี้ 130 คน"
+• Floating button: "+ เพิ่มสมาชิก" (red/coral)
+
+═══ STYLE ═══
+• White cards on light gray background (light mode for this screen)
+• Red/coral accent for group badges and active states
+• Clean list-style, mobile-friendly proportions`
+  },
+  {
+    id: "announce",
+    num: "06",
+    icon: "◎",
+    title: "ติดตามการประกาศ",
+    color: "coral",
+    goal: "บันทึกคนรับเชื่อ แยกช่องทาง follow-up status และยอดสะสม",
+    components: ["circular progress ring", "12-week bar chart", "follow-up table", "running total card", "add button"],
+    screens: ["หน้าการประกาศ"],
+    prompt: `Create an evangelism (outreach) tracking screen for a Thai church app.
+
+Screen: การประกาศ
+
+═══ WEEKLY GOAL RING ═══
+• Large circular progress ring (center-top): 
+  - Shows 53/60 this week
+  - Arc: 88% filled, orange color
+  - Center text: large "53" + small "คน" below + "/ เป้า 60" even smaller
+• Below ring: 2 pill stats side by side
+  - "ระหว่างสัปดาห์  48 คน" (orange pill)
+  - "วันอาทิตย์  5 คน" (amber pill)
+
+═══ RUNNING TOTAL CARD ═══
+• Full-width card: "ยอดรวมตั้งแต่ต้นปี 2026"
+• Big number: "459 คน" (large, orange)
+• Subtext: "12 สัปดาห์ · เฉลี่ย 38 คน/สัปดาห์"
+
+═══ BAR CHART (12 weeks) ═══
+• Title: "ประวัติรายสัปดาห์"
+• Grouped bar chart, each week = 2 bars stacked:
+  Orange = ระหว่างสัปดาห์, Amber = วันอาทิตย์
+• Data: 70,48,21,32,26,55,38,36,27,48,41,53
+• X-axis: short date labels
+• Dashed horizontal line at 60 (goal)
+• Last bar (53) highlighted/larger
+
+═══ FOLLOW-UP TABLE ═══
+• Header: "รายการรอติดตาม" + filter chips: ทั้งหมด | รอติดตาม | ติดตามแล้ว
+• Table rows (4 shown):
+  Name | วันรับเชื่อ | กลุ่มแคร์ | สถานะ
+  สมชาย | 15 มี.ค. | G3 | รอติดตาม (orange badge)
+  สุดา | 22 มี.ค. | — | รอมอบหมาย (red badge)
+  บุญมา | 8 มี.ค. | G7 | ติดตามแล้ว (green badge)
+
+═══ FAB ═══
+• Bottom-right: "+ เพิ่มคนรับเชื่อ" (orange)
+
+═══ STYLE ═══
+• Dark background, orange as hero accent
+• Circular ring is the visual centerpiece
+• Compact, data-rich layout`
+  },
+  {
+    id: "prayer",
+    num: "07",
+    icon: "✦",
+    title: "อธิษฐาน & พพช.",
+    color: "teal",
+    goal: "ติดตามการมาอธิษฐานวันพุธ และหลักสูตร พพช. แยกแต่ละวิชา",
+    components: ["week bubble timeline", "stacked bar", "course list", "donut chart", "ratio stat"],
+    screens: ["หน้าอธิษฐาน + พพช."],
+    prompt: `Create a prayer meeting and discipleship school tracking screen for a Thai church app.
+
+Screen: อธิษฐาน & พพช. — split into 2 tab sections
+
+═══ TAB 1: อธิษฐานเช้าวันพุธ ═══
+
+WEEK TIMELINE:
+• Row of 12 circles (one per week), each showing attendance number
+• Circle size = proportional to attendance (larger = more people)
+• Current week circle: larger, teal border highlight
+• Values: 17, 17, 17, 17, 17, 17, 18, 20, 20, 20, 20, 20
+
+STACKED BAR SECTION:
+• Title: "ช่องทางการเข้าร่วม"
+• 2 rows of stacked bars for the last 6 weeks:
+  - Row label "มาที่คจ." — all zero (gray empty bars)
+  - Row label "Online" — all 17–20 (teal filled bars)
+• Goal marker at 25 (dashed red line)
+
+INSIGHT CARD:
+• "สัปดาห์นี้: 20 คน · ต่ำกว่าเป้า 5 คน (80%)"
+• Small trend: "↑ เพิ่มขึ้นจาก 17 ตั้งแต่ กพ." green text
+
+═══ TAB 2: การเข้าพพช. ═══
+
+COURSE LIST (each course = a row card):
+  ชีวิตใหม่ สถ.-คนทำงาน  |  10 คน/สัปดาห์  | ████░░ (teal bar)
+  ชีวิตใหม่ผู้อาวุโส       |  30 คน/สัปดาห์  | ████████░░ (teal bar)
+  หลักข้อเชื่อ             |   0 คน          | ░░░░ (empty, muted)
+  ใกล้ชิดพระเจ้า           |   0 คน          | ░░░░ (empty, muted)
+  เข้าใจการนมัสการ          |   0 คน          | ░░░░ (empty, muted)
+  เข้าใจการเงิน             |   0 คน          | ░░░░ (empty, muted)
+
+RATIO CARD (bottom):
+• Mini donut chart: 40/160 = 25% of Sunday attendees also in school
+• "คนมาคจ. 160 คน · เรียน 40 คน · 25%"
+• Target: "เป้า 60 คน (37.5%)" — gap = 20 คน
+
+═══ STYLE ═══
+• Two-tone: dark bg for prayer tab, light bg for school tab
+• Teal/cyan as primary accent
+• Clean, readable — medical-record-like precision`
+  },
+  {
+    id: "report",
+    num: "08",
+    icon: "◈",
+    title: "แจ้งเตือน & รายงาน",
+    color: "purple",
+    goal: "Notification feed แจ้งเตือนอัตโนมัติ และสร้าง PDF/Line รายงาน",
+    components: ["notification feed", "3 action buttons", "report preview card", "toggle switches", "send modal"],
+    screens: ["หน้าแจ้งเตือน"],
+    prompt: `Create a notifications and automated weekly report screen for a Thai church management app.
+
+Screen: การแจ้งเตือน & รายงาน
+
+═══ HEADER ═══
+• Title: "การแจ้งเตือน"
+• Right: "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด" text button (small, purple)
+
+═══ NOTIFICATION FEED ═══
+List of notification cards, each with:
+  [icon] [title] [timestamp]
+  [description]
+
+Show these 5 notifications:
+  🔴 Critical (red left border)
+     "การมาแคร์ต่ำกว่าเป้า"
+     "130/200 คน = 65% · ลดลง 3% จากสัปดาห์ก่อน"
+     "2 นาทีที่แล้ว"
+
+  🟡 Warning (amber left border)
+     "การประกาศยังไม่ถึงเป้า"
+     "53/60 คน = 88% · เหลืออีก 7 คน"
+     "15 นาทีที่แล้ว"
+
+  🟢 Success (green left border)
+     "การอภิบาลครบเป้า!"
+     "82/82 คน = 100% · ทำได้ทุกสัปดาห์ติดต่อกัน 10 สัปดาห์"
+     "1 ชั่วโมงที่แล้ว"
+
+  💜 Info (purple left border)
+     "รายงานสัปดาห์ที่ 22 พร้อมแล้ว"
+     "สร้างเมื่อ 22 มี.ค. 2026 · 08:00 น."
+     "เมื่อวาน"
+
+  💙 Info (blue left border)  
+     "มีสมาชิก 3 คนขาดแคร์กรุ๊ป 3 สัปดาห์ติด"
+     "G3: มณี, G8: ฝน, G14: ทอน — แนะนำให้ติดตาม"
+     "3 วันที่แล้ว"
+
+═══ REPORT GENERATION SECTION ═══
+• Section title: "สร้างรายงานประจำสัปดาห์"
+• Last report: "สร้างล่าสุด: 22 มี.ค. 2026 · 09:01 น." small muted text
+• 3 action buttons (stacked):
+  [📄 สร้าง PDF รายงาน]     — full width, purple primary
+  [💚 ส่ง Line Notify]       — full width, green outlined
+  [📧 ส่ง Email]             — full width, blue outlined
+
+═══ NOTIFICATION SETTINGS ═══
+• Section: "การแจ้งเตือนอัตโนมัติ"
+• Toggle rows:
+  เสาต่ำกว่า 60%     ████ ON
+  เป้าสำเร็จ         ████ ON
+  สมาชิกขาดแคร์ 3 สป ████ ON
+  รายงานรายสัปดาห์   ████ ON
+  ข่าวสารทีม         ░░░░ OFF
+
+═══ STYLE ═══
+• Light background for this screen (contrast from dark dashboard)
+• Color-coded left borders on notification cards = semantic meaning
+• Clean notification-app aesthetic — similar to GitHub or Slack notifications
+• Toggle switches: platform-native look`
+  }
+];
+
+let active = "dashboard";
+
+function renderTabs() {
+  const el = document.getElementById("tabs");
+  el.innerHTML = MODULES.map(m => `
+    <button class="tab ${m.id === active ? 'active' : ''}" onclick="setActive('${m.id}')">
+      ${m.icon} ${m.title}
+    </button>
+  `).join("");
+}
+
+function renderContent() {
+  const m = MODULES.find(x => x.id === active);
+  const colorMap = {
+    blue: "#185FA5", teal: "#0F6E56", purple: "#534AB7",
+    amber: "#854F0B", red: "#A32D2D", coral: "#993C1D"
+  };
+  const bgMap = {
+    blue: "#E6F1FB", teal: "#E1F5EE", purple: "#EEEDFE",
+    amber: "#FAEEDA", red: "#FCEBEB", coral: "#FAECE7"
+  };
+  const c = colorMap[m.color] || "#185FA5";
+  const bg = bgMap[m.color] || "#E6F1FB";
+
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <div class="card-head">
+        <div style="width:36px;height:36px;border-radius:var(--border-radius-md);background:${bg};display:flex;align-items:center;justify-content:center;font-size:18px;color:${c};flex-shrink:0;">${m.icon}</div>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:15px;font-weight:500;color:var(--color-text-primary);">Module ${m.num} — ${m.title}</span>
+            <span class="badge" style="background:${bg};color:${c};">${m.screens[0]}</span>
+          </div>
+          <div class="goal-row" style="margin-top:4px;">${m.goal}</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="section-label">components ที่ prompt ครอบคลุม</div>
+          <div class="chip-row">
+            ${m.components.map(c2 => `<span class="chip">${c2}</span>`).join("")}
+          </div>
+        </div>
+        <div>
+          <div class="section-label">stitch prompt — copy ทั้งหมดไปวางใน stitch.withgoogle.com</div>
+          <div class="prompt-box" id="pb-${m.id}"><button class="copy-btn" onclick="copyPrompt('${m.id}')">copy</button>${escHtml(m.prompt)}</div>
+        </div>
+        <div class="note">วางใน Stitch → New Design → paste prompt → Generate → ได้ UI mockup ทันที · จากนั้น export เป็น React code หรือ screenshot เพื่อ handoff</div>
+      </div>
+    </div>
+  `;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function setActive(id) {
+  active = id;
+  renderTabs();
+  renderContent();
+}
+
+function copyPrompt(id) {
+  const m = MODULES.find(x => x.id === id);
+  navigator.clipboard.writeText(m.prompt).then(() => {
+    const btn = document.querySelector(`#pb-${id} .copy-btn`);
+    btn.textContent = "copied!";
+    setTimeout(() => { btn.textContent = "copy"; }, 1800);
+  });
+}
+
+renderTabs();
+renderContent();
+</script>

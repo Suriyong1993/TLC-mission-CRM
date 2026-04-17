@@ -1,0 +1,371 @@
+Build a Gen Z neon ministry tracking app called "TLC-mission CRM" 
+for a Thai church home group system. 
+One admin records all weekly data.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VIBE & AESTHETIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Electric dark — neon purple and cyan on near-black.
+Glassmorphism cards. Dual-mode design:
+- VIEW MODE: Full neon cyberpunk, glow effects, bento grid
+- ENTRY MODE: Auto-switches to high-contrast white cards 
+  when admin is typing data
+
+Think: Notion dark mode meets neon gaming dashboard.
+Beautiful to look at. Fast to use. No eye strain.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+COLORS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Background: #0A0A14
+Surface: #111120
+Card (view): rgba(255,255,255,0.05) glassmorphism + blur
+Card (entry): #FFFFFF white — switches automatically
+Border: rgba(255,255,255,0.08)
+Neon Purple: #A855F7
+Neon Cyan: #06B6D4
+Text: #F1F5F9
+Muted: #64748B
+BIG size: #22C55E (green)
+STD size: #06B6D4 (cyan)
+MINI size: #A855F7 (purple)
+Positive change: #22C55E
+Negative change: #EF4444
+Gold rank: #F59E0B
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FONTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Headings: Space Grotesk bold (English + numbers)
+Body + all Thai text: Sarabun (clean, readable)
+Import both from Google Fonts.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INPUT FIELDS — SPECIAL RULE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Admin grinds data entry every week.
+All input fields must use LIGHT background:
+- Background: #F8F7FF (soft white)
+- Text: #1A1A2E (dark)
+- Height: 52px minimum
+- Font: Sarabun 20px
+- Border: neon purple glow on focus only
+- Neon glows ONLY on the border, not inside the field
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BUTTONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Primary: gradient purple→cyan, 56px height, rounded 14px,
+         font-weight 700, Sarabun
+Secondary: transparent + neon border, same height
+Danger: gradient red, same height
+FAB: gradient purple circle 60×60px, "+" white icon
+All buttons: scale(1.02) hover, scale(0.97) press
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NAVIGATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Bottom tab bar (mobile-first):
+5 tabs: หน้าหลัก | มาคจ. | Leaderboard | สมาชิก | รายงาน
+Each tab: icon + Thai label below
+Active: gradient icon + neon dot underneath
+Glass background with blur
+
+Center FAB "+" button (gradient purple, raised)
+for quick add actions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 1 — DASHBOARD (HOME)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Full VIEW MODE — neon everything.
+
+Top bar:
+- "TLC-mission" gradient wordmark left (purple→cyan, Space Grotesk 800)
+- Thai Buddhist date + week number right (muted small)
+
+Animated background: 3 large blurred neon blobs
+(purple, cyan, dark blue) floating slowly. Very subtle. 
+20 second loop. Low opacity.
+
+Bento grid (hero section):
+Large card (2/3 width):
+- "150" — huge Space Grotesk 80px gradient number
+- "มาคจ. รวมสัปดาห์นี้" Sarabun muted below
+- "+6 จากสัปดาห์ก่อน" — green pill badge
+
+3 small cards stacked (1/3 width):
+- BIG: "1 กลุ่ม" green glow border
+- STD: "12 กลุ่ม" cyan glow border
+- MINI: "7 กลุ่ม" purple glow border
+Each: number large + label small Sarabun
+
+Below bento — 3 action buttons (full width, stacked):
+1. Gradient purple→cyan 56px: "กรอก มาคจ. ประจำสัปดาห์"
+2. Cyan outline 52px: "เช็คชื่อสมาชิก"
+3. Ghost outline 48px: "เพิ่มรายงานกลุ่ม"
+
+Latest activity (bottom):
+3 glass cards showing last 3 groups reported.
+Each: group name + care ID + makj score + time ago.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 2 — กรอก มาคจ. (MOST USED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ENTRY MODE — light inputs on dark background.
+
+Header:
+"กรอก มาคจ." gradient heading Space Grotesk.
+Week pill selector — horizontal scroll tabs.
+Active week: gradient filled. Others: ghost outline.
+"สัปดาห์ที่ 7 | 4-10 ก.พ. 2569" subtitle Sarabun.
+
+Progress bar below header:
+Neon gradient fill showing how many groups entered.
+"18 / 20 กลุ่มบันทึกแล้ว" small text right.
+
+QUICK ENTRY TABLE (compact, all 20 groups visible):
+Design for speed — admin fills all 20 groups fast.
+
+Each row (glass card, 64px height):
+Left: neon pill care ID "G01" colored by group
+Center-left: leader name Sarabun 18px white
+Center: number input — WHITE background #F8F7FF,
+        dark text #1A1A2E, 52px height, 22px Sarabun,
+        text-align center, neon purple border on focus
+Right: live size badge — auto-updates as admin types:
+  ≥12 → [BIG] green glow pill
+  7-11 → [STD] cyan glow pill  
+  ≤6 → [MINI] purple glow pill
+  empty → [—] gray
+
+Care groups to pre-fill:
+G01=ผุสดี, G02=เบญ, G03=ปุ่นนาภา, G04=ทัศนา,
+G05=ดาวใจ, G06=สถิต, G07=ยิ่งยงค์, G08=ชนาภา,
+G09=บุญจันทร์, G10=บุญมีห้อง, G11=บุญมีแสน,
+G12=บุญโฮมเฮียม, G13=เกสร, G14=เก่งกาจ(นิน),
+G15=เสาวนีย์, G16=วิภาวดี, G17=เก่งกาจ(สบู่),
+G18=เพลินพิศ, G19=วีรวิทย์, G20=รัตนาภรณ์
+
+Sticky bottom glass bar:
+"รวม มาคจ. ทั้งหมด: 150 คน" bold large left.
+"บันทึกทั้งหมด" gradient button 56px right.
+Button: shimmer animation. Success: burst + green flash.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 3 — LEADERBOARD
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VIEW MODE — full neon drama.
+
+Header:
+"LEADERBOARD" giant Space Grotesk gradient text.
+"DIVISION CARE · Q1 2026" small muted below.
+"● สด" pulsing green dot + text top right.
+
+Week filter pills: horizontal scroll.
+Body filter pills: ทั้งหมด / เมือง 1 / เมือง 2 / etc.
+
+Summary row (3 neon pills):
+[BIG: 1] green · [STD: 12] cyan · [MINI: 7] purple
+
+Rankings as cards:
+Rank 1: animated gold gradient border + subtle shimmer
+Rank 2: silver glow border
+Rank 3: bronze glow border
+Rank 4-20: glass cards alternating dark
+
+Each card row:
+- Rank number: huge faded background number (decorative)
+- Care ID: neon colored pill tag
+- Leader name: Sarabun 18px white bold
+- Attendance bar: neon gradient progress bar
+- Score badge: colored by BIG/STD/MINI
+- Change chip: "+6 ↑" green pill / "-2 ↓" red pill / "→" gray
+
+Footer:
+"รวม มาคจ. ทั้งหมด: 150 คน" gold text right-aligned.
+Legend: BIG ≥12 · STD 7-11 · MINI ≤6
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 4 — เช็คชื่อสมาชิก
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Header: "เช็คชื่อ" gradient. Date Thai Buddhist format.
+Group selector: large pill tabs horizontal scroll.
+
+Attendance ring (top right):
+Circular progress ring, neon purple stroke.
+"87%" gradient text center. "เข้าร่วม" small below.
+
+Member list (ENTRY MODE — glass cards):
+Each member card 64px height:
+- Gradient initials circle avatar (purple→cyan)
+- Name: Sarabun 18px white bold
+- Nickname + age: Sarabun 14px muted
+- 3 status pill buttons (52px height each):
+  มา → fills green on tap
+  ลา → fills amber on tap
+  ขาด → fills red on tap
+  (only one active at a time)
+
+Summary strip (above save button):
+✓ มา 13 · ↩ ลา 2 · ✗ ขาด 1
+
+Save button: gradient full width 56px.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 5 — จัดการสมาชิก
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Search bar: glass, neon purple border on focus.
+Filter pills: ทั้งหมด | by Body | by Care group
+
+4 stat mini-cards:
+สมาชิกทั้งหมด | เข้าประจำ | ตอบสนองดี | มีเป้าหมาย
+
+Member glass cards:
+- Gradient avatar circle (initials)
+- Name bold + nickname/age muted
+- Group badge pill
+- Response badge: ดี(green) ปานกลาง(amber) น้อย(red)
+- Attendance badge: ทุกสัปดาห์(green) 2-3/เดือน(cyan) etc.
+- Goal chip if exists
+- Edit ✏ + Delete 🗑 small icon buttons
+
+FAB: purple gradient circle 60px "+" bottom right.
+
+Add/Edit member — slide-up modal:
+ENTRY MODE inside modal (white inputs):
+Fields:
+- ชื่อ-สกุล (required)
+- ชื่อเล่น
+- อายุ (number)
+- อาชีพ
+- สถานที่เรียน/ทำงาน
+- สถานภาพครอบครัว (select pills)
+- วันรับเชื่อ (date picker)
+- ท่าทีตอบสนอง (select: ดี / ปานกลาง / น้อย)
+- ความถี่เข้าร่วม (select: ทุกสัปดาห์ / 2-3ครั้ง / 1-2ครั้ง / นานๆ)
+- กลุ่มสังกัด (select from groups)
+- เป้าหมาย (text)
+- กำหนดเวลา (select: Q1 / Q2 / Q3 / Q4)
+- ผู้รับผิดชอบสร้าง (text)
+
+Save: gradient full width button.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 6 — รายงานกลุ่ม
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Group selector + week selector pills top.
+
+Glass section cards (accordion expand):
+
+Section 1 — กิจกรรม & หัวข้อ:
+White textarea, Sarabun 18px, "หัวข้อประกาศ / กิจกรรมที่ทำ"
+
+Section 2 — สถิติผู้เข้าร่วม:
+Row inputs: ผู้เข้าร่วม | สมาชิกใหม่ | แขก
+White inputs side by side.
+
+Section 3 — เรื่องพิเศษ & ผลลัพธ์:
+White textarea. "สิ่งที่เกิดขึ้น / ผลลัพธ์ที่น่าจดบันทึก"
+
+Section 4 — ภาพกิจกรรม:
+Dashed neon border upload zone.
+"+ เพิ่มภาพกิจกรรม" centered large tap area.
+Uploaded photos: grid thumbnails with neon border radius.
+
+Section 5 — การเงิน / เครื่องถวาย:
+Type pills: รับ (green) / จ่าย (red)
+Amount: large white input
+Description: white input
+
+Save button: gradient shimmer full width 56px.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SCREEN 7 — ข้อมูลกลุ่ม
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Body filter pills top.
+
+Group glass cards (1 column):
+- Left accent bar: neon color per Body region
+- Group name: Space Grotesk 18px white bold
+- Row 2: Body badge + Care badge pills
+- Row 3: 📅 วันเวลา | 📍 สถานที่ Sarabun muted
+- Row 4: 👤 ผู้รับผิดชอบ | ผู้ประสานงาน
+- Row 5: สมาชิก count pill green | 🗺 ดูแผนที่ cyan link
+- Photo thumbnails row if exists
+- Edit button outline right
+
+FAB: gradient purple circle "+" add new group.
+
+Add/Edit group — slide-up modal (ENTRY MODE):
+White inputs for all fields:
+- ชื่อกลุ่ม / หมู่บ้าน
+- Body (select: เมือง 1-2 / สมเด็จ / ท่าคันโท / กุฉินารายณ์ / คำใหญ่)
+- แคร์กลุ่ม (select: G01-G20)
+- วันประชุม (select day)
+- เวลาประชุม (time)
+- หมู่บ้าน / ตำบล / อำเภอ / จังหวัด
+- ผู้รับผิดชอบ (leader name)
+- ผู้ประสานงาน + เบอร์โทร
+- พิกัดแผนที่ (lat, long text)
+- ภาพผู้ประสานงาน (photo upload)
+- ภาพกิจกรรมกลุ่ม (multi-photo upload)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MICRO-INTERACTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+- Numbers: count-up animation on page load
+- Size badge: smooth color morph as makj number changes
+- Buttons: scale(1.02) hover / scale(0.97) press
+- Cards: translateY(-2px) + glow increase on hover
+- Save success: burst animation + green flash
+- Loading: skeleton shimmer (gradient sweep)
+- Page transition: fade + subtle slide
+- Live indicator: CSS pulse keyframe
+- Input focus: neon border expands + glow appears
+- Modal: spring bounce animation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TOAST NOTIFICATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Glass card, slide in from right, rounded 14px.
+Icon + Thai message + auto-dismiss progress bar.
+Success: green left border
+Error: red left border
+Info: purple left border
+Warning: amber left border
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+EMPTY STATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When no data:
+Gradient icon large + subtle glow.
+"ยังไม่มีข้อมูล ✦" gradient text.
+Action button below.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TECHNICAL SPECS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Mobile first: 390px width
+Thai language: all UI text in Thai
+Dates: Buddhist Era (ค.ศ. + 543)
+Month abbreviations: ม.ค. ก.พ. มี.ค. เม.ย. etc.
+Scrollbar: thin, neon purple accent
+Focus rings: neon purple glow (not default blue)
+Custom cursor: pointer on all interactive elements

@@ -1,0 +1,17 @@
+{
+  "projectId": "your-project-ref",
+  "orgId": "your-org-id",
+  "api": {
+    "url": "https://your-project-ref.supabase.co",
+    "key": "your-anon-key"
+  },
+  "db": {
+    "connectionString": "postgresql://postgres:password@db.your-project-ref.supabase.co:5432/postgres"
+  },
+  "storage": {
+    "url": "https://your-project-ref.supabase.co/storage/v1"
+  },
+  "auth": {
+    "url": "https://your-project-ref.supabase.co/auth/v1"
+  }
+}
