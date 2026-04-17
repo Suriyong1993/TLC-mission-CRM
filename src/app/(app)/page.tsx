@@ -4,6 +4,7 @@ import { EmptyState } from "@/components/shared/EmptyState";
 import { createClient } from "@/lib/supabase/server";
 import { fetchDashboardStats, fetchLatestPillars, fetchCareGroups } from "@/lib/supabase/queries";
 import { cn } from "@/lib/utils/cn";
+import { Check, ChevronRight, Users, Heart, TrendingUp, Church } from "lucide-react";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
