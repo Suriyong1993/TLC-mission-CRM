@@ -1,0 +1,67 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ['class'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'ink-deep': '#050d1a',
+        'ink-mid': '#0a1628',
+        'ink-lift': '#0f2444',
+        'ink-input': '#0d1e36',
+        'line': '#1e3a5f',
+        'line-bright': '#2d5a8e',
+        'text-main': '#e8f4ff',
+        'text-soft': '#7db4d8',
+        'text-ghost': '#3d6a8a',
+        'sky': '#3b82f6',
+        'water': '#06b6d4',
+        'gold': '#f59e0b',
+        'growth': '#10b981',
+        'alert': '#f43f5e',
+        'spirit': '#8b5cf6',
+        'pillar-1': '#f97316',
+        'pillar-2': '#3b82f6',
+        'pillar-3': '#10b981',
+        'pillar-4': '#8b5cf6',
+        'pillar-5': '#ec4899',
+        'pillar-6': '#06b6d4',
+        'pillar-7': '#f59e0b',
+        'pillar-8': '#ef4444',
+        'body-1': '#3b82f6',
+        'body-2': '#06b6d4',
+        'body-3': '#8b5cf6',
+        'body-4': '#10b981',
+        'body-5': '#f59e0b',
+        'body-6': '#ec4899',
+      },
+      fontFamily: {
+        display: ['Kanit', 'system-ui', 'sans-serif'],
+        body: ['Sarabun', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Menlo', 'monospace'],
+      },
+      borderRadius: {
+        sm: '6px',
+        md: '10px',
+        lg: '14px',
+        xl: '18px',
+        '2xl': '24px',
+      },
+      animation: {
+        shimmer: 'shimmer 1.5s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
+      },
+    },
+  },
+  plugins: [require('tailwindcss-animate')],
+};

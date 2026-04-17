@@ -11,9 +11,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    turbo: {},
-  },
   // Vercel specific
   trailingSlash: false,
   async headers() {
