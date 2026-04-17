@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เช็คชื่อ | G01 ผุสดี | TLC-mission</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "growth-glow": "rgba(16, 185, 129, 0.4)",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+              "rose": "#fb7185",
+              "body-1": "#3b82f6",
+              "body-2": "#06b6d4",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 100px;
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .member-card {
+            background: rgba(19, 28, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.15s ease;
+        }
+        .member-card:hover {
+            background: rgba(19, 28, 46, 0.8);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        .status-pill {
+            height: 52px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            user-select: none;
+            border: 2px solid transparent;
+        }
+        .status-pill:active {
+            transform: scale(0.95);
+        }
+        .status-pill.present {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        .status-pill.present.active {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+        .status-pill.leave {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+        .status-pill.leave.active {
+            background: rgba(245, 158, 11, 0.9);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+        .status-pill.absent {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+        .status-pill.absent.active {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+        }
+        .attendance-ring {
+            transform: rotate(-90deg);
+        }
+        .attendance-ring-circle {
+            transition: stroke-dashoffset 0.5s ease, stroke 0.3s ease;
+        }
+        .guest-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        .guest-badge {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+        .sticky-bottom {
+            background: rgba(5, 13, 26, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.4);
+        }
+        .summary-strip {
+            background: rgba(19, 28, 46, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="sticky top-0 z-40 glass-card border-b border-glass-border">
+<div class="max-w-lg mx-auto px-4 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-text-secondary">arrow_back</span>
+</button>
+<div>
+<h1 class="text-lg font-bold text-text-primary font-display">เช็คชื่อ</h1>
+<p class="text-xs text-text-ghost">22 มี.ค. 2569 · สัปดาห์ที่ 12</p>
+</div>
+</div>
+<!-- Attendance Ring -->
+<div class="relative w-14 h-14">
+<svg class="attendance-ring w-full h-full" viewbox="0 0 36 36">
+<circle class="text-ink-light" cx="18" cy="18" fill="none" r="16" stroke="currentColor" stroke-width="3"></circle>
+<circle class="attendance-ring-circle" cx="18" cy="18" fill="none" id="progress-circle" r="16" stroke="url(#gradient)" stroke-dasharray="100.5" stroke-dashoffset="100.5" stroke-linecap="round" stroke-width="3"></circle>
+<defs>
+<lineargradient id="gradient" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#ef4444"></stop>
+<stop offset="50%" stop-color="#f59e0b"></stop>
+<stop offset="100%" stop-color="#10b981"></stop>
+</lineargradient>
+</defs>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-sm font-bold text-text-primary font-display" id="percent-text">0%</span>
+</div>
+</div>
+</div>
+<div class="mt-3 flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-sky/10 text-sky text-sm font-medium font-display">G01 ผุสดี</span>
+<span class="text-text-ghost">|</span>
+<span class="text-sm text-text-secondary">เมือง 1</span>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-lg mx-auto px-4 py-6 space-y-6">
+<!-- Member List -->
+<div class="space-y-3" id="member-list">
+<!-- Member cards will be generated by JS -->
+</div>
+<!-- Guest Section -->
+<div class="glass-card rounded-xl p-4 space-y-3">
+<div class="flex items-center gap-2 text-text-secondary">
+<span class="material-symbols-outlined">person_add</span>
+<span class="text-sm font-medium">เพิ่มผู้มาใหม่ที่ยังไม่อยู่ในรายชื่อ</span>
+</div>
+<div class="flex gap-2">
+<input class="flex-1 h-12 px-4 bg-ink-light/60 border border-glass-border rounded-xl text-text-primary placeholder:text-text-ghost focus:ring-2 focus:ring-sky/50 transition-all font-body" id="guest-input" placeholder="พิมพ์ชื่อแล้วกด Enter..." type="text"/>
+<button class="h-12 px-4 bg-sky/10 hover:bg-sky/20 text-sky rounded-xl transition-colors" onclick="addGuest()">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="flex flex-wrap gap-2" id="guest-chips">
+<!-- Guest chips will be added here -->
+</div>
+</div>
+<!-- Summary Strip -->
+<div class="summary-strip rounded-xl p-4 flex items-center justify-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-growth"></span>
+<span class="text-sm text-text-secondary">มา <span class="font-bold text-growth" id="count-present">0</span></span>
+</div>
+<div class="w-px h-4 bg-glass-border"></div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber"></span>
+<span class="text-sm text-text-secondary">ลา <span class="font-bold text-amber" id="count-leave">0</span></span>
+</div>
+<div class="w-px h-4 bg-glass-border"></div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-alert"></span>
+<span class="text-sm text-text-secondary">ขาด <span class="font-bold text-alert" id="count-absent">0</span></span>
+</div>
+</div>
+</main>
+<!-- Sticky Bottom Button -->
+<div class="fixed bottom-0 left-0 right-0 sticky-bottom z-50">
+<div class="max-w-lg mx-auto px-4 py-4">
+<button class="w-full h-14 btn-primary rounded-xl text-white font-bold font-display text-lg flex items-center justify-center gap-2 transition-transform active:scale-95" onclick="saveAttendance()">
+<span class="material-symbols-outlined">save</span>
+<span>บันทึกเช็คชื่อ</span>
+</button>
+</div>
+</div>
+<script>
+        // Sample member data
+        const members = [
+            { id: 1, name: 'ทัศนา ชื่นจิต', nickname: 'ทัศ', age: 28 },
+            { id: 2, name: 'สมศรี รัตนะ', nickname: 'ศรี', age: 32 },
+            { id: 3, name: 'สมชาย แก้วกังวาล', nickname: 'ชาย', age: 35 },
+            { id: 4, name: 'พรทิพย์ สวยสด', nickname: 'ทิพ', age: 29 },
+            { id: 5, name: 'วิชัย รุ่งเรือง', nickname: 'ชัย', age: 42 },
+            { id: 6, name: 'นงลักษณ์ มีสุข', nickname: 'ลักษณ์', age: 31 },
+            { id: 7, name: 'ประเสริฐ ดีใจ', nickname: 'เสริฐ', age: 38 },
+            { id: 8, name: 'อมรรัตน์ งาม', nickname: 'อมร', age: 27 },
+        ];
+        
+        let attendance = {};
+        let guests = [];
+        
+        function renderMemberList() {
+            const container = document.getElementById('member-list');
+            container.innerHTML = members.map(member => `
+                <div class="member-card rounded-xl p-4">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-sky/10 flex items-center justify-center text-sky font-bold font-display">
+                            ${member.nickname.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="font-bold text-text-primary font-display">${member.name}</p>
+                            <p class="text-xs text-text-ghost">${member.nickname}, ${member.age} ปี</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="status-pill present ${attendance[member.id] === 'present' ? 'active' : ''}" onclick="setStatus(${member.id}, 'present')">
+                            <span class="material-symbols-outlined text-lg">check</span>
+                            <span>มา</span>
+                        </div>
+                        <div class="status-pill leave ${attendance[member.id] === 'leave' ? 'active' : ''}" onclick="setStatus(${member.id}, 'leave')">
+                            <span class="material-symbols-outlined text-lg">reply</span>
+                            <span>ลา</span>
+                        </div>
+                        <div class="status-pill absent ${attendance[member.id] === 'absent' ? 'active' : ''}" onclick="setStatus(${member.id}, 'absent')">
+                            <span class="material-symbols-outlined text-lg">close</span>
+                            <span>ขาด</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function setStatus(memberId, status) {
+            if (attendance[memberId] === status) {
+                delete attendance[memberId];
+            } else {
+                attendance[memberId] = status;
+            }
+            renderMemberList();
+            updateSummary();
+        }
+        
+        function updateSummary() {
+            const present = Object.values(attendance).filter(s => s === 'present').length;
+            const leave = Object.values(attendance).filter(s => s === 'leave').length;
+            const absent = Object.values(attendance).filter(s => s === 'absent').length;
+            
+            document.getElementById('count-present').textContent = present;
+            document.getElementById('count-leave').textContent = leave;
+            document.getElementById('count-absent').textContent = absent;
+            
+            // Update ring
+            const total = members.length;
+            const percentage = Math.round((present / total) * 100);
+            const circumference = 100.5;
+            const offset = circumference - (percentage / 100) * circumference;
+            
+            document.getElementById('progress-circle').style.strokeDashoffset = offset;
+            document.getElementById('percent-text').textContent = percentage + '%';
+            
+            // Update ring color based on percentage
+            const circle = document.getElementById('progress-circle');
+            if (percentage >= 80) {
+                circle.setAttribute('stroke', '#10b981');
+            } else if (percentage >= 50) {
+                circle.setAttribute('stroke', '#f59e0b');
+            } else {
+                circle.setAttribute('stroke', '#ef4444');
+            }
+        }
+        
+        function addGuest() {
+            const input = document.getElementById('guest-input');
+            const name = input.value.trim();
+            if (name) {
+                guests.push({ id: Date.now(), name });
+                input.value = '';
+                renderGuests();
+            }
+        }
+        
+        function removeGuest(id) {
+            guests = guests.filter(g => g.id !== id);
+            renderGuests();
+        }
+        
+        function renderGuests() {
+            const container = document.getElementById('guest-chips');
+            container.innerHTML = guests.map(guest => `
+                <div class="guest-chip px-3 py-2 rounded-full flex items-center gap-2">
+                    <span class="text-text-primary text-sm font-body">${guest.name}</span>
+                    <span class="guest-badge px-1.5 py-0.5 rounded text-xs font-medium">ใหม่</span>
+                    <button class="text-text-ghost hover:text-alert transition-colors" onclick="removeGuest(${guest.id})">
+                        <span class="material-symbols-outlined text-lg">close</span>
+                    </button>
+                </div>
+            `).join('');
+        }
+        
+        // Enter key to add guest
+        document.getElementById('guest-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addGuest();
+            }
+        });
+        
+        function saveAttendance() {
+            const present = Object.values(attendance).filter(s => s === 'present').length;
+            const total = members.length;
+            const percentage = Math.round((present / total) * 100);
+            
+            if (percentage === 0) {
+                alert('กรุณาเช็คชื่ออย่างน้อย 1 คน');
+                return;
+            }
+            
+            alert(`บันทึกสำเร็จ! เข้าร่วม ${present}/${total} คน (${percentage}%)`);
+            // In real app, would submit to API here
+        }
+        
+        // Initialize
+        renderMemberList();
+    </script>
+</body></html>

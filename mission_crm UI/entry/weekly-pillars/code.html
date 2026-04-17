@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>กรอกข้อมูล 8 เสาหลัก | TLC-mission CRM</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;800;900&amp;family=Sarabun:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'ink-deep': '#050d1a',
+                        'ink-mid': '#0a1628',
+                        'ink-lift': '#111d2e',
+                        'line': 'rgba(148, 163, 184, 0.15)',
+                        'text-main': '#e8f4ff',
+                        'text-soft': '#94a3b8',
+                        'text-ghost': '#64748b',
+                        'sky': '#3b82f6',
+                        'water': '#06b6d4',
+                        'growth': '#10b981',
+                        'alert': '#f43f5e',
+                        'spirit': '#8b5cf6',
+                        'gold': '#f59e0b',
+                        'pillar-1': '#f97316',
+                        'pillar-2': '#3b82f6',
+                        'pillar-3': '#10b981',
+                        'pillar-4': '#8b5cf6',
+                        'pillar-5': '#ec4899',
+                        'pillar-6': '#06b6d4',
+                        'pillar-7': '#f59e0b',
+                        'pillar-8': '#ef4444',
+                    },
+                    fontFamily: {
+                        'display': ['Kanit', 'sans-serif'],
+                        'body': ['Sarabun', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'lg': '14px',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .glass-1 {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .glass-2 {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        /* Light Input Mode for heavy data entry */
+        .input-heavy-entry {
+            background: #f8f7ff;
+            color: #1a1a2e;
+            min-height: 52px;
+            font-size: 22px;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 12px;
+            font-family: 'Sarabun', sans-serif;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .input-heavy-entry:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+        .input-heavy-entry::placeholder {
+            color: #94a3b8;
+        }
+        /* Pillar accent colors */
+        .pillar-accent-1 { --accent: #f97316; }
+        .pillar-accent-2 { --accent: #3b82f6; }
+        .pillar-accent-3 { --accent: #10b981; }
+        .pillar-accent-4 { --accent: #8b5cf6; }
+        .pillar-accent-5 { --accent: #ec4899; }
+        .pillar-accent-6 { --accent: #06b6d4; }
+        .pillar-accent-7 { --accent: #f59e0b; }
+        .pillar-accent-8 { --accent: #ef4444; }
+        
+        .pillar-card {
+            border-top: 2px solid var(--accent);
+        }
+        .pillar-progress-fill {
+            background: var(--accent);
+        }
+        /* Progress bar animation */
+        @keyframes progressFill {
+            from { width: 0%; }
+        }
+        .animate-progress {
+            animation: progressFill 0.8s ease-out forwards;
+        }
+        /* Success toast */
+        .toast-success {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            backdrop-filter: blur(10px);
+        }
+        /* Bottom bar gradient */
+        .btn-save {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .btn-save:hover {
+            box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-32">
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none" style="z-index: -1;">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-water-500/5"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-pillar-1/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-pillar-4/10 rounded-full blur-[120px]"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass-2 border-b border-line">
+        <div class="max-w-4xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-display font-bold text-text-main">กรอกข้อมูลประจำสัปดาห์</h1>
+                    <p class="text-sm text-text-soft mt-0.5">ทีม G · สัปดาห์ที่ 22 · มี.ค. 2026</p>
+                </div>
+                <a class="text-sm text-sky hover:text-water transition-colors flex items-center gap-1" href="#">
+                    <span>ประวัติ</span>
+                    <span class="material-symbols-outlined text-lg">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-6 space-y-6">
+        <!-- Week Selector -->
+        <div class="glass-1 rounded-lg p-4">
+            <label class="text-xs font-semibold uppercase tracking-wider text-text-ghost mb-3 block">เลือกสัปดาห์</label>
+            <div class="flex items-center gap-3 mb-3">
+                <button class="p-2 rounded-lg bg-ink-lift hover:bg-ink-mid transition-colors">
+                    <span class="material-symbols-outlined text-text-soft">calendar_today</span>
+                </button>
+                <span class="text-text-main font-medium">22 มีนาคม 2026</span>
+            </div>
+            <div class="flex gap-2 overflow-x-auto pb-1">
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สป. 20</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สป. 21</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-sky/20 text-sky border border-sky/30 whitespace-nowrap">สป. 22</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สป. 23</button>
+            </div>
+        </div>
+
+        <!-- Progress Indicator (Sticky) -->
+        <div class="glass-1 rounded-lg p-4 sticky top-20 z-30" id="progressBar">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-text-soft">ความคืบหน้า</span>
+                <span class="text-sm font-display font-semibold text-growth" id="progressText">6/8 เสาบันทึกแล้ว</span>
+            </div>
+            <div class="h-2 bg-ink-lift rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-sky to-water rounded-full transition-all duration-500" id="progressFill" style="width: 75%;"></div>
+            </div>
+        </div>
+
+        <!-- Pillar Forms Grid -->
+        <div class="grid gap-4 md:grid-cols-2">
+            <!-- Pillar 1: การประกาศ -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-1">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 1</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">📢</span> การประกาศ
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="1" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="53"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 60 · สป.ก่อน: 41</span>
+                    <span class="text-pillar-1 font-display font-semibold" id="percent-1">88%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full animate-progress" style="width: 88%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 2: การติดตามผล -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-2">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 2</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">🎯</span> การติดตามผล
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="2" max="9999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="682"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 800 · สป.ก่อน: 614</span>
+                    <span class="text-pillar-2 font-display font-semibold" id="percent-2">85%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 3: การอภิบาล -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-3">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 3</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">🌱</span> การอภิบาล
+                        </h3>
+                    </div>
+                    <span class="material-symbols-outlined text-pillar-3">check_circle</span>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="3" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="82"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 82 · สป.ก่อน: 82</span>
+                    <span class="text-pillar-3 font-display font-semibold" id="percent-3">100%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 4: สร้างผู้นำ -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-4">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 4</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">👑</span> สร้างผู้นำ
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="4" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="51"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 94 · สป.ก่อน: 46</span>
+                    <span class="text-pillar-4 font-display font-semibold" id="percent-4">54%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 54%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 5: อธิษฐานเช้าพุธ -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-5">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 5</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">🙏</span> อธิษฐานเช้าพุธ
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="5" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="28"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 30 · สป.ก่อน: 25</span>
+                    <span class="text-pillar-5 font-display font-semibold" id="percent-5">93%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 93%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 6: พพช. -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-6">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 6</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">📚</span> พพช.
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="6" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="15"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 20 · สป.ก่อน: 12</span>
+                    <span class="text-pillar-6 font-display font-semibold" id="percent-6">75%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 7: มาคจ. -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-7">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 7</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">🏠</span> มาคจ.
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="7" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="186"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 200 · สป.ก่อน: 175</span>
+                    <span class="text-pillar-7 font-display font-semibold" id="percent-7">93%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 93%"></div>
+                </div>
+            </div>
+
+            <!-- Pillar 8: มาแคร์ -->
+            <div class="glass-1 rounded-lg p-4 pillar-card pillar-accent-8">
+                <div class="flex items-start justify-between mb-3">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider text-text-ghost">เสาที่ 8</span>
+                        <h3 class="text-text-main font-display font-semibold flex items-center gap-2">
+                            <span class="text-xl">💝</span> มาแคร์
+                        </h3>
+                    </div>
+                </div>
+                <input class="input-heavy-entry w-full mb-3" data-pillar="8" max="999" min="0" oninput="updateProgress()" placeholder="0" type="number" value="165"/>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-text-ghost">เป้า: 180 · สป.ก่อน: 158</span>
+                    <span class="text-pillar-8 font-display font-semibold" id="percent-8">92%</span>
+                </div>
+                <div class="h-1.5 bg-ink-lift rounded-full mt-2 overflow-hidden">
+                    <div class="h-full pillar-progress-fill rounded-full" style="width: 92%"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="fixed bottom-0 left-0 right-0 glass-2 border-t border-line p-4 z-50">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
+            <button class="text-text-soft hover:text-text-main text-sm transition-colors" onclick="clearForm()">
+                ล้างฟอร์ม
+            </button>
+            <button class="flex-1 max-w-xs h-12 btn-save rounded-full text-white font-display font-bold flex items-center justify-center gap-2 transition-all active:scale-95" onclick="saveData()">
+                <span class="material-symbols-outlined">save</span>
+                <span>💾 บันทึกข้อมูล</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Toast (Hidden by default) -->
+    <div class="fixed top-24 left-1/2 -translate-x-1/2 toast-success text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 z-50" id="successToast">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span class="font-medium">บันทึกสำเร็จ! ✓</span>
+    </div>
+
+    <script>
+        // Update progress bar based on filled inputs
+        function updateProgress() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            let filled = 0;
+            inputs.forEach(input => {
+                if (input.value && parseInt(input.value) >= 0) {
+                    filled++;
+                }
+            });
+            
+            const percent = (filled / 8) * 100;
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressText').textContent = filled + '/8 เสาบันทึกแล้ว';
+        }
+
+        // Save data with success animation
+        function saveData() {
+            const btn = document.querySelector('.btn-save');
+            const originalContent = btn.innerHTML;
+            
+            // Show loading
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span><span>กำลังบันทึก...</span>';
+            btn.disabled = true;
+            
+            // Simulate save
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                
+                // Show toast
+                const toast = document.getElementById('successToast');
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                toast.classList.add('opacity-100');
+                
+                // Hide toast after 3s
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 3000);
+            }, 1500);
+        }
+
+        // Clear form
+        function clearForm() {
+            if (confirm('ต้องการล้างข้อมูลทั้งหมด?')) {
+                document.querySelectorAll('input[type="number"]').forEach(input => {
+                    input.value = '';
+                });
+                updateProgress();
+            }
+        }
+
+        // Auto-save draft to localStorage every 2 seconds
+        setInterval(() => {
+            const data = {};
+            document.querySelectorAll('input[data-pillar]').forEach(input => {
+                data[input.dataset.pillar] = input.value;
+            });
+            localStorage.setItem('weeklyPillarsDraft', JSON.stringify(data));
+        }, 2000);
+
+        // Load draft on page load
+        window.addEventListener('load', () => {
+            const draft = localStorage.getItem('weeklyPillarsDraft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const input = document.querySelector(`input[data-pillar="${key}"]`);
+                    if (input && !input.value) {
+                        input.value = data[key];
+                    }
+                });
+                updateProgress();
+            }
+        });
+    </script>
+</body>
+</html>

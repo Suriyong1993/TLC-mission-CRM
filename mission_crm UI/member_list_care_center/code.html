@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sacred Journal - Member Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;family=Kanit:wght@300;400;500;600;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#00285d",
+                        "surface": "#0b1421",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-high": "#222a38",
+                        "outline": "#8c909f",
+                        "inverse-on-surface": "#28313f",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-container": "#340080",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-secondary-container": "#5b3800",
+                        "surface-container-highest": "#2d3544",
+                        "on-surface": "#dae3f6",
+                        "primary": "#adc6ff",
+                        "background": "#0b1421",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#3c0091",
+                        "inverse-primary": "#005ac2",
+                        "secondary-fixed": "#ffddb8",
+                        "secondary": "#ffb95f",
+                        "surface-variant": "#2d3544",
+                        "surface-bright": "#313948",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "outline-variant": "#424754",
+                        "surface-tint": "#adc6ff",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-low": "#131c29",
+                        "secondary-container": "#ee9800",
+                        "tertiary": "#d0bcff",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "tertiary-container": "#a078ff",
+                        "on-primary": "#002e6a",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#dae3f6",
+                        "inverse-surface": "#dae3f6",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-secondary": "#472a00",
+                        "surface-dim": "#0b1421",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#e9ddff",
+                        "primary-container": "#4d8eff",
+                        "surface-container": "#18202e",
+                        "on-tertiary-fixed": "#23005c",
+                        "surface-container-lowest": "#060e1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans", "Kanit"],
+                        "body": ["Be Vietnam Pro", "Sarabun"],
+                        "label": ["Be Vietnam Pro", "Sarabun"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(19, 28, 41, 0.75);
+            backdrop-filter: blur(20px);
+        }
+        .tonal-stacking {
+            box-shadow: 40px 0 40px rgba(11, 20, 33, 0.4);
+        }
+        .no-border { border: none !important; }
+        .mesh-gradient {
+            background: radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
+        }
+        .card-top-accent {
+            border-top: 2px solid;
+            border-image: linear-gradient(to right, #3b82f6, #06b6d4) 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #2d3544; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen mesh-gradient flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden lg:flex flex-col h-full sticky left-0 top-0 bg-[#0a1628]/75 backdrop-blur-xl h-screen w-64 rounded-r-2xl tonal-stacking no-border z-50">
+<div class="p-6">
+<h1 class="text-xl font-black text-white tracking-tight font-headline">Sacred Journal</h1>
+<p class="text-xs text-primary-fixed-dim/60 font-medium">Mission CRM</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] rounded-xl group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-headline font-extrabold text-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-500/20 to-transparent text-blue-400 border-l-4 border-blue-500 rounded-r-xl group" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-headline font-extrabold text-lg">Missionaries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] rounded-xl group" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-headline font-extrabold text-lg">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] rounded-xl group" href="#">
+<span class="material-symbols-outlined">folded_hands</span>
+<span class="font-headline font-extrabold text-lg">Prayer Wall</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] rounded-xl group" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-headline font-extrabold text-lg">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5 space-y-2">
+<div class="flex items-center gap-3 px-4 py-2 text-slate-400">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="text-sm font-medium">Nong Phanthakit</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-white cursor-pointer transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-6 py-4 max-w-[1600px] mx-auto bg-transparent z-40">
+<div class="flex items-center gap-4">
+<h2 class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent font-black text-2xl font-headline">The Sacred Journal</h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex bg-surface-container-lowest/50 rounded-full px-4 py-2 items-center gap-3 border border-white/5">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 text-on-surface placeholder:text-slate-500" placeholder="Search members..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-300 hover:text-blue-300 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with a friendly smile, clean studio lighting, high-end photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-59m9E5l0TkvhoPVROPt-AEKRK5mAFK0pLCS2j-k57zPaCnhVACbEUhMs7hti4pcfwmAeDI5POs5dUlC6YFTM6F-2CWorW9Dx9drLbkzm8WCIepjVLCcb4urPx4WU82tt33-nRYnnZP3Ri9MJWPOE8J0ndzwFYzcPo0gxeLZzi-851Gd32GDpd8I-pakO4vw9YuPIaOWOgk-BpKSamjQCi15-0yTQo7HIEtcSltXhZd8137cl8D9v92eLfAhTU2465nny4qfxUnk"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<div class="flex-1 overflow-y-auto px-6 pb-24 custom-scrollbar">
+<div class="max-w-[1600px] mx-auto space-y-8 py-6">
+<!-- Stat Bar -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl p-6 flex items-center justify-between group overflow-hidden relative border-t-2 border-emerald-500/50">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">ความสัมพันธ์: ดี</p>
+<h3 class="text-4xl font-black font-headline text-emerald-400">142</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sentiment_very_satisfied</span>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 flex items-center justify-between group overflow-hidden relative border-t-2 border-amber-500/50">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">ความสัมพันธ์: ปานกลาง</p>
+<h3 class="text-4xl font-black font-headline text-amber-400">85</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-400">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sentiment_satisfied</span>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 flex items-center justify-between group overflow-hidden relative border-t-2 border-rose-500/50">
+<div>
+<p class="text-slate-400 text-sm font-medium mb-1">ความสัมพันธ์: น้อย</p>
+<h3 class="text-4xl font-black font-headline text-rose-400">12</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-400 animate-pulse">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sentiment_dissatisfied</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="glass-card rounded-2xl p-4 flex flex-wrap items-center gap-6 border-white/5">
+<div class="flex-1 min-w-[300px] relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-500">search</span>
+<input class="w-full bg-surface-container-lowest/50 border-none rounded-xl py-3 pl-12 pr-4 text-sm focus:ring-2 focus:ring-primary/20 text-on-surface" placeholder="ค้นหาตามชื่อ, กลุ่ม หรืออาการ..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">กลุ่ม:</span>
+<button class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold transition-all hover:bg-primary/20">วัยรุ่น</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-slate-400 text-xs font-medium transition-all hover:bg-white/10">ครอบครัว</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-slate-400 text-xs font-medium transition-all hover:bg-white/10">ผู้สูงอายุ</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">ความถี่:</span>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-slate-400 text-xs font-medium transition-all hover:bg-white/10">สม่ำเสมอ</button>
+<button class="px-4 py-1.5 rounded-full bg-white/5 text-slate-400 text-xs font-medium transition-all hover:bg-white/10">ห่างหาย</button>
+</div>
+</div>
+<!-- Care Intelligence: High Priority -->
+<section class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-xl">🔴</span>
+<h2 class="text-xl font-bold font-headline text-rose-400">ต้องดูแลด่วน</h2>
+<div class="h-[1px] flex-1 bg-gradient-to-r from-rose-500/20 to-transparent"></div>
+</div>
+<div class="glass-card rounded-2xl overflow-hidden border border-rose-500/10">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-lowest/50 text-slate-400 text-[10px] uppercase tracking-[0.2em] font-bold">
+<tr>
+<th class="px-6 py-4">สมาชิก</th>
+<th class="px-6 py-4">ทัศนคติ / สภาพจิตใจ</th>
+<th class="px-6 py-4">ความถี่การมาโบสถ์</th>
+<th class="px-6 py-4">เยี่ยมล่าสุด</th>
+<th class="px-6 py-4 text-right">จัดการ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="group hover:bg-white/5 transition-all">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="Portrait of a young Thai woman in soft natural light, expressing a gentle but weary emotion, outdoor garden background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF3MY6WX6e52vFmjie52j1Ci1zP-S_bYuryk0ZPDru_JVD21d7KBZiW9flWe9WAZfZuNyfmhvkprbXwItf2LMoLAsA-zBwdDzKNLOpFxwPB_Ztb3jA_lrotuMOd0ekWnfh_Ts42M27cWC1cG-N4fxX4ftg31n9Lxqf98BOjJt9i1-4QwPp4PuoBr_q2BWkiSFShA8CcFXRd89LglEtx3sCSPApnJGpcCfdYXxcC6HNfiaRKQ3f2Y3VEuZbFOG6uOOFjusWdx0K7-g"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-rose-500 rounded-full border-2 border-[#0b1421] animate-pulse"></div>
+</div>
+<div>
+<div class="font-bold text-on-surface font-headline">มาริสา แสงทอง</div>
+<div class="text-[10px] text-slate-500">กลุ่มวัยรุ่น • รังสิต</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 uppercase">น้อย (เฝ้าระวังพิเศษ)</span>
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-rose-500 w-[15%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-rose-500/30"></div>
+<div class="w-2 h-2 rounded-full bg-rose-500/30"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-rose-500/20 text-rose-400 text-xs font-bold">42 วันที่แล้ว</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-all">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a middle-aged Asian man with a thoughtful expression, warm evening light, blurred urban background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy4HBnJqYqTwX1BqGUOge14SiOQejbV6aannkYx_keugpy4ASErPVce35QtRkVo8ZRd88lCDZD7OdlJVGoIYBlEZQMyljPMwu7ow300AiLSheIAdbevvjs_rVFcivZ8OJj9FMITYoO9HFB-yn8SIFcUmQcHu_YbSCj0riNVdTOLm0ylctvnF8BXd8fJ69W-smHQ7UbA112jrrljkXVN75lgv6r5H8GmN5Gu-ETv1nwi2aPAnRZBpmx3-XjfJWxMN_mttpPDS2iN3U"/>
+</div>
+<div>
+<div class="font-bold text-on-surface font-headline">สมชาย ใจดี</div>
+<div class="text-[10px] text-slate-500">กลุ่มครอบครัว • คลองหลวง</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex flex-col gap-1">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-400 uppercase">ปานกลาง</span>
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-amber-500 w-[55%]"></div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex gap-1">
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<div class="w-2 h-2 rounded-full bg-amber-500"></div>
+<div class="w-2 h-2 rounded-full bg-slate-700"></div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-3 py-1 rounded-full bg-white/10 text-slate-400 text-xs font-medium">12 วันที่แล้ว</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 text-slate-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Care Intelligence: Surveillance -->
+<section class="space-y-4">
+<div class="flex items-center gap-3">
+<span class="text-xl">⚠️</span>
+<h2 class="text-xl font-bold font-headline text-amber-400">เฝ้าระวัง</h2>
+<div class="h-[1px] flex-1 bg-gradient-to-r from-amber-500/20 to-transparent"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Bento Style Profile Quick View -->
+<div class="glass-card rounded-2xl p-6 border-white/5 group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 blur-3xl -mr-10 -mt-10"></div>
+<div class="flex gap-6 items-start">
+<img class="w-20 h-20 rounded-2xl object-cover ring-4 ring-white/5" data-alt="Close-up artistic portrait of a woman with reflective expression, dramatic lighting, cool tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxA0jbxero-4QCZs9IgCMwrgH6dadtvb1EGK9Vlu6xrdwdAQaPOkavRgFfec7OenDMT6iBgTxvGmOjG0iIvv3se7H_GNcAIPWWri5kpsqQgvNB8sZgqZzBnp1I2nn3yGbE4N9kVOVfjgsfb_8HwZipRphWuzVwvtAADUhaozb2JnOJcyagGHPL4g-WJpUcP60XVzFBo5Jny5ogcbbAq50wKV9yd-jsDr29hmq7N2gPRsvqaDUF6Vlc1wfsqw04sDhDeBaY-LsI22E"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-lg font-bold font-headline">นรินทร์ รุ่งเรือง</h4>
+<p class="text-xs text-slate-500">ขาดการติดต่อ 18 วัน • พบปัญหาเรื่องงาน</p>
+</div>
+<span class="px-2 py-1 bg-amber-500/10 text-amber-500 text-[10px] font-black rounded border border-amber-500/20">WAITING</span>
+</div>
+<div class="mt-4 flex gap-4">
+<div class="bg-surface-container-lowest/80 rounded-xl px-4 py-2 flex-1">
+<span class="block text-[10px] text-slate-500 font-bold uppercase mb-1">ความถี่</span>
+<div class="flex gap-1">
+<div class="w-3 h-1 bg-amber-500 rounded-full"></div>
+<div class="w-3 h-1 bg-amber-500 rounded-full"></div>
+<div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest/80 rounded-xl px-4 py-2 flex-1">
+<span class="block text-[10px] text-slate-500 font-bold uppercase mb-1">ความใส่ใจ</span>
+<div class="flex gap-1">
+<div class="w-3 h-1 bg-primary rounded-full"></div>
+<div class="w-3 h-1 bg-primary rounded-full"></div>
+<div class="w-3 h-1 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-6 border-white/5 group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -mr-10 -mt-10"></div>
+<div class="flex gap-6 items-start">
+<img class="w-20 h-20 rounded-2xl object-cover ring-4 ring-white/5" data-alt="Portrait of a young man with a neutral expression, minimalist background, soft focus, high quality photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc2qMI6CgFHSen-Jb4AJlDxdh6rGsKeQ2lmfSyBfCJap5FsHGjnQkQ6hQZ9EfEG-r5FGreAfXIAxp9mlrLB8hZzmjZfpTiI_n3i-aSPIckya2HWr-7JmxmwuVR9oyEChyI4z-MijxxEZ-Tb8HdKqOTMfYLYHkjvHS_s6TZnKn9kgPzzcJkB-h2ez6cy_gu_ENEuqBbBUVzVgWlzkNTA9EQHwwZO2oWnHffg7cOKLpAifByDdgO14Fnrxzks6yM7HS4i1Nsj22v9nA"/>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="text-lg font-bold font-headline">ธนาวุฒิ สิทธิชัย</h4>
+<p class="text-xs text-slate-500">ขาดการติดต่อ 15 วัน • ย้ายที่อยู่ใหม่</p>
+</div>
+<span class="px-2 py-1 bg-primary/10 text-primary text-[10px] font-black rounded border border-primary/20">SURVEILLANCE</span>
+</div>
+<div class="mt-4 flex gap-4">
+<div class="bg-surface-container-lowest/80 rounded-xl px-4 py-2 flex-1">
+<span class="block text-[10px] text-slate-500 font-bold uppercase mb-1">ความถี่</span>
+<div class="flex gap-1">
+<div class="w-3 h-1 bg-primary rounded-full"></div>
+<div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+<div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest/80 rounded-xl px-4 py-2 flex-1">
+<span class="block text-[10px] text-slate-500 font-bold uppercase mb-1">ความใส่ใจ</span>
+<div class="flex gap-1">
+<div class="w-3 h-1 bg-amber-500 rounded-full"></div>
+<div class="w-3 h-1 bg-amber-500 rounded-full"></div>
+<div class="w-3 h-1 bg-slate-700 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- FAB: "สร้างแผนเยี่ยม [X] คน" gold gradient button -->
+<button class="fixed bottom-20 lg:bottom-8 right-8 z-[60] bg-gradient-to-r from-amber-500 to-yellow-300 px-6 py-4 rounded-full flex items-center gap-3 shadow-[0_10px_40px_rgba(245,158,11,0.3)] hover:scale-105 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-black font-bold" style="font-variation-settings: 'FILL' 1;">calendar_add_on</span>
+<span class="text-black font-headline font-black text-lg">สร้างแผนเยี่ยม 14 คน</span>
+</button>
+<!-- BottomNavBar (Shared Component) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 bg-[#0a1628]/75 backdrop-blur-xl h-[60px] rounded-t-2xl z-50 border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col items-center justify-center text-slate-500 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-blue-400 bg-blue-500/10 rounded-xl px-3 py-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">People</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Giving</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Pray</span>
+</div>
+<div class="flex flex-col items-center justify-center text-slate-500 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Settings</span>
+</div>
+</nav>
+</main>
+</body></html>

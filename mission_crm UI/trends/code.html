@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>แนวโน้ม | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 80px;
+        }
+        .glass-header {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .pillar-pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.15s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .pillar-pill.active {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+        .pillar-pill:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: #64748b;
+        }
+        .pillar-pill:not(.active):hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+        }
+        .stat-card {
+            background: rgba(19, 28, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="glass-header sticky top-0 z-40">
+<div class="max-w-4xl mx-auto px-4 py-4">
+<div class="flex items-center gap-3 mb-2">
+<button class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-text-secondary">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-primary font-display">แนวโน้มรายสัปดาห์</h1>
+</div>
+<p class="text-sm text-text-secondary ml-11">12 สัปดาห์ล่าสุด · ม.ค. – มี.ค. 2026</p>
+</div>
+</header>
+<!-- Pillar Selector -->
+<div class="sticky top-[80px] z-30 bg-ink-deep/95 backdrop-blur-md border-b border-glass-border">
+<div class="max-w-4xl mx-auto px-4 py-3">
+<div class="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+<button class="pillar-pill active" onclick="switchPillar(0)">การมาคริสตจักร</button>
+<button class="pillar-pill" onclick="switchPillar(1)">การประกาศ</button>
+<button class="pillar-pill" onclick="switchPillar(2)">ติดตามผล</button>
+<button class="pillar-pill" onclick="switchPillar(3)">อภิบาล</button>
+<button class="pillar-pill" onclick="switchPillar(4)">สร้างผู้นำ</button>
+<button class="pillar-pill" onclick="switchPillar(5)">อธิษฐาน</button>
+<button class="pillar-pill" onclick="switchPillar(6)">พพช.</button>
+<button class="pillar-pill" onclick="switchPillar(7)">มาคจ.</button>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="max-w-4xl mx-auto px-4 py-6 space-y-6">
+<!-- Chart Card -->
+<div class="glass-card rounded-2xl p-4">
+<div class="chart-container">
+<canvas id="trendChart"></canvas>
+</div>
+</div>
+<!-- Stat Summary -->
+<div class="grid grid-cols-3 gap-3">
+<div class="stat-card">
+<p class="text-2xl font-bold text-amber font-display" id="stat-high">192</p>
+<p class="text-xs text-text-secondary mt-1">ค่าสูงสุด</p>
+<p class="text-xs text-text-ghost">11 ม.ค.</p>
+</div>
+<div class="stat-card">
+<p class="text-2xl font-bold text-sky font-display" id="stat-low">144</p>
+<p class="text-xs text-text-secondary mt-1">ค่าต่ำสุด</p>
+<p class="text-xs text-text-ghost">25 ม.ค.</p>
+</div>
+<div class="stat-card">
+<p class="text-2xl font-bold text-growth font-display" id="stat-avg">160</p>
+<p class="text-xs text-text-secondary mt-1">ค่าเฉลี่ย</p>
+<p class="text-xs text-text-ghost">12 สัปดาห์</p>
+</div>
+</div>
+<!-- Insight Card -->
+<div class="glass-card rounded-xl p-4 border-l-4 border-amber">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-amber">insights</span>
+<div>
+<p class="text-sm font-medium text-text-primary">สัปดาห์นี้: <span class="font-bold text-amber">160 คน</span> · ต่ำกว่าเป้า 40 คน (80%)</p>
+<p class="text-xs text-text-secondary mt-1">↑ เพิ่มขึ้นจาก 156 ตั้งแต่สัปดาห์ก่อน</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 right-0 glass-header z-50">
+<div class="max-w-lg mx-auto px-4 py-2 flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../mission_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">ภาพรวม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-amber" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-xs">แนวโน้ม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../groups/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-xs">กลุ่ม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../care/code.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs">ดูแล</span>
+</a>
+</div>
+</nav>
+<script>
+        const ctx = document.getElementById('trendChart').getContext('2d');
+        
+        // Sample data for 12 weeks
+        const labels = ['4 ม.ค.', '11 ม.ค.', '18 ม.ค.', '25 ม.ค.', '1 ก.พ.', '8 ก.พ.', '15 ก.พ.', '22 ก.พ.', '1 มี.ค.', '8 มี.ค.', '15 มี.ค.', '22 มี.ค.'];
+        const data = [140, 192, 156, 144, 148, 160, 168, 172, 165, 158, 162, 160];
+        
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'การมาคริสตจักร',
+                    data: data,
+                    borderColor: '#f59e0b',
+                    backgroundColor: (context) => {
+                        const ctx = context.chart.ctx;
+                        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                        gradient.addColorStop(0, 'rgba(245, 158, 11, 0.3)');
+                        gradient.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                        return gradient;
+                    },
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#f59e0b',
+                    pointBorderColor: '#050d1a',
+                    pointBorderWidth: 2,
+                    pointRadius: (ctx) => ctx.dataIndex === data.length - 1 ? 8 : 4,
+                    pointHoverRadius: 8,
+                }, {
+                    label: 'เป้าหมาย',
+                    data: Array(12).fill(200),
+                    borderColor: '#ef4444',
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            color: '#94a3b8',
+                            font: { family: 'Sarabun', size: 12 },
+                            usePointStyle: true,
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(10, 22, 40, 0.95)',
+                        titleColor: '#f0f4f8',
+                        bodyColor: '#94a3b8',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 1,
+                        padding: 12,
+                        titleFont: { family: 'Kanit', size: 14 },
+                        bodyFont: { family: 'Sarabun', size: 13 },
+                        callbacks: {
+                            label: function(context) {
+                                if (context.dataset.label === 'เป้าหมาย') {
+                                    return 'เป้าหมาย: 200 คน';
+                                }
+                                const val = context.parsed.y;
+                                const prev = context.dataIndex > 0 ? data[context.dataIndex - 1] : val;
+                                const diff = val - prev;
+                                const arrow = diff > 0 ? '↑' : diff < 0 ? '↓' : '→';
+                                return `${context.dataset.label}: ${val} คน ${arrow} ${Math.abs(diff)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#64748b', font: { family: 'Sarabun', size: 11 } }
+                    },
+                    y: {
+                        min: 100,
+                        max: 220,
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#64748b', font: { family: 'Sarabun', size: 11 } }
+                    }
+                }
+            }
+        });
+        
+        function switchPillar(index) {
+            // Update active pill
+            document.querySelectorAll('.pillar-pill').forEach((pill, i) => {
+                pill.classList.toggle('active', i === index);
+            });
+            
+            // Simulate data change
+            const newData = data.map(v => v + Math.floor(Math.random() * 40 - 20));
+            chart.data.datasets[0].data = newData;
+            chart.update();
+            
+            // Update stats
+            const high = Math.max(...newData);
+            const low = Math.min(...newData);
+            const avg = Math.round(newData.reduce((a,b) => a+b, 0) / newData.length);
+            
+            document.getElementById('stat-high').textContent = high;
+            document.getElementById('stat-low').textContent = low;
+            document.getElementById('stat-avg').textContent = avg;
+        }
+    </script>
+</body></html>

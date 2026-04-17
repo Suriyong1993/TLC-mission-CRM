@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mission Reports | The Sacred Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;800;900&amp;family=Sarabun:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;600;800&amp;family=Be+Vietnam+Pro:wght@400;500&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#0b1421",
+                    "on-tertiary-container": "#340080",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#5b3800",
+                    "surface-container": "#18202e",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "surface-container-low": "#131c29",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "primary-container": "#4d8eff",
+                    "error-container": "#93000a",
+                    "on-tertiary": "#3c0091",
+                    "on-primary-fixed": "#001a42",
+                    "surface-container-high": "#222a38",
+                    "secondary": "#ffb95f",
+                    "surface-container-lowest": "#060e1b",
+                    "error": "#ffb4ab",
+                    "outline-variant": "#424754",
+                    "surface-bright": "#313948",
+                    "secondary-container": "#ee9800",
+                    "on-primary-container": "#00285d",
+                    "inverse-surface": "#dae3f6",
+                    "primary-fixed": "#d8e2ff",
+                    "on-background": "#dae3f6",
+                    "tertiary-container": "#a078ff",
+                    "inverse-primary": "#005ac2",
+                    "tertiary-fixed": "#e9ddff",
+                    "surface-dim": "#0b1421",
+                    "on-secondary": "#472a00",
+                    "surface-tint": "#adc6ff",
+                    "on-surface": "#dae3f6",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed": "#ffddb8",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-error": "#690005",
+                    "primary": "#adc6ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "on-secondary-fixed": "#2a1700",
+                    "surface-variant": "#2d3544",
+                    "on-primary": "#002e6a",
+                    "surface-container-highest": "#2d3544",
+                    "primary-fixed-dim": "#adc6ff",
+                    "inverse-on-surface": "#28313f",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#23005c",
+                    "tertiary": "#d0bcff",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "background": "#0b1421"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Kanit", "Plus Jakarta Sans"],
+                    "body": ["Sarabun", "Be Vietnam Pro"],
+                    "label": ["Be Vietnam Pro"],
+                    "mono": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-layer-1 {
+            background: rgba(19, 28, 41, 0.75);
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-x-hidden">
+<!-- Spiritual Background Mesh -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-tertiary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/5 blur-[120px]"></div>
+</div>
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#0a1628]/75 backdrop-blur-lg flex flex-col p-4 gap-2 z-40 hidden md:flex">
+<div class="flex items-center gap-3 px-2 py-4">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-tertiary flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+</div>
+<div>
+<h2 class="font-black text-blue-500 leading-none">Sacred Journal</h2>
+<span class="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Mission CRM</span>
+</div>
+</div>
+<nav class="flex-1 mt-6 flex flex-col gap-1">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="font-['Kanit'] text-sm">Dashboard</span>
+</a>
+<!-- Mission Reports (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-blue-600/20 text-blue-400 rounded-lg transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="description">description</span>
+<span class="font-['Kanit'] text-sm">Mission Reports</span>
+</a>
+<!-- Member Directory -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="group">group</span>
+<span class="font-['Kanit'] text-sm">Member Directory</span>
+</a>
+<!-- Financials -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="payments">payments</span>
+<span class="font-['Kanit'] text-sm">Financials</span>
+</a>
+<!-- Archives -->
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="inventory_2">inventory_2</span>
+<span class="font-['Kanit'] text-sm">Archives</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-white/5 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+<span class="font-['Kanit'] text-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white hover:bg-white/5 transition-colors duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="logout">logout</span>
+<span class="font-['Kanit'] text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-[#050d1a]/80 backdrop-blur-xl flex justify-between items-center w-full px-8 py-4 shadow-[0_4px_40px_rgba(11,20,33,0.4)]">
+<div class="absolute top-0 left-0 bg-gradient-to-r from-blue-500 to-cyan-400 h-[2px] w-full"></div>
+<div class="flex items-center gap-8">
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-slate-400 font-medium hover:text-slate-200 transition-colors" href="#">Reports</a>
+<a class="text-slate-400 font-medium hover:text-slate-200 transition-colors" href="#">Groups</a>
+<a class="text-slate-400 font-medium hover:text-slate-200 transition-colors" href="#">Teams</a>
+<a class="text-slate-400 font-medium hover:text-slate-200 transition-colors" href="#">Schedule</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 mr-4">
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-white/5 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<button class="bg-gradient-to-r from-primary-container to-tertiary-container text-on-primary-container px-6 py-2 rounded-full font-bold shadow-lg shadow-primary/20 active:scale-95 transition-transform">
+                    Create New Report
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a middle-aged Thai man with a kind expression, professional mission leader aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9-4ktLVY-MXDOEMAvJMwG0DkY8oT3bo8yGYMmoKeW4h5fNlzR_jNiSCyIYQf0GRsqC9kGCNE7W5pid_B3pdJnkOcE6mC3oOqbkjM1fxv6N08XlYvM5laqY5IswGDUCnt5fHosw6dFGL_7r89HrhbPhNeZjypmard8sninaX-s8fBUM0qE6Wi2AUNF73F3QQ7BMkXiola3npTfZGli2odfGnHaU4DQfN_zz8NaAGCvNgkG7SZR8EdJv92Zk2NSbQWLLGpByS077Ho"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<section class="max-w-6xl mx-auto px-8 py-12">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="space-y-1">
+<h1 class="text-4xl md:text-5xl font-extrabold font-['Kanit'] text-white tracking-tight">Mission Reports</h1>
+<p class="text-slate-400 font-['Sarabun'] flex items-center gap-2">
+<span class="text-primary font-bold">128</span> Total reports submitted across all mission groups
+                    </p>
+</div>
+<!-- Filter Bar -->
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="bg-surface-container-lowest border-none rounded-xl pl-10 pr-4 py-2.5 text-sm w-64 focus:ring-2 focus:ring-primary/50 text-on-surface placeholder:text-slate-500 transition-all" placeholder="Search reports..." type="text"/>
+</div>
+<button class="flex items-center gap-2 bg-surface-container-low/75 backdrop-blur-md px-4 py-2.5 rounded-xl border border-outline-variant/15 hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-sm text-primary">calendar_today</span>
+<span class="text-sm font-['Sarabun'] text-slate-300">Date Range</span>
+<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 bg-surface-container-low/75 backdrop-blur-md px-4 py-2.5 rounded-xl border border-outline-variant/15 hover:border-primary/50 transition-colors group">
+<span class="material-symbols-outlined text-sm text-primary">filter_list</span>
+<span class="text-sm font-['Sarabun'] text-slate-300">All Groups</span>
+<span class="material-symbols-outlined text-sm text-slate-500 group-hover:text-primary">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Report List -->
+<div class="space-y-6">
+<!-- Report Card 1 -->
+<article class="glass-layer-1 relative rounded-2xl overflow-hidden p-6 group transition-all duration-300 hover:bg-surface-container-high/40 hover:-translate-y-1">
+<div class="absolute top-0 left-0 bg-gradient-to-r from-primary to-primary-container h-[2px] w-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex-1 space-y-3">
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">14 Oct 2023 — Week 41</span>
+<div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    Submitted
+                                </div>
+</div>
+<h3 class="text-2xl font-bold font-['Kanit'] text-white">Central Hope Mission Group</h3>
+<p class="text-slate-400 font-['Sarabun'] line-clamp-2 max-w-2xl">
+                                Focus on Hope in Trials, 12 members attended. Deep sharing on Psalm 23 and how it applies to our current financial challenges. Two new visitors welcomed from the local neighborhood.
+                            </p>
+</div>
+<div class="flex items-center md:flex-col md:items-end gap-6 md:gap-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Attendance</p>
+<p class="text-xl font-black font-['Kanit'] text-on-surface">12/15</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Report Card 2 (Draft) -->
+<article class="glass-layer-1 relative rounded-2xl overflow-hidden p-6 group transition-all duration-300 hover:bg-surface-container-high/40 hover:-translate-y-1">
+<div class="absolute top-0 left-0 bg-gradient-to-r from-secondary to-secondary-container h-[2px] w-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex-1 space-y-3">
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">12 Oct 2023 — Week 41</span>
+<div class="flex items-center gap-1.5 bg-secondary-container/10 text-secondary-container px-3 py-1 rounded-full text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>
+                                    Draft
+                                </div>
+</div>
+<h3 class="text-2xl font-bold font-['Kanit'] text-white">Eastside Community Outreach</h3>
+<p class="text-slate-400 font-['Sarabun'] line-clamp-2 max-w-2xl">
+                                Monthly planning and prayer walk. Discussing the upcoming Christmas distribution event. Members gathered at the park for intercessory prayer for the city officials.
+                            </p>
+</div>
+<div class="flex items-center md:flex-col md:items-end gap-6 md:gap-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Attendance</p>
+<p class="text-xl font-black font-['Kanit'] text-on-surface">8/10</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Report Card 3 -->
+<article class="glass-layer-1 relative rounded-2xl overflow-hidden p-6 group transition-all duration-300 hover:bg-surface-container-high/40 hover:-translate-y-1">
+<div class="absolute top-0 left-0 bg-gradient-to-r from-primary to-primary-container h-[2px] w-full"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+<div class="flex-1 space-y-3">
+<div class="flex items-center gap-3">
+<span class="font-mono text-xs text-primary bg-primary/10 px-2 py-1 rounded">07 Oct 2023 — Week 40</span>
+<div class="flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    Submitted
+                                </div>
+</div>
+<h3 class="text-2xl font-bold font-['Kanit'] text-white">Youth Fellowship: Legacy</h3>
+<p class="text-slate-400 font-['Sarabun'] line-clamp-2 max-w-2xl">
+                                'Building Foundations' series. High engagement from the university students. Discussion around faith in a digital world. 22 youth members participated in the group workshop.
+                            </p>
+</div>
+<div class="flex items-center md:flex-col md:items-end gap-6 md:gap-4 shrink-0">
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Attendance</p>
+<p class="text-xl font-black font-['Kanit'] text-on-surface">22/25</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_add</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="visibility">visibility</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-highest hover:bg-primary/20 hover:text-primary transition-all text-slate-400">
+<span class="material-symbols-outlined text-lg" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Empty State (Hidden) -->
+<div class="hidden flex flex-col items-center justify-center py-32 text-center">
+<div class="w-24 h-24 rounded-full bg-surface-container-low flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-5xl text-slate-600" data-icon="inventory">inventory</span>
+</div>
+<h3 class="text-2xl font-bold font-['Kanit'] text-white mb-2">ไม่พบรายงานการปฏิบัติพันธกิจ</h3>
+<p class="text-slate-400 font-['Sarabun'] mb-8 max-w-sm">ดูเหมือนว่าคุณยังไม่ได้สร้างรายงานใดๆ เริ่มต้นการจดบันทึกเรื่องราวพระพรที่เกิดขึ้นในกลุ่มของคุณได้เลย</p>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary-container px-8 py-3 rounded-full font-bold shadow-xl shadow-primary/30 active:scale-95 transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                    Create First Report
+                </button>
+</div>
+<!-- Pagination/Load More (Subtle) -->
+<div class="mt-16 flex justify-center">
+<button class="px-8 py-3 rounded-full border border-outline-variant/20 text-slate-400 font-medium hover:bg-white/5 transition-all active:scale-95">
+                    View Archive Reports
+                </button>
+</div>
+</section>
+</main>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-[#050d1a]/90 backdrop-blur-2xl z-50 flex justify-around items-center py-4 px-6 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-['Kanit']">Dashboard</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-blue-400" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-[10px] font-['Kanit']">Reports</span>
+</a>
+<div class="-mt-12 bg-gradient-to-tr from-primary to-tertiary w-14 h-14 rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 border-4 border-surface">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-['Kanit']">Members</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-[10px] font-['Kanit']">Settings</span>
+</a>
+</nav>
+</body></html>

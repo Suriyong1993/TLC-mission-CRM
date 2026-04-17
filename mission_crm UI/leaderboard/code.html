@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaderboard | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+              "gold": "#fbbf24",
+              "silver": "#c0c0c0",
+              "bronze": "#cd7f32",
+              "body-1": "#3b82f6",
+              "body-2": "#06b6d4",
+              "body-3": "#8b5cf6",
+              "body-4": "#10b981",
+              "body-5": "#f59e0b",
+              "body-6": "#ec4899",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 80px;
+        }
+        .glass-header {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .rank-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+        .rank-card:hover {
+            transform: translateY(-2px);
+        }
+        .rank-bg-number {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 120px;
+            font-weight: 900;
+            font-family: 'Kanit', sans-serif;
+            opacity: 0.08;
+            line-height: 1;
+            pointer-events: none;
+        }
+        .rank-1 {
+            border: 2px solid;
+            border-image: linear-gradient(135deg, #fbbf24, #f59e0b) 1;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(245, 158, 11, 0.05));
+        }
+        .rank-1::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #fbbf24);
+            border-radius: inherit;
+            z-index: -1;
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        .rank-2 {
+            border: 2px solid rgba(192, 192, 192, 0.5);
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.2);
+        }
+        .rank-3 {
+            border: 2px solid rgba(205, 127, 50, 0.5);
+            box-shadow: 0 0 20px rgba(205, 127, 50, 0.2);
+        }
+        .neon-pill {
+            box-shadow: 0 0 10px currentColor;
+        }
+        .body-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .change-up {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+        .change-down {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+        }
+        .change-same {
+            background: rgba(100, 116, 139, 0.15);
+            color: #64748b;
+        }
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+        .week-filter {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+        .week-filter.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .week-filter:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: #64748b;
+            border: 1px solid transparent;
+        }
+        .size-big {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+        }
+        .size-std {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+        }
+        .size-mini {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+        }
+        .live-dot {
+            animation: pulse-dot 2s infinite;
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="glass-header sticky top-0 z-40">
+<div class="max-w-2xl mx-auto px-4 py-4">
+<div class="text-center mb-4">
+<h1 class="text-3xl sm:text-4xl font-black font-display bg-gradient-to-r from-gold via-amber to-gold bg-clip-text text-transparent tracking-tight">
+                    LEADERBOARD
+                </h1>
+<p class="text-sm text-text-secondary mt-1">DIVISION CARE · Q1 2026</p>
+<div class="flex items-center justify-center gap-2 mt-2">
+<span class="w-2 h-2 rounded-full bg-growth live-dot"></span>
+<span class="text-xs text-growth font-medium">สด</span>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap justify-center gap-2 mb-3">
+<button class="week-filter active">สป22 •</button>
+<button class="week-filter">สป21</button>
+<button class="week-filter">สป20</button>
+</div>
+<div class="flex flex-wrap justify-center gap-2">
+<button class="week-filter active">ทั้งหมด•</button>
+<button class="week-filter">เมือง1</button>
+<button class="week-filter">เมือง2</button>
+<button class="week-filter">สมเด็จ</button>
+</div>
+</div>
+</header>
+<!-- Summary Row -->
+<div class="max-w-2xl mx-auto px-4 py-4">
+<div class="grid grid-cols-3 gap-3">
+<div class="glass-card rounded-xl p-3 text-center">
+<div class="text-lg font-bold text-growth neon-pill">BIG: 1</div>
+<p class="text-xs text-text-ghost mt-1">≥12 คน</p>
+</div>
+<div class="glass-card rounded-xl p-3 text-center">
+<div class="text-lg font-bold text-water neon-pill">STD: 12</div>
+<p class="text-xs text-text-ghost mt-1">7-11 คน</p>
+</div>
+<div class="glass-card rounded-xl p-3 text-center">
+<div class="text-lg font-bold text-spirit neon-pill">MINI: 7</div>
+<p class="text-xs text-text-ghost mt-1">≤6 คน</p>
+</div>
+</div>
+</div>
+<!-- Rankings -->
+<main class="max-w-2xl mx-auto px-4 pb-6 space-y-3">
+<!-- Rank 1 -->
+<div class="rank-card rank-1 rounded-xl p-5 relative">
+<span class="rank-bg-number">①</span>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-4xl font-black text-gold font-display">①</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="body-tag" style="background: rgba(59,130,246,0.2); color: #3b82f6;">G01</span>
+<h3 class="text-xl font-bold text-text-primary font-display">ผุสดี</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold text-gold">15</span>
+<span class="text-text-secondary">คน</span>
+<span class="size-big px-2 py-0.5 rounded text-xs font-bold">BIG</span>
+</div>
+<div class="progress-bar w-32 mt-2">
+<div class="progress-fill bg-gradient-to-r from-gold to-amber" style="width: 94%"></div>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="change-up px-3 py-1 rounded-full text-sm font-bold">+6 ↑</div>
+</div>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="rank-card rank-2 glass-card rounded-xl p-5 relative">
+<span class="rank-bg-number">②</span>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-3xl font-black text-silver font-display">②</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="body-tag" style="background: rgba(6,182,212,0.2); color: #06b6d4;">G03</span>
+<h3 class="text-lg font-bold text-text-primary font-display">ปุนนาภา</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-text-primary">12</span>
+<span class="text-text-secondary">คน</span>
+<span class="size-big px-2 py-0.5 rounded text-xs font-bold">BIG</span>
+</div>
+</div>
+</div>
+<div class="change-up px-3 py-1 rounded-full text-sm font-bold">+3 ↑</div>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="rank-card rank-3 glass-card rounded-xl p-5 relative">
+<span class="rank-bg-number">③</span>
+<div class="relative z-10 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="text-3xl font-black text-bronze font-display">③</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="body-tag" style="background: rgba(139,92,246,0.2); color: #8b5cf6;">G02</span>
+<h3 class="text-lg font-bold text-text-primary font-display">เบญ</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-text-primary">10</span>
+<span class="text-text-secondary">คน</span>
+<span class="size-std px-2 py-0.5 rounded text-xs font-bold">STD</span>
+</div>
+</div>
+</div>
+<div class="change-down px-3 py-1 rounded-full text-sm font-bold">-2 ↓</div>
+</div>
+</div>
+<!-- Rank 4-20 -->
+<div id="rankings-list"></div>
+</main>
+<!-- Footer -->
+<footer class="max-w-2xl mx-auto px-4 pb-24">
+<div class="glass-card rounded-xl p-4 text-center">
+<p class="text-lg font-bold text-amber font-display">รวม มาคจ. ทั้งหมด: 150 คน</p>
+<p class="text-sm text-text-ghost mt-1">BIG ≥12 · STD 7-11 · MINI ≤6</p>
+</div>
+</footer>
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 right-0 glass-header z-50">
+<div class="max-w-lg mx-auto px-4 py-2 flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../mission_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">ภาพรวม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-amber" href="#">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="text-xs">อันดับ</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../groups/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-xs">กลุ่ม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../care/code.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs">ดูแล</span>
+</a>
+</div>
+</nav>
+<script>
+        const rankings = [
+            { rank: 4, code: 'G04', name: 'ทัศนา', body: 'body-4', bodyColor: '#10b981', count: 9, size: 'STD', change: 0, changeDir: 'same' },
+            { rank: 5, code: 'G05', name: 'พรทิพย์', body: 'body-1', bodyColor: '#3b82f6', count: 8, size: 'STD', change: 2, changeDir: 'up' },
+            { rank: 6, code: 'G06', name: 'วิชัย', body: 'body-2', bodyColor: '#06b6d4', count: 8, size: 'STD', change: -1, changeDir: 'down' },
+            { rank: 7, code: 'G07', name: 'นงลักษณ์', body: 'body-3', bodyColor: '#8b5cf6', count: 7, size: 'STD', change: 1, changeDir: 'up' },
+            { rank: 8, code: 'G08', name: 'ประเสริฐ', body: 'body-5', bodyColor: '#f59e0b', count: 6, size: 'MINI', change: 0, changeDir: 'same' },
+            { rank: 9, code: 'G09', name: 'อมรรัตน์', body: 'body-6', bodyColor: '#ec4899', count: 5, size: 'MINI', change: -2, changeDir: 'down' },
+        ];
+        
+        function getChangeBadge(change, dir) {
+            if (dir === 'up') return `<span class="change-up px-2 py-0.5 rounded-full text-xs font-bold">+${change} ↑</span>`;
+            if (dir === 'down') return `<span class="change-down px-2 py-0.5 rounded-full text-xs font-bold">-${change} ↓</span>`;
+            return `<span class="change-same px-2 py-0.5 rounded-full text-xs">→</span>`;
+        }
+        
+        function getSizeClass(size) {
+            if (size === 'BIG') return 'size-big';
+            if (size === 'STD') return 'size-std';
+            return 'size-mini';
+        }
+        
+        document.getElementById('rankings-list').innerHTML = rankings.map(r => `
+            <div class="rank-card glass-card rounded-xl p-4 relative">
+                <span class="rank-bg-number">${r.rank}</span>
+                <div class="relative z-10 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="text-2xl font-bold text-text-ghost font-display">${r.rank}</div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-0.5">
+                                <span class="body-tag" style="background: ${r.bodyColor}20; color: ${r.bodyColor};">${r.code}</span>
+                                <h3 class="text-base font-bold text-text-primary font-display">${r.name}</h3>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg font-bold text-text-primary">${r.count}</span>
+                                <span class="text-text-ghost text-sm">คน</span>
+                                <span class="${getSizeClass(r.size)} px-2 py-0.5 rounded text-xs font-bold">${r.size}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${getChangeBadge(r.change, r.changeDir)}
+                </div>
+            </div>
+        `).join('');
+    </script>
+</body></html>

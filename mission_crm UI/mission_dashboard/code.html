@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TLC-mission CRM | ระบบติดตามพันธกิจคริสตจักรกาฬสินธุ์</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;800;900&family=Sarabun:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        // Deep Ocean Glass - Ink layers
+                        'ink-deep': '#050d1a',
+                        'ink-mid': '#0a1628',
+                        'ink-lift': '#0f2444',
+                        'ink-input': '#0d1e36',
+                        // Lines - borders
+                        'line': '#1e3a5f',
+                        'line-bright': '#2d5a8e',
+                        // Text hierarchy
+                        'text-main': '#e8f4ff',
+                        'text-soft': '#7db4d8',
+                        'text-ghost': '#3d6a8a',
+                        // Semantic accents
+                        'sky': '#3b82f6',
+                        'water': '#06b6d4',
+                        'gold': '#f59e0b',
+                        'growth': '#10b981',
+                        'alert': '#f43f5e',
+                        'spirit': '#8b5cf6',
+                        // 8-Pillar accent colors
+                        'pillar-1': '#f97316',  // การประกาศ
+                        'pillar-2': '#3b82f6',  // การติดตามผล
+                        'pillar-3': '#10b981',  // การอภิบาล
+                        'pillar-4': '#8b5cf6',  // สร้างผู้นำ
+                        'pillar-5': '#ec4899',  // อธิษฐานพุธ
+                        'pillar-6': '#06b6d4',  // พพช.
+                        'pillar-7': '#f59e0b',  // มาคจ.
+                        'pillar-8': '#ef4444',  // มาแคร์
+                        // Group size classification
+                        'size-big': '#10b981',
+                        'size-std': '#06b6d4',
+                        'size-mini': '#8b5cf6',
+                        // Body colors
+                        'body-1': '#3b82f6',
+                        'body-2': '#06b6d4',
+                        'body-3': '#8b5cf6',
+                        'body-4': '#10b981',
+                        'body-5': '#f59e0b',
+                        'body-6': '#ec4899',
+                    },
+                    fontFamily: {
+                        'display': ['Kanit', 'system-ui', 'sans-serif'],
+                        'body': ['Sarabun', 'system-ui', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'Menlo', 'monospace'],
+                    },
+                    borderRadius: {
+                        'sm': '6px',
+                        'md': '10px',
+                        'lg': '14px',
+                        'xl': '18px',
+                        '2xl': '24px',
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        :root {
+            --motion-fast: 100ms;
+            --motion-normal: 200ms;
+            --motion-slow: 300ms;
+            --motion-count: 800ms;
+            --ease-entry: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+            --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        body {
+            background-color: var(--ink-deep);
+            font-family: 'Sarabun', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+        
+        /* Deep Ocean Mesh Gradient Background */
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.03) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+        }
+        
+        /* Dot grid texture */
+        .dot-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        
+        /* Glass Layer System */
+        .glass-0 { background: transparent; }
+        
+        .glass-1 {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--line);
+        }
+        
+        .glass-2 {
+            background: rgba(15, 36, 68, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--line-bright);
+        }
+        
+        .glass-3 {
+            background: rgba(5, 13, 26, 0.95);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid var(--line-bright);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+        
+        /* Glass card with top accent line */
+        .glass-card {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, #3b82f6, #06b6d4);
+            z-index: 10;
+        }
+        
+        /* Pillar accent variants */
+        .glass-card-pillar-1::before { background: linear-gradient(to right, #f97316, #fbbf24); }
+        .glass-card-pillar-2::before { background: linear-gradient(to right, #3b82f6, #06b6d4); }
+        .glass-card-pillar-3::before { background: linear-gradient(to right, #10b981, #34d399); }
+        .glass-card-pillar-4::before { background: linear-gradient(to right, #8b5cf6, #a78bfa); }
+        .glass-card-pillar-5::before { background: linear-gradient(to right, #ec4899, #f472b6); }
+        .glass-card-pillar-6::before { background: linear-gradient(to right, #06b6d4, #22d3ee); }
+        .glass-card-pillar-7::before { background: linear-gradient(to right, #f59e0b, #fbbf24); }
+        .glass-card-pillar-8::before { background: linear-gradient(to right, #ef4444, #f87171); }
+        
+        .glass-card-gold::before { background: linear-gradient(to right, #f59e0b, #fbbf24); }
+        .glass-card-alert::before { background: linear-gradient(to right, #f43f5e, #fb7185); }
+        
+        /* Typography */
+        .font-display { font-family: 'Kanit', system-ui, sans-serif; }
+        .font-body { font-family: 'Sarabun', system-ui, sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', Menlo, monospace; }
+        
+        /* Motion - Stagger entrance */
+        .stagger-in {
+            animation: staggerIn var(--motion-slow) var(--ease-entry) forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        
+        @keyframes staggerIn {
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        /* Skeleton shimmer */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .skeleton {
+            background: linear-gradient(90deg,
+                rgba(10, 22, 40, 0.8) 25%,
+                rgba(15, 36, 68, 0.9) 50%,
+                rgba(10, 22, 40, 0.8) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * { 
+                animation-duration: 0.01ms !important; 
+                transition-duration: 0.01ms !important; 
+            }
+        }
+        
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { 
+            background: var(--line); 
+            border-radius: 3px; 
+        }
+        
+        /* Stat number with glow */
+        .stat-glow {
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Button gradients */
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            transition: all var(--motion-normal);
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-ai {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            background: var(--ink-lift);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width var(--motion-slow) var(--ease-entry);
+        }
+        
+        /* Attitude badges */
+        .badge-attitude-good {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .badge-attitude-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        .badge-attitude-low {
+            background: rgba(244, 63, 94, 0.1);
+            color: #f43f5e;
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+        
+        /* Size badges */
+        .badge-size-big {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+        }
+        .badge-size-std {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+        }
+        .badge-size-mini {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Background Elements -->
+    <div class="mesh-gradient"></div>
+    <div class="dot-grid"></div>
+    
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside class="hidden lg:flex flex-col h-screen w-64 glass-1 sticky left-0 top-0 z-40 rounded-r-2xl">
+            <div class="p-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky to-water flex items-center justify-center">
+                        <i data-lucide="church" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-black text-text-main tracking-tight font-display">TLC-mission</h1>
+                        <p class="text-[10px] text-text-soft uppercase tracking-wider">กาฬสินธุ์</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="flex-1 px-4 space-y-1">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-sky/20 to-transparent text-sky border-l-2 border-sky rounded-r-xl font-display font-bold transition-all">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>ภาพรวม</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-text-soft hover:text-text-main hover:bg-ink-lift/50 rounded-xl transition-all">
+                    <i data-lucide="target" class="w-5 h-5"></i>
+                    <span>8 เสาหลัก</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-text-soft hover:text-text-main hover:bg-ink-lift/50 rounded-xl transition-all">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>กลุ่มแคร์</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-text-soft hover:text-text-main hover:bg-ink-lift/50 rounded-xl transition-all">
+                    <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                    <span>สมาชิก</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 px-4 py-3 text-text-soft hover:text-text-main hover:bg-ink-lift/50 rounded-xl transition-all">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                    <span>รายงาน</span>
+                </a>
+            </nav>
+            
+            <div class="p-4 border-t border-line/50 space-y-2">
+                <a href="#" class="flex items-center gap-3 px-4 py-2 text-text-soft hover:text-text-main transition-colors">
+                    <i data-lucide="settings" class="w-4 h-4"></i>
+                    <span class="text-sm">ตั้งค่า</span>
+                </a>
+                <div class="flex items-center gap-3 px-4 py-2">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-growth to-water flex items-center justify-center text-white font-bold text-sm font-display">
+                        ห
+                    </div>
+                    <div class="text-sm">
+                        <p class="text-text-main block truncate font-medium">หนบ. กลุ่ม 1</p>
+                        <p class="text-[10px] text-text-ghost">Body: เมือง 1</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0">
+            <!-- Top Header -->
+            <header class="sticky top-0 z-30 glass-1 px-6 py-4">
+                <div class="max-w-[1600px] mx-auto flex justify-between items-center">
+                    <div class="flex items-center gap-4">
+                        <button class="lg:hidden p-2 text-text-soft hover:text-text-main">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                        <div class="flex flex-col">
+                            <h2 class="text-xl font-bold font-display text-text-main flex items-center gap-2">
+                                สวัสดีครับ 🙏
+                                <span class="text-sm font-normal text-text-soft">หนบ. สมชาย</span>
+                            </h2>
+                            <p class="text-sm text-text-soft font-body">
+                                สัปดาห์ที่ <span class="font-mono">22</span> · มิ.ย. 2026 · Body: <span class="text-sky">เมือง 1</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-4">
+                        <!-- Health Score Ring -->
+                        <div class="hidden sm:flex items-center gap-2 glass-1 px-3 py-1.5 rounded-full">
+                            <div class="relative w-10 h-10 flex items-center justify-center">
+                                <svg class="w-10 h-10 transform -rotate-90">
+                                    <circle class="text-ink-lift" cx="20" cy="20" fill="transparent" r="18" stroke="currentColor" stroke-width="3"></circle>
+                                    <circle class="text-sky" cx="20" cy="20" fill="transparent" r="18" stroke="currentColor" stroke-dasharray="113.1" stroke-dashoffset="28.27" stroke-width="3"></circle>
+                                </svg>
+                                <span class="absolute text-[10px] font-bold text-text-main font-display">75%</span>
+                            </div>
+                            <div class="hidden md:block">
+                                <p class="text-[10px] text-text-soft uppercase tracking-wider">Health Score</p>
+                                <p class="text-xs font-bold text-sky">เยี่ยมมาก</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button class="w-10 h-10 rounded-full glass-1 flex items-center justify-center text-text-soft hover:text-text-main transition-colors">
+                                <i data-lucide="bell" class="w-5 h-5"></i>
+                            </button>
+                            <button class="w-10 h-10 rounded-full glass-1 flex items-center justify-center text-text-soft hover:text-text-main transition-colors">
+                                <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Content -->
+            <div class="flex-1 p-6 lg:p-8 space-y-8 max-w-[1600px] mx-auto w-full pb-32">
+                
+                <!-- Hero Stats Row -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+                    <!-- Stat 1: Groups -->
+                    <div class="glass-card p-5 lg:p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer stagger-in" style="animation-delay: 0ms;">
+                        <div class="flex justify-between items-start mb-3">
+                            <i data-lucide="home" class="w-8 h-8 text-sky"></i>
+                            <span class="text-growth text-xs font-bold bg-growth/10 px-2 py-1 rounded-full flex items-center gap-1">
+                                <i data-lucide="trending-up" class="w-3 h-3"></i>
+                                +2
+                            </span>
+                        </div>
+                        <p class="text-text-soft text-xs uppercase tracking-wider mb-1 font-body">กลุ่มแคร์</p>
+                        <h3 class="text-4xl lg:text-5xl font-black font-display text-text-main stat-glow">20</h3>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky to-water opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    
+                    <!-- Stat 2: Members -->
+                    <div class="glass-card p-5 lg:p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer stagger-in" style="animation-delay: 80ms;">
+                        <div class="flex justify-between items-start mb-3">
+                            <i data-lucide="users" class="w-8 h-8 text-sky"></i>
+                            <span class="text-growth text-xs font-bold bg-growth/10 px-2 py-1 rounded-full flex items-center gap-1">
+                                <i data-lucide="trending-up" class="w-3 h-3"></i>
+                                +5
+                            </span>
+                        </div>
+                        <p class="text-text-soft text-xs uppercase tracking-wider mb-1 font-body">สมาชิก</p>
+                        <h3 class="text-4xl lg:text-5xl font-black font-display text-text-main stat-glow">165</h3>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky to-water opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    
+                    <!-- Stat 3: Meetings -->
+                    <div class="glass-card p-5 lg:p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer stagger-in" style="animation-delay: 160ms;">
+                        <div class="flex justify-between items-start mb-3">
+                            <i data-lucide="calendar-check" class="w-8 h-8 text-sky"></i>
+                            <span class="text-text-soft text-xs font-bold bg-text-soft/10 px-2 py-1 rounded-full">
+                                เป้า: 48
+                            </span>
+                        </div>
+                        <p class="text-text-soft text-xs uppercase tracking-wider mb-1 font-body">ครั้งประชุม</p>
+                        <h3 class="text-4xl lg:text-5xl font-black font-display text-text-main stat-glow">42</h3>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-sky to-water opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    
+                    <!-- Stat 4: Low Attitude (Alert) -->
+                    <div class="glass-card glass-card-alert p-5 lg:p-6 relative overflow-hidden group hover:scale-[1.02] transition-transform cursor-pointer stagger-in" style="animation-delay: 240ms;">
+                        <div class="flex justify-between items-start mb-3">
+                            <i data-lucide="alert-triangle" class="w-8 h-8 text-alert"></i>
+                            <span class="text-alert text-xs font-bold bg-alert/10 px-2 py-1 rounded-full animate-pulse">
+                                ด่วน
+                            </span>
+                        </div>
+                        <p class="text-text-soft text-xs uppercase tracking-wider mb-1 font-body">ท่าทีน้อย</p>
+                        <h3 class="text-4xl lg:text-5xl font-black font-display text-alert">03</h3>
+                        <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-alert to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                </div>
+                
+                <!-- 8 Pillars Grid -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-bold font-display text-text-main">8 เสาหลักประจำสัปดาห์</h3>
+                        <a href="#" class="text-sky text-sm hover:underline flex items-center gap-1">
+                            ดูเทรนด์
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Pillar 1: การประกาศ -->
+                        <div class="glass-card glass-card-pillar-1 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 320ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">📢</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 1</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">การประกาศ</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-1">53</span>
+                                <span class="text-sm text-text-ghost">/60</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +12
+                                </span>
+                                <span class="text-text-ghost text-xs">88%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-1 rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 2: การติดตามผล -->
+                        <div class="glass-card glass-card-pillar-2 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 400ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">🔄</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 2</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">การติดตามผล</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-2">682</span>
+                                <span class="text-sm text-text-ghost">/800</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +68
+                                </span>
+                                <span class="text-text-ghost text-xs">85%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 3: การอภิบาล -->
+                        <div class="glass-card glass-card-pillar-3 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 480ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">💚</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 3</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">การอภิบาล</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-3">82</span>
+                                <span class="text-sm text-text-ghost">/82</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-text-soft text-xs flex items-center gap-0.5">
+                                    <i data-lucide="minus" class="w-3 h-3"></i>
+                                    0
+                                </span>
+                                <span class="text-growth text-xs font-bold">✓ 100%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-3 rounded-full" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 4: สร้างผู้นำ -->
+                        <div class="glass-card glass-card-pillar-4 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 560ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">👑</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 4</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">สร้างผู้นำ</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-4">51</span>
+                                <span class="text-sm text-text-ghost">/94</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +5
+                                </span>
+                                <span class="text-text-ghost text-xs">54%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-4 rounded-full" style="width: 54%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 5: อธิษฐานเช้าพุธ -->
+                        <div class="glass-card glass-card-pillar-5 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 640ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">🙏</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 5</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">อธิษฐานพุธ</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-5">23</span>
+                                <span class="text-sm text-text-ghost">/25</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +3
+                                </span>
+                                <span class="text-text-ghost text-xs">92%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 6: พพช. -->
+                        <div class="glass-card glass-card-pillar-6 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 720ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">📖</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 6</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">พพช.</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-6">54</span>
+                                <span class="text-sm text-text-ghost">/60</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +4
+                                </span>
+                                <span class="text-text-ghost text-xs">90%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-6 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 7: มาคจ. -->
+                        <div class="glass-card glass-card-pillar-7 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 800ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">⛪</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 7</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">มาคจ.</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-7">156</span>
+                                <span class="text-sm text-text-ghost">/200</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-growth text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-up" class="w-3 h-3"></i>
+                                    +18
+                                </span>
+                                <span class="text-text-ghost text-xs">78%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-7 rounded-full" style="width: 78%"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar 8: มาแคร์ -->
+                        <div class="glass-card glass-card-pillar-8 p-5 cursor-pointer hover:scale-[1.02] transition-transform stagger-in" style="animation-delay: 880ms;">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-lg">👥</span>
+                                <span class="text-[10px] uppercase tracking-wider text-text-soft">เสาที่ 8</span>
+                            </div>
+                            <p class="text-sm font-semibold text-text-main mb-3 font-body">มาแคร์</p>
+                            <div class="flex items-baseline gap-1 mb-2">
+                                <span class="text-3xl font-black font-display text-pillar-8">142</span>
+                                <span class="text-sm text-text-ghost">/200</span>
+                            </div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-alert text-xs flex items-center gap-0.5">
+                                    <i data-lucide="arrow-down" class="w-3 h-3"></i>
+                                    -5
+                                </span>
+                                <span class="text-text-ghost text-xs">71%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-pillar-8 rounded-full" style="width: 71%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quarterly Progress Strip -->
+                <div class="glass-card p-6">
+                    <div class="flex flex-col md:flex-row justify-between md:items-end mb-6 gap-4">
+                        <div>
+                            <h4 class="text-lg font-bold font-display text-text-main">ความคืบหน้าเป้าหมายรายไตรมาส</h4>
+                            <p class="text-sm text-text-soft font-body">ประจำปี 2026</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="px-3 py-1 rounded-lg text-xs font-body bg-sky text-white font-bold">Q1</button>
+                            <button class="px-3 py-1 rounded-lg text-xs font-body glass-1 text-text-soft hover:text-text-main">Q2</button>
+                            <button class="px-3 py-1 rounded-lg text-xs font-body glass-1 text-text-soft hover:text-text-main">Q3</button>
+                            <button class="px-3 py-1 rounded-lg text-xs font-body glass-1 text-text-soft hover:text-text-main">Q4</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-medium font-body">
+                                <span class="text-text-main">กลุ่ม</span>
+                                <span class="text-growth font-bold">16/20</span>
+                            </div>
+                            <div class="h-2 w-full bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-growth rounded-full transition-all duration-500" style="width: 80%"></div>
+                            </div>
+                            <p class="text-[10px] text-text-ghost">เป้า 20 กลุ่ม</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-medium font-body">
+                                <span class="text-text-main">สมาชิก</span>
+                                <span class="text-growth font-bold">165/150</span>
+                            </div>
+                            <div class="h-2 w-full bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-growth rounded-full transition-all duration-500" style="width: 110%"></div>
+                            </div>
+                            <p class="text-[10px] text-text-ghost text-growth">เกินเป้า! 🎉</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-medium font-body">
+                                <span class="text-text-main">ประกาศ</span>
+                                <span class="text-gold font-bold">459/720</span>
+                            </div>
+                            <div class="h-2 w-full bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-gold rounded-full transition-all duration-500" style="width: 64%"></div>
+                            </div>
+                            <p class="text-[10px] text-text-ghost">64% ของเป้า</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-medium font-body">
+                                <span class="text-text-main">ผู้นำใหม่</span>
+                                <span class="text-alert font-bold">8/30</span>
+                            </div>
+                            <div class="h-2 w-full bg-ink-lift rounded-full overflow-hidden">
+                                <div class="h-full bg-alert rounded-full transition-all duration-500" style="width: 27%"></div>
+                            </div>
+                            <p class="text-[10px] text-text-ghost text-alert">ต้องเร่ง! ⚠️</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Middle Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Group Radar List (5/12) -->
+                    <div class="lg:col-span-5 glass-card p-6 flex flex-col">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 class="text-lg font-bold font-display text-text-main">กลุ่มแคร์ทั้งหมด</h4>
+                            <button class="text-sky text-xs hover:underline font-body">ดูทั้งหมด</button>
+                        </div>
+                        <div class="space-y-3 flex-1 overflow-y-auto custom-scrollbar max-h-[320px]">
+                            <!-- Group G01 -->
+                            <div class="flex items-center gap-4 p-3 hover:bg-ink-lift/50 rounded-xl transition-colors group cursor-pointer">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-sky/10 text-sky font-bold font-mono text-sm">G01</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-bold text-text-main font-body truncate">ผุสดี</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-text-soft">15 คน</span>
+                                        <span class="badge-size-big text-[10px] px-1.5 py-0.5 rounded">BIG</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-text-ghost group-hover:text-text-main transition-colors"></i>
+                            </div>
+                            
+                            <!-- Group G02 -->
+                            <div class="flex items-center gap-4 p-3 hover:bg-ink-lift/50 rounded-xl transition-colors group cursor-pointer">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-sky/10 text-sky font-bold font-mono text-sm">G02</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-bold text-text-main font-body truncate">เบญ</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-text-soft">8 คน</span>
+                                        <span class="badge-size-std text-[10px] px-1.5 py-0.5 rounded">STD</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-soft"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-soft"></div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-text-ghost group-hover:text-text-main transition-colors"></i>
+                            </div>
+                            
+                            <!-- Group G03 -->
+                            <div class="flex items-center gap-4 p-3 hover:bg-ink-lift/50 rounded-xl transition-colors group cursor-pointer">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-sky/10 text-sky font-bold font-mono text-sm">G03</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-bold text-text-main font-body truncate">ปุนนาภา</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-text-soft">12 คน</span>
+                                        <span class="badge-size-big text-[10px] px-1.5 py-0.5 rounded">BIG</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-soft"></div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-text-ghost group-hover:text-text-main transition-colors"></i>
+                            </div>
+                            
+                            <!-- Group G04 (MINI) -->
+                            <div class="flex items-center gap-4 p-3 hover:bg-ink-lift/50 rounded-xl transition-colors group cursor-pointer">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-sky/10 text-sky font-bold font-mono text-sm">G04</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-bold text-text-main font-body truncate">ทัศนา</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-text-soft">5 คน</span>
+                                        <span class="badge-size-mini text-[10px] px-1.5 py-0.5 rounded">MINI</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-soft"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-soft"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-ghost"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-text-ghost"></div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-text-ghost group-hover:text-text-main transition-colors"></i>
+                            </div>
+                            
+                            <!-- Group G05 -->
+                            <div class="flex items-center gap-4 p-3 hover:bg-ink-lift/50 rounded-xl transition-colors group cursor-pointer">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-sky/10 text-sky font-bold font-mono text-sm">G05</div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-bold text-text-main font-body truncate">ดาวใจ</p>
+                                    <div class="flex items-center gap-2 mt-1">
+                                        <span class="text-[10px] text-text-soft">9 คน</span>
+                                        <span class="badge-size-std text-[10px] px-1.5 py-0.5 rounded">STD</span>
+                                    </div>
+                                </div>
+                                <div class="flex gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-growth"></div>
+                                </div>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-text-ghost group-hover:text-text-main transition-colors"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Attitude Donut (3/12) -->
+                    <div class="lg:col-span-3 glass-card p-6 flex flex-col items-center justify-center text-center">
+                        <h4 class="text-lg font-bold font-display text-text-main mb-2">ภาพรวมท่าที</h4>
+                        <p class="text-xs text-text-soft mb-6 font-body">วิเคราะห์จากรายงานการเยี่ยม</p>
+                        <div class="relative w-40 h-40">
+                            <svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#0f2444" stroke-width="12"></circle>
+                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#3b82f6" stroke-dasharray="163.36" stroke-dashoffset="57.18" stroke-width="12"></circle>
+                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#f59e0b" stroke-dasharray="50.27" stroke-dashoffset="-106.18" stroke-width="12"></circle>
+                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#f43f5e" stroke-dasharray="37.7" stroke-dashoffset="-156.45" stroke-width="12"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-2xl font-black font-display text-text-main">86%</span>
+                                <span class="text-[10px] text-text-soft font-body">ดี/ปานกลาง</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 w-full gap-2 mt-6">
+                            <div class="text-center">
+                                <div class="w-2 h-2 rounded-full bg-sky mx-auto mb-1"></div>
+                                <p class="text-[10px] text-text-soft font-body">ดี</p>
+                                <p class="text-xs font-bold text-text-main">65%</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-2 h-2 rounded-full bg-gold mx-auto mb-1"></div>
+                                <p class="text-[10px] text-text-soft font-body">ปานกลาง</p>
+                                <p class="text-xs font-bold text-text-main">20%</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-2 h-2 rounded-full bg-alert mx-auto mb-1"></div>
+                                <p class="text-[10px] text-text-soft font-body">น้อย</p>
+                                <p class="text-xs font-bold text-text-main">15%</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Alert Feed (4/12) -->
+                    <div class="lg:col-span-4 glass-card p-6">
+                        <div class="flex items-center gap-2 mb-6">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-alert"></i>
+                            <h4 class="text-lg font-bold font-display text-text-main">ต้องใส่ใจ</h4>
+                            <span class="ml-auto text-xs text-alert bg-alert/10 px-2 py-0.5 rounded-full font-bold">3 คน</span>
+                        </div>
+                        <div class="space-y-4 max-h-[320px] overflow-y-auto custom-scrollbar">
+                            <div class="bg-alert/5 p-4 rounded-xl border-l-4 border-alert">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-alert to-orange-500 flex items-center justify-center text-white text-xs font-bold">ส</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-bold text-text-main font-body">สมชาย (G02)</p>
+                                        <p class="text-xs text-text-soft mt-1 font-body">ขาดประชุม 3 สัปดาห์ · ท่าที: น้อย</p>
+                                        <div class="mt-3 flex gap-2">
+                                            <button class="px-3 py-1 bg-alert text-white rounded-full text-[10px] font-bold">โทรด่วน</button>
+                                            <button class="px-3 py-1 border border-line text-text-main rounded-full text-[10px] font-bold hover:bg-ink-lift">บันทึกแผน</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gold/5 p-4 rounded-xl border-l-4 border-gold">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-amber-500 flex items-center justify-center text-white text-xs font-bold">เ</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-bold text-text-main font-body">เอ (G04)</p>
+                                        <p class="text-xs text-text-soft mt-1 font-body">ท่าทีเปลี่ยน: ดี → ปานกลาง</p>
+                                        <p class="text-xs text-gold mt-1">ต้องการหนุนใจ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gold/5 p-4 rounded-xl border-l-4 border-gold">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-amber-500 flex items-center justify-center text-white text-xs font-bold">ว</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-bold text-text-main font-body">วรรณ (G01)</p>
+                                        <p class="text-xs text-text-soft mt-1 font-body">ไม่ได้เยี่ยม 42 วัน</p>
+                                        <p class="text-xs text-text-soft mt-1">ท่าที: ปานกลาง</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions (Bottom Bar) -->
+                <div class="fixed bottom-6 lg:bottom-8 left-1/2 -translate-x-1/2 w-max max-w-[95vw] z-40">
+                    <div class="glass-2 rounded-full px-4 lg:px-6 py-3 flex items-center gap-2 lg:gap-4 shadow-2xl border border-white/10">
+                        <button class="flex items-center gap-2 px-4 py-2 btn-primary text-white rounded-full text-sm font-bold shadow-lg hover:scale-105 active:scale-95 transition-all whitespace-nowrap">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">บันทึกรายงาน</span>
+                            <span class="sm:hidden">รายงาน</span>
+                        </button>
+                        <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+                        <button class="flex items-center gap-2 px-3 py-2 text-text-soft hover:text-text-main hover:bg-white/5 rounded-full text-sm font-medium transition-all whitespace-nowrap">
+                            <i data-lucide="check-square" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">เช็คชื่อ</span>
+                        </button>
+                        <button class="flex items-center gap-2 px-3 py-2 text-text-soft hover:text-text-main hover:bg-white/5 rounded-full text-sm font-medium transition-all whitespace-nowrap">
+                            <i data-lucide="file-bar-chart" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">ดูรายงาน</span>
+                        </button>
+                        <button class="flex items-center gap-2 px-3 py-2 text-spirit hover:text-spirit/80 hover:bg-spirit/10 rounded-full text-sm font-medium transition-all whitespace-nowrap">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            <span class="hidden sm:inline">ถาม AI</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- AI Chat FAB -->
+                <button class="fixed bottom-24 lg:bottom-10 right-4 lg:right-10 w-14 h-14 btn-ai rounded-full flex items-center justify-center text-white shadow-[0_10px_30px_rgba(139,92,246,0.4)] hover:scale-110 active:scale-90 transition-transform z-50 group">
+                    <i data-lucide="bot" class="w-7 h-7 group-hover:rotate-12 transition-transform"></i>
+                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-alert rounded-full border-2 border-ink-deep animate-pulse"></div>
+                </button>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Mobile Bottom Navigation -->
+    <nav class="lg:hidden fixed bottom-0 left-0 w-full h-[64px] glass-1 border-t border-line flex justify-around items-center px-4 z-40 rounded-t-2xl">
+        <a href="#" class="flex flex-col items-center justify-center text-sky bg-sky/10 rounded-xl px-4 py-1.5">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+            <span class="text-[10px] font-medium font-body mt-0.5">ภาพรวม</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-text-soft hover:text-text-main transition-colors px-4 py-1.5">
+            <i data-lucide="edit-3" class="w-5 h-5"></i>
+            <span class="text-[10px] font-medium font-body mt-0.5">กรอกข้อมูล</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-text-soft hover:text-text-main transition-colors px-4 py-1.5">
+            <i data-lucide="users" class="w-5 h-5"></i>
+            <span class="text-[10px] font-medium font-body mt-0.5">สมาชิก</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-text-soft hover:text-text-main transition-colors px-4 py-1.5 relative">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute -top-0.5 right-2 w-4 h-4 bg-alert rounded-full text-[8px] flex items-center justify-center font-bold text-white">3</span>
+            <span class="text-[10px] font-medium font-body mt-0.5">แจ้งเตือน</span>
+        </a>
+        <a href="#" class="flex flex-col items-center justify-center text-text-soft hover:text-text-main transition-colors px-4 py-1.5">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+            <span class="text-[10px] font-medium font-body mt-0.5">เพิ่มเติม</span>
+        </a>
+    </nav>
+    
+    <!-- Initialize Lucide Icons -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

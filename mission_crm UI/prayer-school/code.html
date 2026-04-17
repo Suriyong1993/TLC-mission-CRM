@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>อธิษฐาน + พพช. | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 80px;
+        }
+        .glass-header {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
+            color: #64748b;
+        }
+        .tab-btn.active {
+            color: #06b6d4;
+            border-bottom-color: #06b6d4;
+            background: rgba(6, 182, 212, 0.05);
+        }
+        .week-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 0.15s;
+        }
+        .week-circle.current {
+            box-shadow: 0 0 0 2px #06b6d4;
+            transform: scale(1.1);
+        }
+        .stacked-bar {
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+        }
+        .course-item {
+            background: rgba(19, 28, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.15s;
+        }
+        .course-item:hover {
+            background: rgba(19, 28, 46, 0.8);
+        }
+        .donut-chart {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #06b6d4 0deg 90deg,
+                rgba(255,255,255,0.1) 90deg 360deg
+            );
+            position: relative;
+        }
+        .donut-chart::before {
+            content: '';
+            position: absolute;
+            inset: 16px;
+            background: #0a1628;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="glass-header sticky top-0 z-40">
+<div class="max-w-4xl mx-auto px-4 py-4">
+<div class="flex items-center gap-3 mb-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-text-secondary">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-primary font-display">โรงเรียนอธิษฐาน</h1>
+</div>
+<!-- Tabs -->
+<div class="flex border-b border-glass-border">
+<button class="tab-btn active" onclick="switchTab('prayer')">อธิษฐานเช้าพุธ</button>
+<button class="tab-btn" onclick="switchTab('courses')">พพช.</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-4xl mx-auto px-4 py-6">
+<!-- Tab 1: อธิษฐานเช้าพุธ -->
+<div class="space-y-6" id="tab-prayer">
+<!-- Week Timeline -->
+<div class="glass-card rounded-2xl p-4">
+<p class="text-sm font-medium text-text-secondary mb-4">สัปดาห์ที่ผ่านมา (12 สัปดาห์)</p>
+<div class="flex justify-between items-center">
+<div class="week-circle" style="background: rgba(6,182,212,0.2); color: #06b6d4;">17</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.2); color: #06b6d4;">17</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.2); color: #06b6d4;">17</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.2); color: #06b6d4;">17</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.2); color: #06b6d4;">17</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.25); color: #06b6d4;">18</div>
+<div class="week-circle current" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+<div class="week-circle" style="background: rgba(6,182,212,0.3); color: #06b6d4;">20</div>
+</div>
+<p class="text-xs text-text-ghost mt-3 text-center">ขนาดวงกลมสัมพันธ์กับจำนวนคน · สัปดาห์ปัจจุบันมีกรอบน้ำเงิน</p>
+</div>
+<!-- Stacked Bar -->
+<div class="glass-card rounded-2xl p-4">
+<p class="text-sm font-medium text-text-secondary mb-4">สัปดาห์ล่าสุด</p>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<span class="text-xs text-text-ghost w-20">มาที่คจ.</span>
+<div class="flex-1 h-6 bg-ink-light rounded-full overflow-hidden">
+<div class="h-full bg-ink-light w-full"></div>
+</div>
+<span class="text-xs text-text-ghost w-12 text-right">0</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs text-text-ghost w-20">Online</span>
+<div class="flex-1 h-6 bg-ink-light rounded-full overflow-hidden">
+<div class="h-full bg-water" style="width: 80%"></div>
+</div>
+<span class="text-xs text-text-primary font-bold w-12 text-right">20</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs text-text-ghost w-20">เป้าหมาย</span>
+<div class="flex-1 h-px bg-alert/50 border-t-2 border-dashed border-alert"></div>
+<span class="text-xs text-alert w-12 text-right">25</span>
+</div>
+</div>
+</div>
+<!-- Insight -->
+<div class="glass-card rounded-xl p-4 border-l-4 border-water">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-water">info</span>
+<div>
+<p class="text-sm text-text-primary">สัปดาห์นี้: <span class="font-bold text-water">20 คน</span> · ต่ำกว่าเป้า 5 คน (80%)</p>
+<p class="text-xs text-text-secondary mt-1">↑ เพิ่มขึ้นจาก 17 ตั้งแต่ ก.พ.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tab 2: พพช. Courses (hidden by default) -->
+<div class="hidden space-y-4" id="tab-courses">
+<!-- Course List -->
+<div class="space-y-2">
+<div class="course-item flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-water/20 flex items-center justify-center text-water font-bold text-sm">ชส</div>
+<div>
+<p class="font-medium text-text-primary">ชีวิตใหม่ สถ.-คนทำงาน</p>
+<p class="text-xs text-text-ghost">10 คน</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-ink-light rounded-full overflow-hidden">
+<div class="h-full bg-water" style="width: 40%"></div>
+</div>
+</div>
+</div>
+<div class="course-item flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-water/30 flex items-center justify-center text-water font-bold text-sm">ชอ</div>
+<div>
+<p class="font-medium text-text-primary">ชีวิตใหม่ผู้อาวุโส</p>
+<p class="text-xs text-text-ghost">30 คน</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-ink-light rounded-full overflow-hidden">
+<div class="h-full bg-water" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<div class="course-item flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-ink-light flex items-center justify-center text-text-ghost font-bold text-sm">ลข</div>
+<div>
+<p class="font-medium text-text-primary">หลักข้อเชื่อ</p>
+<p class="text-xs text-text-ghost">0 คน</p>
+</div>
+</div>
+<div class="w-24 h-2 bg-ink-light rounded-full"></div>
+</div>
+<div class="course-item flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-ink-light flex items-center justify-center text-text-ghost font-bold text-sm">ใช</div>
+<div>
+<p class="font-medium text-text-primary">ใกล้ชิดพระเจ้า</p>
+<p class="text-xs text-text-ghost">0 คน</p>
+</div>
+</div>
+<div class="w-24 h-2 bg-ink-light rounded-full"></div>
+</div>
+<div class="course-item flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-ink-light flex items-center justify-center text-text-ghost font-bold text-sm">นม</div>
+<div>
+<p class="font-medium text-text-primary">เข้าใจการนมัสการ</p>
+<p class="text-xs text-text-ghost">0 คน</p>
+</div>
+</div>
+<div class="w-24 h-2 bg-ink-light rounded-full"></div>
+</div>
+<div class="course-item flex items-center justify-between opacity-60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-ink-light flex items-center justify-center text-text-ghost font-bold text-sm">เงิน</div>
+<div>
+<p class="font-medium text-text-primary">เข้าใจการเงิน</p>
+<p class="text-xs text-text-ghost">0 คน</p>
+</div>
+</div>
+<div class="w-24 h-2 bg-ink-light rounded-full"></div>
+</div>
+</div>
+<!-- Ratio Card -->
+<div class="glass-card rounded-2xl p-6">
+<div class="flex items-center gap-6">
+<div class="donut-chart flex-shrink-0">
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-xl font-bold text-water font-display">25%</span>
+<span class="text-xs text-text-ghost">อัตรา</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="text-sm text-text-secondary mb-2">สัดส่วนการเรียน พพช.</p>
+<div class="grid grid-cols-2 gap-3 text-sm">
+<div>
+<p class="text-text-ghost text-xs">คนมาคจ.</p>
+<p class="font-bold text-text-primary">160 คน</p>
+</div>
+<div>
+<p class="text-text-ghost text-xs">เรียน พพช.</p>
+<p class="font-bold text-water">40 คน</p>
+</div>
+<div class="col-span-2 pt-2 border-t border-glass-border">
+<p class="text-text-ghost text-xs">เป้า 60 คน (37.5%)</p>
+<p class="text-alert text-sm">— ขาด 20 คน</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 right-0 glass-header z-50">
+<div class="max-w-lg mx-auto px-4 py-2 flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../mission_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">ภาพรวม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-water" href="#">
+<span class="material-symbols-outlined">church</span>
+<span class="text-xs">อธิษฐาน</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../groups/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-xs">กลุ่ม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../care/code.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs">ดูแล</span>
+</a>
+</div>
+</nav>
+<script>
+        function switchTab(tab) {
+            document.getElementById('tab-prayer').classList.toggle('hidden', tab !== 'prayer');
+            document.getElementById('tab-courses').classList.toggle('hidden', tab !== 'courses');
+            
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body></html>

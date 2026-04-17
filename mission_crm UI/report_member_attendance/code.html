@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Meeting Report - The Sacred Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;family=Kanit:wght@300;400;500;600;700;800;900&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .tonal-stacking {
+            box-shadow: 40px 0 40px rgba(11, 20, 33, 0.4);
+        }
+        .mesh-gradient-bg {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#00285d",
+                        "surface": "#0b1421",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-container-high": "#222a38",
+                        "outline": "#8c909f",
+                        "inverse-on-surface": "#28313f",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-container": "#340080",
+                        "error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-secondary-container": "#5b3800",
+                        "surface-container-highest": "#2d3544",
+                        "on-surface": "#dae3f6",
+                        "primary": "#adc6ff",
+                        "background": "#0b1421",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#3c0091",
+                        "inverse-primary": "#005ac2",
+                        "secondary-fixed": "#ffddb8",
+                        "secondary": "#ffb95f",
+                        "surface-variant": "#2d3544",
+                        "surface-bright": "#313948",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "outline-variant": "#424754",
+                        "surface-tint": "#adc6ff",
+                        "on-secondary-fixed": "#2a1700",
+                        "surface-container-low": "#131c29",
+                        "secondary-container": "#ee9800",
+                        "tertiary": "#d0bcff",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "tertiary-container": "#a078ff",
+                        "on-primary": "#002e6a",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#dae3f6",
+                        "inverse-surface": "#dae3f6",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-secondary": "#472a00",
+                        "surface-dim": "#0b1421",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#e9ddff",
+                        "primary-container": "#4d8eff",
+                        "surface-container": "#18202e",
+                        "on-tertiary-fixed": "#23005c",
+                        "surface-container-lowest": "#060e1b"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans", "Kanit"],
+                        "body": ["Be Vietnam Pro", "Sarabun"],
+                        "label": ["Be Vietnam Pro", "Sarabun"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body mesh-gradient-bg min-h-screen">
+<div class="flex flex-col lg:flex-row min-h-screen">
+<!-- Side Navigation (Suppressed on transactional flow, but kept for CRM context as a persistent anchor) -->
+<aside class="hidden lg:flex flex-col h-full sticky left-0 top-0 bg-[#0a1628]/75 backdrop-blur-xl h-screen w-64 rounded-r-2xl tonal-stacking no-border z-40">
+<div class="p-6">
+<h1 class="text-xl font-black text-white tracking-tight font-headline">Sacred Journal</h1>
+<p class="text-xs text-blue-400 font-medium tracking-widest uppercase mt-1">Mission CRM</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-headline font-extrabold text-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-500/20 to-transparent text-blue-400 border-l-4 border-blue-500 hover:bg-[#0f2444] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-headline font-extrabold text-lg">Missionaries</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-headline font-extrabold text-lg">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="folded_hands">folded_hands</span>
+<span class="font-headline font-extrabold text-lg">Prayer Wall</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white transition-colors hover:bg-[#0f2444] transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-headline font-extrabold text-lg">Reports</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5">
+<div class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white transition-colors">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">NP</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold">Nong Phanthakit</span>
+<span class="text-[10px] opacity-60">Admin Role</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 relative pb-32">
+<!-- Sticky Header Section -->
+<header class="sticky top-0 z-30 bg-surface/80 backdrop-blur-md px-6 py-4 flex flex-col gap-4">
+<!-- Top Progress Bar (Step 2 of 5) -->
+<div class="flex items-center justify-between gap-4 max-w-4xl mx-auto w-full">
+<div class="flex-1 flex items-center gap-2">
+<div class="h-1.5 flex-1 rounded-full bg-primary overflow-hidden"></div>
+<div class="h-1.5 flex-1 rounded-full bg-primary overflow-hidden"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-container-highest"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-container-highest"></div>
+</div>
+<span class="font-headline font-bold text-primary-fixed-dim text-sm whitespace-nowrap">Step 2: Check-in</span>
+</div>
+<!-- Live Counter Header -->
+<div class="flex items-center justify-between max-w-4xl mx-auto w-full">
+<div class="flex flex-col">
+<h2 class="font-headline text-2xl font-black text-white leading-tight tracking-tight">Meeting Report</h2>
+<p class="text-on-surface-variant font-body text-sm">เช็คอินสมาชิกและผู้มาเยือน</p>
+</div>
+<!-- Animated Ring Counter -->
+<div class="relative flex items-center justify-center w-20 h-20">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary-container transition-all duration-1000" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-dasharray="213.6" stroke-dashoffset="140" stroke-width="4"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline font-black text-xl text-white">12</span>
+<span class="text-[10px] text-on-surface-variant font-medium">คน</span>
+</div>
+</div>
+</div>
+</header>
+<div class="max-w-5xl mx-auto px-6 mt-8 space-y-12">
+<!-- Member Grid Section -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-extrabold text-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="groups">groups</span>
+                            รายชื่อสมาชิก (32 คน)
+                        </h3>
+<div class="relative group">
+<input class="bg-surface-container-lowest border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary-container w-48 transition-all duration-300" placeholder="ค้นหาชื่อ..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Checked Member Card -->
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 border-2 border-primary-container bg-primary-container/10">
+<div class="absolute -top-1 left-0 w-full h-[2px] bg-gradient-to-r from-primary-container to-tertiary-container"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Somchai" class="w-full h-full object-cover" data-alt="portrait of a middle-aged Thai man with a kind smile and professional attire, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7MipIAU4fDLupbg7JNSYwDIiy5G5YeQgZkCCNu7I9ZcdRhJCOjH2wIOxPB3WEQxpnSH1al9teEZgWNQLRub55i2duLW8tIKNqQgRB_7ws1r1WaOs_4mKpYR9lJJcf8kN7cuGYMlJod_u5poUZzqBokH3c2zLwbZ0rAOVZTne_5rGWazUpc1UfZqyksfYvahU7rEFewrMwNvpu9lXAs9Q8SecKVx6k-3tqmlW6DvVDPhYBzlj906_j3m_YyQWs3c9foBdi-5jgGjs"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">สมชาย แซ่หลี</p>
+<p class="text-xs text-on-surface-variant font-body">ผู้อาวุโส</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined font-bold text-lg" data-icon="check">check</span>
+</div>
+</div>
+</div>
+<!-- Unchecked Member Card -->
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-surface-container-high border-2 border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden grayscale opacity-50 transition-all duration-500 group-hover:grayscale-0">
+<img alt="Priya" class="w-full h-full object-cover" data-alt="portrait of a young Thai woman with friendly expression and modern casual style, warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqd_M8qjEm5K3A3gdyEVfGHCuPvDy9MpTLRNALZkAkQ4lewclPsWk8CSQlhvKv8Hu9_eaChVoLnmURWdc6_akXjxHH7NBWZQkOA7YqPir1uSs6QnFxzBTyvoaU0S0OVAdxfCWX9JD8P6qf93sd6aMJ6yU40hC0-jzULNbuL5Tot4LqN0ElQ9ygj-JXtgs7vaJna13Mkn9U_9s-bhUjhNbnK8lS4LIfkCft8Snpu1u6xxiQLr7dyGyzV7bRIWNt1OiFQ5TfqvAi-UY"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">พิมลพรรณ วัฒนา</p>
+<p class="text-xs text-on-surface-variant font-body">มัคนายก</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
+</div>
+</div>
+</div>
+<!-- Checked Member Card -->
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 border-2 border-primary-container bg-primary-container/10">
+<div class="absolute -top-1 left-0 w-full h-[2px] bg-gradient-to-r from-primary-container to-tertiary-container"></div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Anan" class="w-full h-full object-cover" data-alt="portrait of a young Thai man wearing glasses and a blue shirt, looking smart and attentive" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf4gRtiC6gqTRzysBgac6k089uUrrb4UMHLNJqUI27F6xe0I8b34RiL2ijhIsud2vEcPMIh8wvmB9lJdvHJ4xjVA2zQzCxQkbjXJnzHzPMmFu6S7-2rsfTwZxlBP5P9-zaQdNLNWTkFpGpSUfBvF0uFroT0jDS4O6gWhQxNxlIb0LjgIuGwMLlLaFEibDTVn974Dg8QJIqoAu0ijf5To_hCgRKdnkPlm9eme77ioKpkZeRzkaKD18evFhlzgT86LHCjlw4TrbiK_Q"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">อนันต์ ประดิษฐ์</p>
+<p class="text-xs text-on-surface-variant font-body">เยาวชน</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined font-bold text-lg" data-icon="check">check</span>
+</div>
+</div>
+</div>
+<!-- Repeat for Grid -->
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-surface-container-high border-2 border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden grayscale opacity-50">
+<img alt="Nong" class="w-full h-full object-cover" data-alt="portrait of a cheerful Thai woman in her thirties, bright smile, corporate headshot style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpQan5zQOPDNa6zQv54nJoybq3ZY68OIC4ol_mkqT02r3Fd3-FQhwUShaFwlXN_PjwEErsCgFANSrnepHTdxK4mQuyZqA9jUUZl-emF3R_kSKXp9XltdHjK29CDLpH-jvmsOdHusmuHISkUr6GNuotXAEFrkRFbWhHUuR0y6FeAemxe0x3EzKawlhpc9uSk-ghgLfRkg5qoD3_8SZHuAAFwH0Se8fEqXiWK3dYC4X1ZsKTh1O5ioikK2rV9RVCTfEVgl8w4FV_Zhk"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">นงลักษณ์ ใจดี</p>
+<p class="text-xs text-on-surface-variant font-body">ฝ่ายสตรี</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
+</div>
+</div>
+</div>
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-surface-container-high border-2 border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden grayscale opacity-50">
+<img alt="Vichit" class="w-full h-full object-cover" data-alt="portrait of an elderly Thai man with wise features and white hair, gentle expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsRM5cXlhyWqNRWB7y6aHwV_84nucTL63Ax9Jg-J4l0MP7yoDCbArpGrZNqc4WthDryAho95GSR0xHgl8xpXSoRCk7d2lG-RZuvXrscNQP3BhnxdNMUezSHIZcrtZOZA4qUuV2ANvE5D6mOpCoejWSnVZOYVs_dpBOq0HF1vF3ItIjGlqnkLyrmpv1gApA-WcxPTOBLQysjJR_PcUZY5Ni-f0rhWW13xdisdETEfZv8sG43ex9lMEwsnePjFtKzQKFvDprEdfzOMY"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">วิชิต พงษ์ศิริ</p>
+<p class="text-xs text-on-surface-variant font-body">ที่ปรึกษา</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
+</div>
+</div>
+</div>
+<div class="relative glass-card rounded-2xl p-4 cursor-pointer transition-all duration-300 hover:bg-surface-container-high border-2 border-transparent">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden grayscale opacity-50">
+<img alt="Sara" class="w-full h-full object-cover" data-alt="portrait of a young Thai girl with pigtails, smiling brightly, clean studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB11DBELaG8GzRQtjJ5RUxPQpmGEAY_SJ7ecin5OmgPfTXq_HSs6txlRt3Y_HqGxQaE16VHi0hx_AgR3OQtK2mQI2AW0-DXY-Ek96iy6fPTXd49Ps4HXTwmuyheri8PvStoUxDL_KP3C7b-3ColDmfbd6_6UAogt-3t8I4feE5IGlEYYTryGmNdUGNl_PflCk7F-NM-Qap7ViddF-OWZeWNQ-7DCcyV-xdputxtDlcSv5k4vGFtuniaR5EXWP5P50BQpa44mtoG-8"/>
+</div>
+<div class="flex-1">
+<p class="font-headline font-bold text-white">สราลี รุ่งอรุณ</p>
+<p class="text-xs text-on-surface-variant font-body">เด็กวีคเดย์</p>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-lg" data-icon="person_add">person_add</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Guest Section -->
+<section class="glass-card rounded-3xl p-8 space-y-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<h3 class="font-headline font-extrabold text-xl text-white">ผู้มาใหม่ &amp; ผู้เยี่ยมเยียน</h3>
+<p class="text-on-surface-variant text-sm font-body">เพิ่มรายชื่อผู้ที่มาร่วมประชุมครั้งแรก</p>
+</div>
+</div>
+<button class="px-6 py-2 rounded-full border border-outline-variant text-primary-fixed-dim hover:bg-primary-container/10 hover:border-primary transition-all duration-300 flex items-center gap-2 font-headline font-bold">
+<span class="material-symbols-outlined text-lg" data-icon="add">add</span>
+                            เพิ่มผู้มาใหม่
+                        </button>
+</div>
+<div class="flex flex-wrap gap-3">
+<!-- Guest Chip 1 -->
+<div class="bg-surface-container-high border border-white/5 pl-2 pr-4 py-2 rounded-full flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-black text-xs">ก</div>
+<span class="text-sm font-bold text-on-surface">กฤษณะ แสงสุริยา</span>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</button>
+</div>
+<!-- Guest Chip 2 -->
+<div class="bg-surface-container-high border border-white/5 pl-2 pr-4 py-2 rounded-full flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container font-black text-xs">ม</div>
+<span class="text-sm font-bold text-on-surface">มณีรัตน์ วงศ์เทวัญ</span>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</button>
+</div>
+<!-- Empty State Indicator -->
+<div class="flex items-center text-outline-variant italic text-sm px-4 py-2">
+<span>และอีก 2 รายการ...</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Sticky Footer Navigation -->
+<footer class="fixed bottom-0 left-0 lg:left-64 right-0 p-6 z-50">
+<div class="max-w-5xl mx-auto flex items-center justify-between glass-card p-4 rounded-3xl shadow-2xl border-t border-white/5">
+<button class="flex items-center gap-2 px-6 py-3 text-on-surface-variant font-headline font-bold hover:text-white transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                        ย้อนกลับ
+                    </button>
+<div class="hidden md:flex flex-col items-center">
+<p class="text-xs text-on-surface-variant font-medium">บันทึกอัตโนมัติเมื่อ 2 นาทีที่แล้ว</p>
+</div>
+<button class="bg-gradient-to-r from-blue-500 to-cyan-400 px-10 py-3 rounded-full text-white font-headline font-black flex items-center gap-3 shadow-[0_0_20px_rgba(59,130,246,0.4)] active:scale-95 transition-all">
+                        ถัดไป
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</footer>
+</main>
+</div>
+<!-- Mobile Navigation (Bottom Bar) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 bg-[#0a1628]/75 backdrop-blur-xl h-[60px] rounded-t-2xl z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/10">
+<a class="flex flex-col items-center justify-center text-slate-500 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-blue-400 bg-blue-500/10 rounded-xl px-3 py-1 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">People</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="volunteer_activism">volunteer_activism</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Giving</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Pray</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 transition-transform duration-200 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Settings</span>
+</a>
+</nav>
+</body></html>

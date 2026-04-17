@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #050d1a;
+        }
+        .font-headline { font-family: 'Kanit', sans-serif; }
+        .font-brand { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .modal-blur {
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#a078ff",
+                        "surface-container-low": "#131c29",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-primary": "#002e6a",
+                        "surface-variant": "#2d3544",
+                        "surface-bright": "#313948",
+                        "surface-container-lowest": "#060e1b",
+                        "inverse-surface": "#dae3f6",
+                        "secondary-container": "#ee9800",
+                        "surface-container-highest": "#2d3544",
+                        "secondary": "#ffb95f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "primary": "#adc6ff",
+                        "surface-container": "#18202e",
+                        "surface": "#0b1421",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#ffddb8",
+                        "surface-dim": "#0b1421",
+                        "tertiary-fixed": "#e9ddff",
+                        "on-secondary": "#472a00",
+                        "inverse-on-surface": "#28313f",
+                        "on-surface": "#dae3f6",
+                        "surface-container-high": "#222a38",
+                        "primary-fixed": "#d8e2ff",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "on-tertiary-container": "#340080",
+                        "on-error": "#690005",
+                        "on-tertiary-fixed": "#23005c",
+                        "on-tertiary": "#3c0091",
+                        "inverse-primary": "#005ac2",
+                        "on-background": "#dae3f6",
+                        "error": "#ffb4ab",
+                        "outline": "#8c909f",
+                        "tertiary": "#d0bcff",
+                        "outline-variant": "#424754",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "primary-container": "#4d8eff",
+                        "on-primary-container": "#00285d",
+                        "background": "#0b1421",
+                        "surface-tint": "#adc6ff",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-secondary-container": "#5b3800",
+                        "error-container": "#93000a",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-primary-fixed-variant": "#004395"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-on-surface antialiased overflow-hidden">
+<!-- Background Layer: Financial Tracking Dashboard (Blurred) -->
+<div class="fixed inset-0 z-0 flex blur-md saturate-[0.8]">
+<!-- SideNavBar (Background Shell) -->
+<aside class="fixed left-0 top-0 bottom-0 flex flex-col py-6 px-4 bg-[#0a1628]/75 backdrop-blur-[20px] h-full w-64 border-r border-white/5 z-10">
+<div class="mb-10 px-2">
+<h1 class="text-xl font-[900] text-white tracking-tight font-brand">Mission CRM</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-headline">The Sacred Journal</p>
+</div>
+<nav class="flex-1 space-y-2">
+<div class="flex items-center gap-3 px-4 py-3 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#3b82f6]/20 to-transparent text-white font-bold border-l-4 border-[#3b82f6]">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-sm">Financials</span>
+</div>
+</nav>
+</aside>
+<!-- Main Content (Background Mockup) -->
+<main class="ml-64 flex-1 p-8 pt-28 bg-background">
+<!-- TopAppBar (Background Shell) -->
+<header class="fixed top-0 right-0 left-64 flex justify-between items-center px-8 h-20 bg-[#050d1a]/50 backdrop-blur-[20px] z-40">
+<div class="flex items-center gap-4">
+<h2 class="text-2xl font-[900] bg-clip-text text-transparent bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] font-headline uppercase tracking-wide">The Sacred Journal</h2>
+</div>
+</header>
+<!-- Bento Grid Financial Content (Blurred) -->
+<div class="grid grid-cols-12 gap-6">
+<div class="col-span-8 bg-surface-container-low/75 h-64 rounded-xl border-t-2 border-primary/30"></div>
+<div class="col-span-4 bg-surface-container-low/75 h-64 rounded-xl border-t-2 border-primary/30"></div>
+<div class="col-span-4 bg-surface-container-low/75 h-96 rounded-xl border-t-2 border-primary/30"></div>
+<div class="col-span-8 bg-surface-container-low/75 h-96 rounded-xl border-t-2 border-primary/30"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-background/40 backdrop-blur-sm px-4">
+<!-- Modal Container: Layer 3 Elevation -->
+<div class="relative w-full max-w-xl bg-surface-container-high/95 modal-blur rounded-xl shadow-[0_40px_40px_rgba(11,20,33,0.4)] overflow-hidden border border-white/5">
+<!-- Top Accent Line -->
+<div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#3b82f6] to-[#06b6d4]"></div>
+<div class="p-8">
+<!-- Modal Header -->
+<div class="flex justify-between items-center mb-10">
+<h2 class="text-2xl font-[800] font-headline text-white tracking-wide">บันทึกรายการใหม่</h2>
+<button class="text-slate-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-2xl">close</span>
+</button>
+</div>
+<!-- Form Content -->
+<form class="space-y-8">
+<!-- 1. Transaction Type Toggle -->
+<div class="space-y-3">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider ml-1">ประเภทรายการ</label>
+<div class="flex p-1.5 bg-surface-container-lowest rounded-full border border-outline-variant/15 w-fit">
+<button class="px-8 py-2.5 rounded-full text-sm font-bold bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] text-white shadow-lg shadow-blue-500/20" type="button">
+                                รายรับ
+                            </button>
+<button class="px-8 py-2.5 rounded-full text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                                รายจ่าย
+                            </button>
+</div>
+</div>
+<!-- 2. Amount Input -->
+<div class="space-y-3">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider ml-1">จำนวนเงิน</label>
+<div class="relative flex items-center bg-surface-container-lowest rounded-xl border border-outline-variant/15 focus-within:border-primary transition-all overflow-hidden group">
+<span class="pl-6 text-3xl font-headline font-[900] text-primary">฿</span>
+<input class="w-full bg-transparent border-none py-6 pl-3 pr-6 text-4xl font-headline font-[900] text-white placeholder-slate-700 focus:ring-0 appearance-none" placeholder="0.00" type="number"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<!-- 3. Category Dropdown -->
+<div class="space-y-3">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider ml-1">หมวดหมู่</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest rounded-xl border border-outline-variant/15 focus:border-primary transition-all py-3.5 pl-4 pr-10 text-on-surface appearance-none focus:ring-0">
+<option>เลือกหมวดหมู่</option>
+<option>ถวายทั่วไป</option>
+<option>พันธกิจกาฬสินธุ์</option>
+<option>สงเคราะห์</option>
+<option>ค่าใช้จ่ายทั่วไป</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- 4. Date Picker -->
+<div class="space-y-3">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider ml-1">วันที่ทำรายการ</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest rounded-xl border border-outline-variant/15 focus:border-primary transition-all py-3.5 px-4 text-on-surface focus:ring-0 [color-scheme:dark]" type="date"/>
+</div>
+</div>
+</div>
+<!-- 5. Notes -->
+<div class="space-y-3">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider ml-1">หมายเหตุ</label>
+<textarea class="w-full bg-surface-container-lowest rounded-xl border border-outline-variant/15 focus:border-primary transition-all p-4 text-on-surface placeholder-slate-600 focus:ring-0 resize-none" placeholder="ระบุรายละเอียดเพิ่มเติมเกี่ยวกับรายการนี้..." rows="3"></textarea>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center justify-end gap-4 pt-4">
+<button class="px-8 py-3 rounded-full text-sm font-semibold text-primary-fixed-dim hover:bg-white/5 transition-all border border-outline-variant/15" type="button">
+                            ยกเลิก
+                        </button>
+<button class="px-10 py-3 rounded-full text-sm font-bold bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] text-white shadow-xl shadow-blue-500/20 active:scale-95 transition-all" type="submit">
+                            บันทึกรายการ
+                        </button>
+</div>
+</form>
+</div>
+</div>
+</div>
+<!-- Ambient Glows -->
+<div class="fixed top-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#3b82f6]/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#06b6d4]/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+</body></html>

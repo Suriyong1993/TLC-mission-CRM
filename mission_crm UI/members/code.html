@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>โปรไฟล์สมาชิก | TLC-mission CRM</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;800;900&amp;family=Sarabun:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'ink-deep': '#050d1a',
+                        'ink-mid': '#0a1628',
+                        'ink-lift': '#111d2e',
+                        'line': 'rgba(148, 163, 184, 0.15)',
+                        'text-main': '#e8f4ff',
+                        'text-soft': '#94a3b8',
+                        'text-ghost': '#64748b',
+                        'sky': '#3b82f6',
+                        'water': '#06b6d4',
+                        'growth': '#10b981',
+                        'alert': '#f43f5e',
+                        'spirit': '#8b5cf6',
+                        'gold': '#f59e0b',
+                    },
+                    fontFamily: {
+                        'display': ['Kanit', 'sans-serif'],
+                        'body': ['Sarabun', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'lg': '14px',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .glass-1 {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .glass-2 {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .tab-active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .tab-inactive {
+            color: #94a3b8;
+            border-bottom: 2px solid transparent;
+        }
+        .tab-inactive:hover {
+            color: #e8f4ff;
+        }
+        /* Attitude gradient backgrounds */
+        .attitude-good {
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+        }
+        .attitude-medium {
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+        }
+        .attitude-low {
+            background: linear-gradient(135deg, #f43f5e, #fb923c);
+        }
+        .attitude-unknown {
+            background: linear-gradient(135deg, #64748b, #94a3b8);
+        }
+        /* Timeline styles */
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(59, 130, 246, 0.3), rgba(6, 182, 212, 0.1));
+        }
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid #0a1628;
+        }
+        .timeline-dot.attended {
+            background: #10b981;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+        }
+        .timeline-dot.missed {
+            background: #f43f5e;
+            box-shadow: 0 0 8px rgba(244, 63, 94, 0.5);
+        }
+        .timeline-dot.visit {
+            background: #8b5cf6;
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.5);
+        }
+        .domain-tab-content {
+            display: none;
+        }
+        .domain-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-24">
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none" style="z-index: -1;">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-water-500/5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass-2 border-b border-line">
+        <div class="max-w-3xl mx-auto px-4 py-4">
+            <div class="flex items-center gap-3">
+                <button class="p-2 -ml-2 rounded-lg hover:bg-ink-lift transition-colors">
+                    <span class="material-symbols-outlined text-text-soft">arrow_back</span>
+                </button>
+                <h1 class="text-lg font-display font-bold text-text-main">โปรไฟล์สมาชิก</h1>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-6 space-y-6">
+        <!-- Profile Card -->
+        <div class="glass-1 rounded-lg p-6">
+            <div class="flex items-start gap-4">
+                <!-- Avatar -->
+                <div class="relative">
+                    <div class="w-20 h-20 rounded-full attitude-good flex items-center justify-center text-2xl font-display font-bold text-white shadow-lg">
+                        ส
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-growth flex items-center justify-center">
+                        <span class="material-symbols-outlined text-xs text-white">check</span>
+                    </div>
+                </div>
+                
+                <!-- Info -->
+                <div class="flex-1">
+                    <h2 class="text-2xl font-display font-bold text-text-main">สมชาย วงศ์ใหญ่</h2>
+                    <div class="flex items-center gap-2 mt-1">
+                        <span class="text-sm text-text-soft">G01 ผุสดี</span>
+                        <span class="w-1 h-1 rounded-full bg-text-ghost"></span>
+                        <span class="text-sm text-text-soft">Body 5 กุฉินารายณ์</span>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="flex flex-wrap gap-2 mt-3">
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-growth/15 text-growth border border-growth/30">
+                            ท่าที: ดี
+                        </span>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-sky/15 text-sky border border-sky/30">
+                            มาคจ. สม่ำเสมอ
+                        </span>
+                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-gold/15 text-gold border border-gold/30">
+                            บัพติศมาแล้ว
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-4 gap-4 mt-6 pt-6 border-t border-line">
+                <div class="text-center">
+                    <div class="text-xl font-display font-bold text-growth">13/14</div>
+                    <div class="text-xs text-text-ghost">มาคจ. สัปดาห์นี้</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-display font-bold text-sky">93%</div>
+                    <div class="text-xs text-text-ghost">เข้าร่วม 4 สัปดาห์</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-display font-bold text-water">12</div>
+                    <div class="text-xs text-text-ghost">สัปดาห์ต่อเนื่อง</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-xl font-display font-bold text-spirit">2</div>
+                    <div class="text-xs text-text-ghost">การเยี่ยมล่าสุด</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domain Tabs (3 Separated Domains) -->
+        <div class="glass-1 rounded-lg overflow-hidden">
+            <div class="flex border-b border-line">
+                <button class="flex-1 py-3 px-4 text-sm font-medium tab-active flex items-center justify-center gap-2 transition-all" onclick="switchTab('attendance')">
+                    <span class="material-symbols-outlined text-lg">event_available</span>
+                    <span>การเข้าร่วม</span>
+                    <span class="px-1.5 py-0.5 rounded-full text-xs bg-growth/20 text-growth">93%</span>
+                </button>
+                <button class="flex-1 py-3 px-4 text-sm font-medium tab-inactive flex items-center justify-center gap-2 transition-all" onclick="switchTab('attitude')">
+                    <span class="material-symbols-outlined text-lg">mood</span>
+                    <span>ท่าที</span>
+                    <span class="px-1.5 py-0.5 rounded-full text-xs bg-growth/20 text-growth">ดี</span>
+                </button>
+                <button class="flex-1 py-3 px-4 text-sm font-medium tab-inactive flex items-center justify-center gap-2 transition-all" onclick="switchTab('visit')">
+                    <span class="material-symbols-outlined text-lg">home</span>
+                    <span>การเยี่ยม</span>
+                    <span class="px-1.5 py-0.5 rounded-full text-xs bg-spirit/20 text-spirit">2</span>
+                </button>
+            </div>
+
+            <!-- Tab Content: Attendance -->
+            <div class="domain-tab-content active p-4" id="tab-attendance">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-text-main font-display font-semibold">ประวัติการเข้าร่วม 8 สัปดาห์</h3>
+                    <span class="text-sm text-text-ghost">93% เข้าร่วม</span>
+                </div>
+                
+                <!-- Mini Chart -->
+                <div class="flex items-end gap-1 h-16 mb-6">
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 15: เข้า"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 16: เข้า"></div>
+                    <div class="flex-1 bg-alert/80 rounded-t" style="height: 0%" title="สัปดาห์ 17: ขาด"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 18: เข้า"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 19: เข้า"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 20: เข้า"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 21: เข้า"></div>
+                    <div class="flex-1 bg-growth/80 rounded-t" style="height: 100%" title="สัปดาห์ 22: เข้า"></div>
+                </div>
+
+                <!-- Week List -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between p-3 rounded-lg bg-ink-lift/50">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-growth">check_circle</span>
+                            <div>
+                                <div class="text-text-main text-sm">สัปดาห์ที่ 22</div>
+                                <div class="text-text-ghost text-xs">15-21 มี.ค. 2026</div>
+                            </div>
+                        </div>
+                        <span class="text-growth font-display font-semibold">เข้าร่วม</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 rounded-lg bg-ink-lift/50">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-growth">check_circle</span>
+                            <div>
+                                <div class="text-text-main text-sm">สัปดาห์ที่ 21</div>
+                                <div class="text-text-ghost text-xs">8-14 มี.ค. 2026</div>
+                            </div>
+                        </div>
+                        <span class="text-growth font-display font-semibold">เข้าร่วม</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 rounded-lg bg-ink-lift/50">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-alert">cancel</span>
+                            <div>
+                                <div class="text-text-main text-sm">สัปดาห์ที่ 17</div>
+                                <div class="text-text-ghost text-xs">8-14 ก.พ. 2026</div>
+                            </div>
+                        </div>
+                        <span class="text-alert font-display font-semibold">ขาด</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Attitude -->
+            <div class="domain-tab-content p-4" id="tab-attitude">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-text-main font-display font-semibold">ประวัติท่าที 8 สัปดาห์</h3>
+                    <span class="text-sm text-growth font-medium">ท่าทีดีต่อเนื่อง 12 สัปดาห์</span>
+                </div>
+
+                <!-- Attitude Timeline -->
+                <div class="relative pl-8 space-y-4">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="relative">
+                        <div class="absolute left-[-28px] top-1 timeline-dot attended"></div>
+                        <div class="p-3 rounded-lg bg-ink-lift/50">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-text-main text-sm">สัปดาห์ที่ 22</div>
+                                    <div class="text-text-ghost text-xs">15-21 มี.ค. 2026</div>
+                                </div>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-growth/15 text-growth border border-growth/30">ดี</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute left-[-28px] top-1 timeline-dot attended"></div>
+                        <div class="p-3 rounded-lg bg-ink-lift/50">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-text-main text-sm">สัปดาห์ที่ 21</div>
+                                    <div class="text-text-ghost text-xs">8-14 มี.ค. 2026</div>
+                                </div>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-growth/15 text-growth border border-growth/30">ดี</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="absolute left-[-28px] top-1 timeline-dot attended"></div>
+                        <div class="p-3 rounded-lg bg-ink-lift/50">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="text-text-main text-sm">สัปดาห์ที่ 20</div>
+                                    <div class="text-text-ghost text-xs">1-7 มี.ค. 2026</div>
+                                </div>
+                                <span class="px-2 py-1 rounded-full text-xs font-medium bg-growth/15 text-growth border border-growth/30">ดี</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attitude Legend -->
+                <div class="mt-6 p-4 rounded-lg bg-ink-lift/30">
+                    <h4 class="text-text-ghost text-xs uppercase tracking-wider mb-3">ระดับท่าที</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-growth"></div>
+                            <span class="text-sm text-text-main">ดี - มาสม่ำเสมอ + มีส่วนร่วม</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-sky"></div>
+                            <span class="text-sm text-text-main">ปานกลาง - มาบ้างขาดบ้าง</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-alert"></div>
+                            <span class="text-sm text-text-main">น้อย - ขาดบ่อย / ไม่มีส่วนร่วม</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Visit -->
+            <div class="domain-tab-content p-4" id="tab-visit">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-text-main font-display font-semibold">ประวัติการเยี่ยม</h3>
+                    <button class="px-3 py-1.5 rounded-full text-sm bg-sky/20 text-sky hover:bg-sky/30 transition-colors flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">add</span>
+                        เพิ่มการเยี่ยม
+                    </button>
+                </div>
+
+                <!-- Visit Timeline -->
+                <div class="relative pl-8 space-y-4">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Visit 1 -->
+                    <div class="relative">
+                        <div class="absolute left-[-28px] top-1 timeline-dot visit"></div>
+                        <div class="p-4 rounded-lg bg-ink-lift/50 border border-spirit/20">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <div class="text-text-main font-semibold">เยี่ยมที่บ้าน</div>
+                                    <div class="text-text-ghost text-sm mt-1">15 มีนาคม 2026</div>
+                                    <div class="text-text-soft text-sm mt-2">ไปเยี่ยมพร้อมหนค. สมศรี หลังจากขาดกลุ่ม 1 สัปดาห์</div>
+                                </div>
+                                <span class="material-symbols-outlined text-spirit">home</span>
+                            </div>
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-line">
+                                <span class="text-xs text-text-ghost">ผู้เยี่ยม:</span>
+                                <span class="text-xs text-text-soft">หนค. สมศรี, หนบ. ประเสริฐ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visit 2 -->
+                    <div class="relative">
+                        <div class="absolute left-[-28px] top-1 timeline-dot visit"></div>
+                        <div class="p-4 rounded-lg bg-ink-lift/50 border border-spirit/20">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <div class="text-text-main font-semibold">เยี่ยมโรงพยาบาล</div>
+                                    <div class="text-text-ghost text-sm mt-1">2 มีนาคม 2026</div>
+                                    <div class="text-text-soft text-sm mt-2">เข้ารับการผ่าตัดเล็ก ไปเยี่ยมและอธิษฐานให้</div>
+                                </div>
+                                <span class="material-symbols-outlined text-spirit">local_hospital</span>
+                            </div>
+                            <div class="flex items-center gap-2 mt-3 pt-3 border-t border-line">
+                                <span class="text-xs text-text-ghost">ผู้เยี่ยม:</span>
+                                <span class="text-xs text-text-soft">หนค. สมศรี</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visit Stats -->
+                <div class="grid grid-cols-3 gap-3 mt-6">
+                    <div class="p-3 rounded-lg bg-ink-lift/30 text-center">
+                        <div class="text-xl font-display font-bold text-spirit">2</div>
+                        <div class="text-xs text-text-ghost">การเยี่ยมทั้งหมด</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-ink-lift/30 text-center">
+                        <div class="text-xl font-display font-bold text-sky">14</div>
+                        <div class="text-xs text-text-ghost">วันนับจากเยี่ยมล่าสุด</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-ink-lift/30 text-center">
+                        <div class="text-xl font-display font-bold text-gold">ทีม</div>
+                        <div class="text-xs text-text-ghost">ประเภทที่พบบ่อย</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="glass-1 rounded-lg p-4">
+            <h3 class="text-text-ghost text-xs uppercase tracking-wider mb-3">ดำเนินการ</h3>
+            <div class="grid grid-cols-2 gap-3">
+                <button class="p-3 rounded-lg bg-ink-lift hover:bg-ink-mid transition-colors text-left">
+                    <span class="material-symbols-outlined text-sky mb-1">edit</span>
+                    <div class="text-text-main text-sm">แก้ไขข้อมูล</div>
+                </button>
+                <button class="p-3 rounded-lg bg-ink-lift hover:bg-ink-mid transition-colors text-left">
+                    <span class="material-symbols-outlined text-spirit mb-1">transfer_within_a_station</span>
+                    <div class="text-text-main text-sm">ย้ายกลุ่ม</div>
+                </button>
+                <button class="p-3 rounded-lg bg-ink-lift hover:bg-ink-mid transition-colors text-left">
+                    <span class="material-symbols-outlined text-alert mb-1">notifications</span>
+                    <div class="text-text-main text-sm">แจ้งเตือน</div>
+                </button>
+                <button class="p-3 rounded-lg bg-ink-lift hover:bg-ink-mid transition-colors text-left">
+                    <span class="material-symbols-outlined text-text-ghost mb-1">archive</span>
+                    <div class="text-text-main text-sm">เก็บถาวร</div>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.domain-tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById('tab-' + tabName).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('[onclick^="switchTab"]').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+            });
+            
+            // Highlight active button
+            event.currentTarget.classList.remove('tab-inactive');
+            event.currentTarget.classList.add('tab-active');
+        }
+    </script>
+</body>
+</html>

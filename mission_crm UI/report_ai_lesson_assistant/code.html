@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Step 3: Lesson Planning - The Sacred Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&amp;family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@800&amp;family=Be+Vietnam+Pro:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#2d3544",
+                        "surface-container-lowest": "#060e1b",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#131c29",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-tertiary": "#3c0091",
+                        "tertiary-fixed": "#e9ddff",
+                        "surface-container": "#18202e",
+                        "primary-container": "#4d8eff",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-secondary-fixed": "#2a1700",
+                        "on-tertiary-fixed": "#23005c",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "primary-fixed": "#d8e2ff",
+                        "on-primary-container": "#00285d",
+                        "on-error": "#690005",
+                        "tertiary": "#d0bcff",
+                        "outline": "#8c909f",
+                        "surface-tint": "#adc6ff",
+                        "on-primary-fixed": "#001a42",
+                        "secondary-fixed": "#ffddb8",
+                        "surface-container-highest": "#2d3544",
+                        "tertiary-container": "#a078ff",
+                        "surface-bright": "#313948",
+                        "inverse-primary": "#005ac2",
+                        "surface": "#0b1421",
+                        "primary": "#adc6ff",
+                        "on-secondary-container": "#5b3800",
+                        "secondary": "#ffb95f",
+                        "on-primary": "#002e6a",
+                        "surface-container-high": "#222a38",
+                        "outline-variant": "#424754",
+                        "on-surface": "#dae3f6",
+                        "inverse-surface": "#dae3f6",
+                        "on-secondary": "#472a00",
+                        "on-background": "#dae3f6",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "error-container": "#93000a",
+                        "background": "#0b1421",
+                        "secondary-container": "#ee9800",
+                        "on-tertiary-container": "#340080",
+                        "surface-dim": "#0b1421",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#28313f"
+                    },
+                    fontFamily: {
+                        headline: ["Plus Jakarta Sans", "Kanit"],
+                        body: ["Sarabun", "Be Vietnam Pro"],
+                        label: ["Sarabun"],
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(19, 28, 41, 0.75);
+            backdrop-filter: blur(20px);
+        }
+        .spirit-gradient-border {
+            border-left: 4px solid;
+            border-image: linear-gradient(to bottom, #8b5cf6, #3b82f6) 1;
+        }
+        .mesh-gradient {
+            background: radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+                        radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.05) 0px, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body mesh-gradient min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-4 bg-slate-950/75 backdrop-blur-xl border-b-2 border-blue-500/20 shadow-2xl shadow-blue-900/20">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent font-headline">The Sacred Journal</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-slate-400 font-bold hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg" href="#">Journal</a>
+<a class="text-blue-400 font-bold hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg" href="#">Mission Hub</a>
+<a class="text-slate-400 font-bold hover:bg-slate-800/50 transition-colors px-3 py-1 rounded-lg" href="#">Reports</a>
+</nav>
+<span class="material-symbols-outlined text-blue-500 cursor-pointer p-2 rounded-full hover:bg-slate-800/50">account_circle</span>
+</div>
+</header>
+<div class="flex pt-20">
+<!-- Side Navigation Bar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 pt-24 bg-slate-950/80 backdrop-blur-2xl border-r border-white/5 tonal shift using bg-slate-900/50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high ring-2 ring-primary/20">
+<img alt="User Profile" data-alt="minimalist avatar portrait of a friendly male mission leader with short hair and glasses on a soft blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATs_W6BiaRBmHbsePg7UDiQp9Nz-56yKBqmmuV1MjyXVcQY_bgpqxt4x24mv91M1qIYovPXKyKrUEeiM3rzSIUWl7vfToDq-H1HK8Da7WyGOK62HvPcLl3LPfuP7I6tniKeMWxgjYh9eVjQMsE1HpKxKRwEy0Oi2eei_q6zD-deCUHNB5lcp2N7_6dUB6Y-t62GmVDjICj3XvSuZJ6kSBbNyhDMin6RJUeF-JwHALZ1wUIrjRrmlMoRwdlhEQkX6_WWn8re4eR_Iw"/>
+</div>
+<div>
+<h4 class="font-headline font-bold text-blue-500 text-sm">Mission Lead</h4>
+<p class="text-slate-500 text-xs font-label">Step 3: Lesson Planning</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-slate-800/40 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">book_2</span>
+<span class="font-label text-sm">Journal</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-600/10 text-blue-400 border-r-4 border-blue-500 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">church</span>
+<span class="font-label text-sm">Mission Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-slate-800/40 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label text-sm">Reports</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 hover:bg-slate-800/40 transition-all duration-300 ease-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-sm">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 px-4 md:px-12 py-8">
+<!-- Sticky Progress Bar -->
+<div class="sticky top-20 z-40 mb-12 py-4 bg-background/50 backdrop-blur-md">
+<div class="max-w-4xl mx-auto">
+<div class="flex justify-between relative">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-surface-container-high -translate-y-1/2 z-0"></div>
+<div class="absolute top-1/2 left-0 w-1/2 h-0.5 bg-gradient-to-r from-spirit to-sky -translate-y-1/2 z-0" style="width: 50%;"></div>
+<!-- Step Icons -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-xs font-bold ring-4 ring-background">1</div>
+<span class="text-[10px] font-label text-on-surface-variant">เตรียมพร้อม</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-xs font-bold ring-4 ring-background">2</div>
+<span class="text-[10px] font-label text-on-surface-variant">รายชื่อสมาชิก</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white flex items-center justify-center text-sm font-bold ring-4 ring-blue-500/30 -mt-1 scale-110">3</div>
+<span class="text-[11px] font-headline font-bold text-primary">พระคำและบทเรียน</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center text-xs font-bold ring-4 ring-background">4</div>
+<span class="text-[10px] font-label text-on-surface-variant">การแบ่งปัน</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center text-xs font-bold ring-4 ring-background">5</div>
+<span class="text-[10px] font-label text-on-surface-variant">สรุปผล</span>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-4xl mx-auto space-y-8">
+<!-- AI Lesson Suggestion Section -->
+<section class="glass-card spirit-gradient-border p-8 rounded-xl shadow-xl">
+<div class="flex items-start justify-between">
+<div class="space-y-2">
+<h2 class="text-2xl font-headline font-black flex items-center gap-2">
+<span class="text-3xl">💡</span> ให้ AI แนะนำบทเรียนสัปดาห์นี้
+                            </h2>
+<p class="text-on-surface-variant font-body">เลือกบทเรียนที่เหมาะสมกับกลุ่มของคุณจากฐานข้อมูล AI อัจฉริยะที่ออกแบบมาเพื่อพันธกิจโดยเฉพาะ</p>
+</div>
+<button class="bg-surface-container-highest hover:bg-surface-container-high text-primary px-4 py-2 rounded-full text-sm font-bold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">refresh</span>
+                            สร้างคำแนะนำใหม่
+                        </button>
+</div>
+</section>
+<!-- Lesson Form -->
+<section class="space-y-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-4">
+<label class="block font-headline font-bold text-primary text-sm tracking-wide uppercase">ข้อพระคำ</label>
+<input class="w-full bg-surface-container-lowest border-none focus:ring-2 focus:ring-primary/50 rounded-xl px-4 py-3 text-on-surface placeholder:text-outline-variant font-body" placeholder="เช่น ยอห์น 14:6" type="text"/>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block font-headline font-bold text-primary text-sm tracking-wide uppercase">เนื้อหาพระคำ</label>
+<div class="relative">
+<textarea class="w-full bg-surface-container-lowest border-none focus:ring-2 focus:ring-primary/50 rounded-xl px-6 py-6 text-on-surface font-body italic border-l-[3px] border-secondary/40 leading-relaxed" placeholder="กรอกข้อความจากพระคัมภีร์ที่นี่..." rows="5">"พระเยซูตรัสกับเขาว่า 'เราเป็นทางนั้น เป็นความจริง และเป็นชีวิต ไม่มีใครมาถึงพระบิดาได้นอกจากจะมาทางเรา'"</textarea>
+<div class="absolute inset-0 pointer-events-none rounded-xl bg-secondary/5 -z-10"></div>
+</div>
+</div>
+<!-- Key Points -->
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<label class="block font-headline font-bold text-primary text-sm tracking-wide uppercase">🔑 ประเด็นสำคัญ</label>
+<button class="text-xs font-bold text-primary-container flex items-center gap-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                                เพิ่มประเด็น
+                            </button>
+</div>
+<div class="space-y-3">
+<!-- Pre-filled items -->
+<div class="flex items-center gap-3 bg-surface-container-low p-4 rounded-xl group hover:bg-surface-container-high transition-all">
+<span class="text-secondary font-bold text-sm">01</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-on-surface font-body" type="text" value="การรู้จักพระเยซูคือหนทางเดียวสู่พระบิดา"/>
+<button class="opacity-0 group-hover:opacity-100 text-error/60 hover:text-error transition-all">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low p-4 rounded-xl group hover:bg-surface-container-high transition-all">
+<span class="text-secondary font-bold text-sm">02</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-on-surface font-body" type="text" value="ความจริงที่เปลี่ยนแปลงชีวิตผ่านพระวิญญาณ"/>
+<button class="opacity-0 group-hover:opacity-100 text-error/60 hover:text-error transition-all">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low p-4 rounded-xl group hover:bg-surface-container-high transition-all">
+<span class="text-secondary font-bold text-sm">03</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 p-0 text-on-surface font-body" type="text" value="การรับพระองค์เข้ามาเป็นความหวังใจในทุกวัน"/>
+<button class="opacity-0 group-hover:opacity-100 text-error/60 hover:text-error transition-all">
+<span class="material-symbols-outlined text-lg">delete</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- AI Bottom Sheet (Open Preview) -->
+<div class="fixed bottom-0 left-0 w-full z-[60] pt-8">
+<div class="absolute inset-0 bg-slate-950/40 backdrop-blur-sm -z-10"></div>
+<div class="bg-slate-950/90 backdrop-blur-2xl rounded-t-[32px] border-t-2 border-blue-500/20 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] max-w-5xl mx-auto px-6 pt-2 pb-24">
+<!-- Pull Handle -->
+<div class="flex justify-center mb-6">
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full"></div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-extrabold text-lg text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                    คำแนะนำจาก AI สำหรับกลุ่มของคุณ
+                </h3>
+<span class="text-on-surface-variant text-sm font-label">3 บทเรียนที่แนะนำ</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- AI Card 1 -->
+<div class="bg-surface-container p-5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all group">
+<span class="text-[10px] font-bold text-secondary-fixed-dim tracking-widest uppercase mb-2 block">ธีม: ความรอด</span>
+<h4 class="font-headline font-bold text-on-surface mb-2">หนทางแห่งชีวิต</h4>
+<p class="text-xs text-on-surface-variant font-body mb-6 line-clamp-2 leading-relaxed">เน้นย้ำเรื่องพื้นฐานของความเชื่อและการเริ่มต้นชีวิตใหม่ในพระคริสต์ เหมาะสำหรับสมาชิกใหม่</p>
+<button class="w-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white font-headline font-bold text-xs py-3 rounded-xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
+                        เลือกบทเรียนนี้
+                    </button>
+</div>
+<!-- AI Card 2 -->
+<div class="bg-surface-container p-5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all group">
+<span class="text-[10px] font-bold text-secondary-fixed-dim tracking-widest uppercase mb-2 block">ธีม: ความรัก</span>
+<h4 class="font-headline font-bold text-on-surface mb-2">พระคุณที่ยิ่งใหญ่</h4>
+<p class="text-xs text-on-surface-variant font-body mb-6 line-clamp-2 leading-relaxed">สำรวจความรักที่ไม่มีเงื่อนไขของพระเจ้าและการตอบสนองต่อผู้อื่นด้วยใจที่เปี่ยมด้วยพระคุณ</p>
+<button class="w-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white font-headline font-bold text-xs py-3 rounded-xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
+                        เลือกบทเรียนนี้
+                    </button>
+</div>
+<!-- AI Card 3 -->
+<div class="bg-surface-container p-5 rounded-2xl border border-white/5 hover:border-blue-500/30 transition-all group">
+<span class="text-[10px] font-bold text-secondary-fixed-dim tracking-widest uppercase mb-2 block">ธีม: พันธกิจ</span>
+<h4 class="font-headline font-bold text-on-surface mb-2">เป็นแสงสว่าง</h4>
+<p class="text-xs text-on-surface-variant font-body mb-6 line-clamp-2 leading-relaxed">ท้าทายสมาชิกในกลุ่มให้ใช้ชีวิตเป็นเกลือและแสงสว่างในสังคมปัจจุบันอย่างกล้าหาญ</p>
+<button class="w-full bg-gradient-to-br from-blue-600 to-cyan-500 text-white font-headline font-bold text-xs py-3 rounded-xl shadow-lg shadow-blue-500/20 active:scale-95 transition-all">
+                        เลือกบทเรียนนี้
+                    </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-[70] bg-slate-950/90 backdrop-blur-lg flex justify-around items-center px-4 py-3 pb-safe shadow-[0_-10px_40px_rgba(5,13,26,0.8)] border-t-2 border-blue-500/40">
+<button class="flex flex-col items-center justify-center text-slate-400 px-8 py-2 hover:text-white transition-all active:scale-90 duration-150 group">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">arrow_back_ios</span>
+<span class="font-headline font-semibold uppercase tracking-wider text-xs">ย้อนกลับ</span>
+</div>
+</button>
+<button class="flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-full px-12 py-3 shadow-lg shadow-blue-500/30 active:scale-90 duration-150 group">
+<div class="flex items-center gap-2">
+<span class="font-headline font-bold uppercase tracking-wider text-sm">ถัดไป</span>
+<span class="material-symbols-outlined text-sm">arrow_forward_ios</span>
+</div>
+</button>
+</footer>
+</body></html>

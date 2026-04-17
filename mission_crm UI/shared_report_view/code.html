@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;800;900&amp;family=Sarabun:ital,wght@0,400;0,500;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#23005c",
+                    "surface-container-highest": "#2d3544",
+                    "primary-fixed-dim": "#adc6ff",
+                    "inverse-on-surface": "#28313f",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "background": "#0b1421",
+                    "tertiary": "#d0bcff",
+                    "secondary-fixed": "#ffddb8",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-error": "#690005",
+                    "on-surface": "#dae3f6",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#2d3544",
+                    "on-primary": "#002e6a",
+                    "primary": "#adc6ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "on-secondary-fixed": "#2a1700",
+                    "primary-fixed": "#d8e2ff",
+                    "on-background": "#dae3f6",
+                    "tertiary-container": "#a078ff",
+                    "secondary-container": "#ee9800",
+                    "on-primary-container": "#00285d",
+                    "inverse-surface": "#dae3f6",
+                    "on-secondary": "#472a00",
+                    "surface-tint": "#adc6ff",
+                    "tertiary-fixed": "#e9ddff",
+                    "surface-dim": "#0b1421",
+                    "inverse-primary": "#005ac2",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "surface-container-low": "#131c29",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "primary-container": "#4d8eff",
+                    "error-container": "#93000a",
+                    "surface-container": "#18202e",
+                    "on-tertiary": "#3c0091",
+                    "on-primary-fixed": "#001a42",
+                    "surface": "#0b1421",
+                    "outline": "#8c909f",
+                    "on-secondary-container": "#5b3800",
+                    "on-tertiary-container": "#340080",
+                    "error": "#ffb4ab",
+                    "surface-container-lowest": "#060e1b",
+                    "surface-bright": "#313948",
+                    "outline-variant": "#424754",
+                    "surface-container-high": "#222a38",
+                    "secondary": "#ffb95f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Kanit", "Plus Jakarta Sans"],
+                    "body": ["Sarabun", "Be Vietnam Pro"],
+                    "label": ["Sarabun", "Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #050d1a;
+        font-family: 'Sarabun', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-card {
+        background: rgba(10, 22, 40, 0.75);
+        backdrop-filter: blur(20px);
+        border-top: 2px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+      }
+      .glass-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        border-radius: 14px 14px 0 0;
+      }
+      .mesh-bg {
+        background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.05) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.05) 0%, transparent 40%);
+      }
+    </style>
+</head>
+<body class="text-on-surface antialiased mesh-bg min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#050d1a]/80 backdrop-blur-xl border-b border-blue-500/10 shadow-[0_8px_32px_0_rgba(11,20,33,0.4)] flex justify-between items-center px-6 py-4 font-['Plus_Jakarta_Sans','Kanit'] antialiased">
+<div class="flex flex-col">
+<span class="text-[10px] tracking-[0.2em] text-primary uppercase font-bold">📋 รายงานพันธกิจประจำสัปดาห์</span>
+<h1 class="text-2xl font-black tracking-tighter text-blue-500 dark:text-blue-400 leading-none mt-1">กลุ่มสันติภาพ</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end text-right mr-4 border-r border-outline-variant/30 pr-4">
+<span class="text-[10px] font-mono text-slate-400 uppercase">WEEK 42</span>
+<span class="text-xs font-mono text-primary">24 OCT 2023</span>
+</div>
+<button class="p-2 rounded-full hover:bg-blue-500/10 transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-400" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-6 pt-28 space-y-12">
+<!-- Photo Gallery -->
+<section class="space-y-4">
+<div class="relative group overflow-hidden rounded-[14px] aspect-[16/9] shadow-2xl">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Group of smiling Thai people in Kalasin countryside, warm natural sunlight, mission team members standing together in front of a rural community center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXU3J7VUXQxnKE8ZWrMShi5ePxxf619lUw-fWYISYsOfJzjPLKl1kUjCd4mh2Hoy1EC-FW8egVDB1ZlN1vqqIqPWaRpfey8fGypQCHib3GjK2ul2zcVm6ggHGu2p-eB-oE2cHEhVV1q5ToUJpu0Z_JLZhm0Nr-UmaXHv16FY8-llFwSaqxJk-WfHH3RsgJlJX7svs-ZawsrMGRdU9kc__6iPAcUfrpp7CBXa_8JwdaIBb0IpXvEQ6xPUgLAtfHtCJrN_Hi9mEbKEE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-6">
+<span class="px-3 py-1 rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-xs font-bold">กาฬสินธุ์</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4">
+<div class="rounded-[14px] overflow-hidden aspect-square border border-outline-variant/10">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Close up of people sharing a meal together at a round wooden table, focus on hands and local food" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFUPkRH2iiFH9B5CA65MkFbPG1why1vmM-OTa_4PNfUVz52q1cCD9CcL1xA7-hpEPMq4UriQl-6cJdUcynln_yfAK7qA7mmLDkQ4DuXBaWf-uLaYSXCvzIfCUqAc6udeNSddaBiDowCXyW9N8lk4LLGJ0YDDv6oyBszTHfZD_TSBMZb1-kQ8gm_mvrG6neXE97S-5ZoNrdayiislf-Pr_byeti01T3U5w-FOtT-QRy1KpVPBDWRoQH0lMXbmZ2hzwR6jKavSCZWU4"/>
+</div>
+<div class="rounded-[14px] overflow-hidden aspect-square border border-outline-variant/10">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Blurred background of a small community school building with children playing in the sunlit yard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCy4rmQ3PC-OSXXT_ysYvGu9LuM1kXVDlxRUqCnhngu0871ikU8Gyxxn7le-lMWlUVykwjDZsMXJi3LlVeYV_SQsBnAzBsEM029F6QVKfcio0hNOHquFCKV45dE1lOhBIDMsdUX8iW91IQBqi5ZNIb4smUeiKnDddN22nEF1K-M8Y4I33wTGhtk5vBBC2ATCTyez-qz-moNvcxXMTZ7BWYLepbMDKQd6HOLBIZMzRjO5LCGpq2MdVDh-kkVtrC4PTutT872DVnLcPM"/>
+</div>
+<div class="rounded-[14px] overflow-hidden aspect-square border border-outline-variant/10">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="Distant view of lush rice fields in Thailand at sunset with soft orange and purple sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVzdW8MpEJZ7bYUQ_KI12p7kONk4sJIR3DaxodWsEDVR9qLzOULfVODUA_KJGGm7idDs3cb9jYYJ0tnF3tsn6l9Pe2mqa30GMPClBV-_ArJFJ9J3I5vFyaaUI4ZRiKrrYOnTpp3g5Ur86D6uo6DYAS_VOdg28QFO2hT9tId12qCmFTpQPEwPMBYV0LVSRXyFywpcxe-sZkMk7dmbdABYSIEVhuuMewZJRixHQ491JElu789dNBXlv-VTt3QJnEyNfKhQvgxAyHkHc"/>
+</div>
+</div>
+</section>
+<!-- Attendee Section -->
+<section class="glass-card p-8 rounded-[14px] space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-xl font-extrabold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="home">home</span>
+                    🏠 กลุ่มสันติภาพ
+                </h2>
+<span class="text-xs text-on-surface-variant font-medium">รวม 12 คน</span>
+</div>
+<div class="flex flex-wrap gap-8 justify-start">
+<div class="flex flex-col items-center gap-2">
+<div class="relative">
+<img class="w-16 h-16 rounded-full border-2 border-primary/30 p-0.5 object-cover" data-alt="Portrait of a young Thai man smiling, warm natural lighting, professional headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS0ZFaQIJqSsNhJ2pJZ8bKk-zeWaumL7KspSr0meHkXFEhQh6sIPW8F7OshROh2rC4nCsQX_OVOhQ6JXgVa1BilIz810C5F2nBhthoWDl2UgN10CKGLiR9cISZbGdHo40J9GHZRslOfBy5GSB-H8nv2iXe8OT3yD9u0fu-vRI3G8O1LiFz_qigMgbtOkzJtOC_5dnFAqLi9kOV2nuy_vvIiIYs_H8RHYoEftdGxi1cKWwh7-QJY_q_thPUERWhqQZzFEj59hzKsFI"/>
+<span class="absolute -top-1 -right-1 bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold">สมาชิกใหม่</span>
+</div>
+<span class="text-xs font-medium text-on-surface">พงศธร</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<img class="w-16 h-16 rounded-full border-2 border-outline-variant/30 p-0.5 object-cover" data-alt="Portrait of a friendly Thai woman with short hair, soft indoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmSuxu9-kcATd7eSyY9yfPyNsKW_I2fzkQM_EwTI0LzjI8YwQeycmanblWciuIfzXYvFzcaqEc8jEvrIHGXD4KuPIb781M6rAsUlYGVLS_QonCIkGFWH-SsxgtXMHeJw8Bir5tFJDMO0xxlMnE8aVKykoQ62Pi5dlqoGIBbHUBwKVDpoIVJNmJBWhWrcA727_i0w-YVPRB8KOJApSJYUXLsIxk3APWddYbpoyaBhs2aPvXFvG-DZ5Ti2Pzy5RYLYFlldZhQUKZY-o"/>
+<span class="text-xs font-medium text-on-surface">วิไลลักษณ์</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<img class="w-16 h-16 rounded-full border-2 border-outline-variant/30 p-0.5 object-cover" data-alt="Portrait of an older Thai man wearing glasses, kind expression, soft blurred outdoor background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6rS4j55cs7Royh54U4rjG-ZNebEM0_5prf_rDzrUyn-eur44XyMasVwsrO5tpkD3A712Q5cv6WFfODDVE72GwLNPhbHdt1b985lbKU1RUJesQdvmkZJEgAaB5GOki3GqYhiT2yQs4wOrxwFAk1mMepRQRBJWix9z9YwwoDb2rXFEijhcJ-cIwPPdz7mZXnuEZmNyMaZAWRtUWrwflenz2xLo3GvqO1YjFUCvbuSxBW4cWKjGgqB_Gj2btymATZz46kb-JE5TKcDY"/>
+<span class="text-xs font-medium text-on-surface">ลุงสมชาย</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="relative">
+<img class="w-16 h-16 rounded-full border-2 border-primary/30 p-0.5 object-cover" data-alt="Portrait of a young woman with a gentle smile, bright and clean aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPQ21ykw9GvCGuNCY9s4dcV4-adwHsLBRo9tThn7Y6noZoCgTGW4-Hb0zDta1agNy5ijM4ujpxkPKSte15-QvLhx-pKNKqDZGWwFh_aPcPqjQ9EM7K6GV_xHXtxDzS7dc9Ru_mAcinvvgxuaDJGJFuz3xxoSk7-sX3rKmGMAkiZAmrLDyR8w6WVP7IB-_-jlgEqA_MSYIL7xx8v9sf_8wyMnJlVbnPxhvoLnHbCss_BTIKUrfFHQHJ8CRpDWHCGZFGh27HFRwWEJc"/>
+<span class="absolute -top-1 -right-1 bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold">สมาชิกใหม่</span>
+</div>
+<span class="text-xs font-medium text-on-surface">นภาพร</span>
+</div>
+<div class="flex flex-col items-center justify-center w-16 h-16 rounded-full bg-surface-container-high border-2 border-dashed border-outline-variant text-on-surface-variant">
+<span class="text-xs font-bold">+8</span>
+</div>
+</div>
+</section>
+<!-- Bible Verse Section -->
+<section class="glass-card p-8 rounded-[14px] space-y-6">
+<h2 class="font-headline text-xl font-extrabold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="book">book</span>
+                📖 การแบ่งปันพระคำ
+            </h2>
+<div class="space-y-4 pl-6 border-l-4 border-secondary-container/50 py-2">
+<span class="text-primary-container font-headline font-bold text-lg">ยอห์น 14:6</span>
+<blockquote class="text-2xl md:text-3xl font-body italic text-on-surface leading-relaxed tracking-wide">
+                    ❝ เราเป็นทางนั้น เป็นความจริง และเป็นชีวิต ไม่มีผู้ใดมาถึงพระบิดาได้นอกจากมาทางเรา ❞
+                </blockquote>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Key Points -->
+<section class="glass-card p-8 rounded-[14px] space-y-6">
+<h2 class="font-headline text-xl font-extrabold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="key">key</span>
+                    🔑 ประเด็นสำคัญ
+                </h2>
+<ul class="space-y-6">
+<li class="flex items-start gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-sm">1</div>
+<p class="text-on-surface leading-relaxed pt-1">การสร้างความสัมพันธ์ที่เหนียวแน่นในครอบครัวผ่านการอธิษฐานร่วมกัน</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-sm">2</div>
+<p class="text-on-surface leading-relaxed pt-1">การเผชิญหน้ากับความกลัวด้วยความหวังจากพระสัญญาของพระเจ้า</p>
+</li>
+<li class="flex items-start gap-4">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-black text-sm">3</div>
+<p class="text-on-surface leading-relaxed pt-1">การเป็นพระพรให้กับเพื่อนบ้านผ่านการกระทำเล็กๆ น้อยๆ ในชีวิตประจำวัน</p>
+</li>
+</ul>
+</section>
+<!-- Activities -->
+<section class="glass-card p-8 rounded-[14px] space-y-6">
+<h2 class="font-headline text-xl font-extrabold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="volunteer_activism">volunteer_activism</span>
+                    🙏 กิจกรรมที่ทำ
+                </h2>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center gap-2 text-sm font-medium">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle" data-weight="fill">check_circle</span> 
+                        แบ่งปันพระคำ
+                    </span>
+<span class="px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center gap-2 text-sm font-medium">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle" data-weight="fill">check_circle</span> 
+                        อธิษฐานเผื่อกัน
+                    </span>
+<span class="px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center gap-2 text-sm font-medium">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle" data-weight="fill">check_circle</span> 
+                        ร้องเพลงนมัสการ
+                    </span>
+<span class="px-4 py-2 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center gap-2 text-sm font-medium">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="check_circle" data-weight="fill">check_circle</span> 
+                        เยี่ยมเยียนสมาชิก
+                    </span>
+</div>
+</section>
+</div>
+<!-- Special Notes -->
+<section class="rounded-[14px] p-8 bg-on-secondary-fixed-variant/10 border border-secondary-container/20 space-y-6">
+<h2 class="font-headline text-xl font-extrabold text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="edit_note">edit_note</span>
+                📝 เรื่องพิเศษ
+            </h2>
+<div class="space-y-4">
+<p class="text-on-surface/90 leading-relaxed font-body">
+                    ในสัปดาห์นี้ เราได้มีโอกาสไปเยี่ยมบ้านของลุงสมชายที่เพิ่งหายจากอาการป่วย ลุงได้แบ่งปันเรื่องราวความประทับใจที่คนในกลุ่มไม่เคยทิ้งลุงไปไหนในช่วงที่ลุงลำบากที่สุด มีการนำอาหารไปส่งและช่วยดูแลความสะอาดในบ้าน ซึ่งเป็นภาพที่สวยงามของการเป็นร่างเดียวของพระคริสต์ในชุมชนของเราอย่างแท้จริง
+                </p>
+<div class="flex items-center gap-3 pt-4">
+<div class="h-[1px] flex-grow bg-secondary/20"></div>
+<span class="text-xs font-bold text-secondary tracking-widest uppercase">Community Visit Report</span>
+<div class="h-[1px] flex-grow bg-secondary/20"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar / Fixed Share Bar -->
+<nav class="fixed bottom-0 left-0 w-full bg-[#0a1628]/90 backdrop-blur-2xl border-t-2 border-t-blue-500 shadow-[0_-10px_40px_rgba(5,13,26,0.8)] h-20 px-4 flex justify-around items-center z-50">
+<button class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:text-blue-300 transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined text-green-500" data-icon="share">share</span>
+<span class="font-['Sarabun'] text-[10px] font-medium uppercase tracking-widest mt-1">LINE</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-blue-500/20 text-blue-400 rounded-full px-6 py-2 active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="font-['Sarabun'] text-[10px] font-medium uppercase tracking-widest mt-1">Export PDF</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:text-blue-300 transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+<span class="font-['Sarabun'] text-[10px] font-medium uppercase tracking-widest mt-1">Copy Link</span>
+</button>
+<button class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:text-blue-300 transition-all active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="print">print</span>
+<span class="font-['Sarabun'] text-[10px] font-medium uppercase tracking-widest mt-1">Print</span>
+</button>
+</nav>
+</body></html>

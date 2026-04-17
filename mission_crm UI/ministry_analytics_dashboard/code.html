@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ministry Analytics Dashboard - The Sacred Journal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800;900&amp;family=Sarabun:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#002e6a",
+                        "inverse-surface": "#dae3f6",
+                        "tertiary": "#d0bcff",
+                        "surface-container-highest": "#2d3544",
+                        "surface-container-high": "#222a38",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-primary-fixed-variant": "#004395",
+                        "on-secondary": "#472a00",
+                        "surface-tint": "#adc6ff",
+                        "surface-variant": "#2d3544",
+                        "on-error-container": "#ffdad6",
+                        "error": "#ffb4ab",
+                        "primary": "#adc6ff",
+                        "tertiary-fixed": "#e9ddff",
+                        "primary-container": "#4d8eff",
+                        "on-surface-variant": "#c2c6d6",
+                        "tertiary-fixed-dim": "#d0bcff",
+                        "on-secondary-fixed": "#2a1700",
+                        "inverse-primary": "#005ac2",
+                        "surface": "#0b1421",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed": "#001a42",
+                        "secondary-fixed": "#ffddb8",
+                        "surface-container": "#18202e",
+                        "on-surface": "#dae3f6",
+                        "on-tertiary-fixed-variant": "#5516be",
+                        "outline": "#8c909f",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-secondary-container": "#5b3800",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#3c0091",
+                        "surface-bright": "#313948",
+                        "background": "#0b1421",
+                        "on-background": "#dae3f6",
+                        "surface-container-lowest": "#060e1b",
+                        "surface-container-low": "#131c29",
+                        "primary-fixed": "#d8e2ff",
+                        "on-error": "#690005",
+                        "tertiary-container": "#a078ff",
+                        "on-tertiary-fixed": "#23005c",
+                        "inverse-on-surface": "#28313f",
+                        "on-tertiary-container": "#340080",
+                        "surface-dim": "#0b1421",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "secondary": "#ffb95f",
+                        "on-primary-container": "#00285d",
+                        "secondary-container": "#ee9800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Kanit"],
+                        "body": ["Sarabun"],
+                        "label": ["Sarabun"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            color: #dae3f6;
+            font-family: 'Sarabun', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .kanit { font-family: 'Kanit', sans-serif; }
+        .glass-card {
+            background: rgba(19, 28, 41, 0.75);
+            backdrop-filter: blur(20px);
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+            z-index: 10;
+        }
+        .glass-card-gold::before {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<div class="mesh-gradient"></div>
+<!-- SideNavBar (Shared Component Blueprint) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#0a1628]/75 backdrop-blur-2xl hidden md:flex flex-col py-8 gap-4 z-40">
+<div class="px-6 mb-8">
+<h1 class="font-['Kanit'] font-black text-blue-500 text-2xl tracking-tight">Sacred Journal</h1>
+<p class="text-slate-500 text-xs font-['Sarabun']">Mission Analytics</p>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-blue-400 font-semibold bg-blue-500/10 rounded-r-full border-l-4 border-blue-500 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Sarabun'] text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-['Sarabun'] text-sm">Missions</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Sarabun'] text-sm">Members</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-white/5 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Sarabun'] text-sm">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-r from-blue-500 to-cyan-400 text-on-primary font-['Sarabun'] font-semibold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Mission
+            </button>
+</div>
+</aside>
+<main class="md:ml-64 min-h-screen pb-24 md:pb-8">
+<!-- TopNavBar (Shared Component Blueprint) -->
+<header class="fixed top-0 right-0 left-0 md:left-64 z-50 bg-slate-950/75 backdrop-blur-xl border-t-2 border-blue-500/50 px-6 py-3 flex justify-between items-center shadow-[0_8px_32px_0_rgba(5,13,26,0.4)]">
+<div class="flex items-center gap-4">
+<h2 class="font-['Kanit'] font-extrabold tracking-tight text-xl bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">Ministry Analytics</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container-lowest px-4 py-1.5 rounded-full border border-outline-variant/15">
+<span class="material-symbols-outlined text-slate-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-on-surface w-48 placeholder:text-slate-500 font-['Sarabun']" placeholder="Search data..." type="text"/>
+</div>
+<button class="text-slate-400 hover:text-blue-400 transition-all p-1.5">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-blue-500/30">
+<img class="w-full h-full object-cover" data-alt="portrait of a focused spiritual leader in a modern office setting with soft warm backlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtsdVZv_RuKoxW7r3kAHUH_5CCZT6VvzZC6R3QyPw-EJ3mEicUTrlQFCRPOPToM-OCNAnJg6fCFuyP8vsdEKg2QEvILQ0ENBk2kMiepOsTjvTzAzyzC4MaZhMrZwhrG8z52SwLqYRZ3F7WwaxYVFl5HmwEl-TqdX4JrWPM8Kl_iQzIE1TBKZOF6gVN7cZdtfS5ey5lUmeqgF5cvCkuw2zhrucRJ4ZGfFwkH3Z1XHt-m7ZDvkQWkxl5PvVPKiGrom6TDTM4eA28Vm8"/>
+</div>
+</div>
+</header>
+<div class="mt-20 px-6 space-y-8">
+<!-- Hero KPIs -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- StatCrystal 1 -->
+<div class="glass-card p-6 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-slate-400 font-['Sarabun'] text-sm">Total Members</span>
+<div class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-0.5 rounded-full font-bold">+12%</div>
+</div>
+<div class="kanit text-4xl font-black text-on-surface mt-2">1,284</div>
+<div class="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-blue-500 w-[75%] rounded-full"></div>
+</div>
+</div>
+<!-- StatCrystal 2 -->
+<div class="glass-card glass-card-gold p-6 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-slate-400 font-['Sarabun'] text-sm">New Believers</span>
+<div class="bg-orange-500/10 text-orange-400 text-[10px] px-2 py-0.5 rounded-full font-bold">+5.2%</div>
+</div>
+<div class="kanit text-4xl font-black text-on-surface mt-2">42</div>
+<div class="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-orange-500 w-[42%] rounded-full"></div>
+</div>
+</div>
+<!-- StatCrystal 3 -->
+<div class="glass-card p-6 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-slate-400 font-['Sarabun'] text-sm">Attendance %</span>
+<div class="bg-cyan-500/10 text-cyan-400 text-[10px] px-2 py-0.5 rounded-full font-bold">Stable</div>
+</div>
+<div class="kanit text-4xl font-black text-on-surface mt-2">88.5%</div>
+<div class="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-cyan-400 w-[88%] rounded-full"></div>
+</div>
+</div>
+<!-- StatCrystal 4 -->
+<div class="glass-card glass-card-gold p-6 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-slate-400 font-['Sarabun'] text-sm">Visitation Rate</span>
+<div class="bg-red-500/10 text-red-400 text-[10px] px-2 py-0.5 rounded-full font-bold">-2.1%</div>
+</div>
+<div class="kanit text-4xl font-black text-on-surface mt-2">64%</div>
+<div class="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
+<div class="h-full bg-orange-400 w-[64%] rounded-full"></div>
+</div>
+</div>
+</section>
+<!-- Main Growth Chart -->
+<section class="glass-card p-8">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="kanit text-xl font-bold">Growth &amp; Attendance Trends</h3>
+<p class="text-slate-500 font-['Sarabun'] text-sm">Overview of the last 6 months journey</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-highest px-3 py-1 rounded-lg text-xs font-['Sarabun'] border border-outline-variant/20">Week</button>
+<button class="bg-blue-500 text-on-primary px-3 py-1 rounded-lg text-xs font-['Sarabun'] font-bold">Month</button>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-4 relative">
+<!-- Fake Area Chart Visual -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-9xl text-blue-500" data-icon="monitoring" style="font-size: 200px;">monitoring</span>
+</div>
+<div class="w-full h-full flex items-end gap-6">
+<div class="flex-1 bg-gradient-to-t from-blue-500/20 to-blue-500/40 rounded-t-lg h-[40%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">820</div>
+</div>
+<div class="flex-1 bg-gradient-to-t from-blue-500/20 to-blue-500/40 rounded-t-lg h-[55%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">940</div>
+</div>
+<div class="flex-1 bg-gradient-to-t from-blue-500/20 to-blue-500/40 rounded-t-lg h-[48%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">890</div>
+</div>
+<div class="flex-1 bg-gradient-to-t from-blue-500/20 to-blue-500/40 rounded-t-lg h-[75%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">1120</div>
+</div>
+<div class="flex-1 bg-gradient-to-t from-blue-500/20 to-blue-500/40 rounded-t-lg h-[68%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">1050</div>
+</div>
+<div class="flex-1 bg-gradient-to-t from-blue-500/30 to-blue-500/60 rounded-t-lg h-[92%] relative group">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-blue-500 text-white text-[10px] px-2 py-1 rounded">1284</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between px-4 mt-4 text-[10px] text-slate-500 font-['Sarabun']">
+<span>JAN</span><span>FEB</span><span>MAR</span><span>APR</span><span>MAY</span><span>JUN</span>
+</div>
+</section>
+<!-- Middle Row -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Spiritual Health -->
+<div class="glass-card p-6">
+<h3 class="kanit text-lg font-bold mb-6">Spiritual Health Distribution</h3>
+<div class="flex items-center gap-12">
+<div class="relative w-40 h-40">
+<!-- SVG Donut -->
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-slate-800" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-blue-500" cx="18" cy="18" fill="none" r="16" stroke-dasharray="65, 100" stroke-width="3"></circle>
+<circle class="stroke-orange-400" cx="18" cy="18" fill="none" r="16" stroke-dasharray="20, 100" stroke-dashoffset="-65" stroke-width="3"></circle>
+<circle class="stroke-red-500" cx="18" cy="18" fill="none" r="16" stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="kanit text-2xl font-bold">82%</span>
+<span class="text-[8px] text-slate-500">GOOD AVG</span>
+</div>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-blue-500"></div>
+<span class="font-['Sarabun'] text-sm">ทัศนคติ ดี</span>
+</div>
+<span class="kanit text-sm">65%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-orange-400"></div>
+<span class="font-['Sarabun'] text-sm">ทัศนคติ ปานกลาง</span>
+</div>
+<span class="kanit text-sm">20%</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-red-500"></div>
+<span class="font-['Sarabun'] text-sm">ทัศนคติ น้อย</span>
+</div>
+<span class="kanit text-sm">15%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mission Activity -->
+<div class="glass-card glass-card-gold p-6">
+<h3 class="kanit text-lg font-bold mb-6">Mission Activity Target</h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-['Sarabun'] text-slate-400">
+<span>Home Visits</span>
+<span>156 / 200</span>
+</div>
+<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-orange-500 to-amber-300 w-[78%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-['Sarabun'] text-slate-400">
+<span>Evangelism Reports</span>
+<span>89 / 100</span>
+</div>
+<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-orange-500 to-amber-300 w-[89%] rounded-full"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-['Sarabun'] text-slate-400">
+<span>Bible Study Groups</span>
+<span>12 / 15</span>
+</div>
+<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-orange-500 to-amber-300 w-[80%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Row -->
+<section class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+<!-- Top Performing Groups -->
+<div class="glass-card p-6 xl:col-span-1">
+<h3 class="kanit text-lg font-bold mb-4">Top Performing Groups</h3>
+<div class="space-y-5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center font-bold text-blue-500 kanit">1</div>
+<div class="flex-1">
+<p class="font-['Sarabun'] text-sm font-semibold">Alpha Sector</p>
+<div class="w-full h-1.5 bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-blue-500 w-[94%] rounded-full"></div>
+</div>
+</div>
+<span class="kanit text-xs text-slate-400">94%</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center font-bold text-blue-500 kanit">2</div>
+<div class="flex-1">
+<p class="font-['Sarabun'] text-sm font-semibold">Grace Valley</p>
+<div class="w-full h-1.5 bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-blue-500 w-[88%] rounded-full"></div>
+</div>
+</div>
+<span class="kanit text-xs text-slate-400">88%</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center font-bold text-blue-500 kanit">3</div>
+<div class="flex-1">
+<p class="font-['Sarabun'] text-sm font-semibold">Zion Keepers</p>
+<div class="w-full h-1.5 bg-slate-800 rounded-full mt-1">
+<div class="h-full bg-blue-500 w-[82%] rounded-full"></div>
+</div>
+</div>
+<span class="kanit text-xs text-slate-400">82%</span>
+</div>
+</div>
+</div>
+<!-- Care Intelligence Summary -->
+<div class="glass-card p-6 xl:col-span-2">
+<div class="flex justify-between items-center mb-6">
+<h3 class="kanit text-lg font-bold">Care Intelligence <span class="text-xs font-normal text-slate-500 ml-2">(High Priority)</span></h3>
+<button class="text-blue-400 text-xs font-['Sarabun'] hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-['Sarabun'] text-sm">
+<thead>
+<tr class="text-slate-500 border-b border-white/5">
+<th class="pb-3 font-normal">Member Name</th>
+<th class="pb-3 font-normal">Last Active</th>
+<th class="pb-3 font-normal">Health Score</th>
+<th class="pb-3 font-normal">Next Action</th>
+<th class="pb-3 font-normal text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="group hover:bg-white/5 transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a serene woman in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3pY3SBKdvc1-bJbx1BXbIWeZFQWOY1Nedpi69TI_EDg_8M0NH5gbJTeUIHnndwLpya-V7yucw2_V5crn6ZlhNp79OqyRNUvSnTK7WEetF49HhM-QQLgjGaVeXIV0i5RuokSl0JAh5KZtd3GHjzzOP5OLgB5OUhlqqAWAwmuKK14aR7ZAz2gr7ByKFiLEhHdTmnVokHrarG8NYwjgQUD3IkcGuhyI-UXUVB_DyGQf7-dFTfdcIRloDb7SGtrSXI4hqzkTzISPDtQ8"/>
+</div>
+<span>คุณวรรณภา ใจดี</span>
+</td>
+<td class="py-4 text-slate-400 text-xs">14 Days ago</td>
+<td class="py-4">
+<span class="text-red-400 bg-red-400/10 px-2 py-0.5 rounded text-[10px]">CRITICAL</span>
+</td>
+<td class="py-4 text-xs">Home Visitation</td>
+<td class="py-4 text-right">
+<button class="material-symbols-outlined text-blue-500 text-sm" data-icon="calendar_add_on">calendar_add_on</button>
+</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="professional headshot of a middle-aged man with a warm smile and dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIfZqnpTPpmNt5lp743toqxuyD2QSPxPDIqDKIM9XVrB92OiB-dB__xmB_ShO560h8CEOwvkP_K5RA9-2IkjNqoZkqth0hQqK7SG-sRTYnykeLYZPUf6shOry-kSu0jJ-3DzskxitvtFdM8ycdB-NK7TucKy2HTNdRy0jMg29feQLZjEB363uQhm7dokWz6_bPvGHEp921sKJtfrnUHK5UcQ64pZeySZhp5d6Q-LBSVJ3AHBAoBaWNL9_zvfrZLfhflt_Nj8nTjII"/>
+</div>
+<span>คุณสมชาย รักสงบ</span>
+</td>
+<td class="py-4 text-slate-400 text-xs">9 Days ago</td>
+<td class="py-4">
+<span class="text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded text-[10px]">WARNING</span>
+</td>
+<td class="py-4 text-xs">Prayer Call</td>
+<td class="py-4 text-right">
+<button class="material-symbols-outlined text-blue-500 text-sm" data-icon="call">call</button>
+</td>
+</tr>
+<tr class="group hover:bg-white/5 transition-colors">
+<td class="py-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-slate-700 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="young woman with a peaceful expression in a modern minimalist setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn530DWC3TAMVt6WVOtNsosuYTee8ie2msF9OiKQNu0xxShmzBm9QDbf5cfWPgjnd2KEqNuxKWxt2OFx66PTVMhTRBFjlUw0r7AbKfpxkCrAmggFK2h_3veN_Or5HfJJRd52N42zLW7gC7rcWvM7Mc8hjtsHSYH4egZIk7F4jmysKVQ2EKJBglQ2hiJ5d-YcHGR8I16SjcvMsU1l5GJznly0xk8Oa5pl9XHb7VPDKVrtiSFvTDu2FU_tMcw5gb63jl5bHa1C-co4g"/>
+</div>
+<span>คุณอรวรรณ พรหม</span>
+</td>
+<td class="py-4 text-slate-400 text-xs">12 Days ago</td>
+<td class="py-4">
+<span class="text-orange-400 bg-orange-400/10 px-2 py-0.5 rounded text-[10px]">WARNING</span>
+</td>
+<td class="py-4 text-xs">Bible Study Check</td>
+<td class="py-4 text-right">
+<button class="material-symbols-outlined text-blue-500 text-sm" data-icon="chat">chat</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Shared Component Blueprint - Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-[#050d1a]/80 backdrop-blur-lg border-t border-white/10 md:hidden rounded-t-[14px] shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center bg-blue-500/20 text-blue-400 rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Missions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Members</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-['Sarabun'] text-[10px] font-medium">Reports</span>
+</a>
+</nav>
+</body></html>

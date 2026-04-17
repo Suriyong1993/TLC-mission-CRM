@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Sacred Journal - Missions Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@800;900&amp;family=Sarabun:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Be+Vietnam+Pro:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e9ddff",
+                    "on-primary-fixed": "#001a42",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "surface-container-lowest": "#060e1b",
+                    "on-error": "#690005",
+                    "tertiary-fixed-dim": "#d0bcff",
+                    "on-secondary-fixed": "#2a1700",
+                    "surface-tint": "#adc6ff",
+                    "on-primary": "#002e6a",
+                    "tertiary-container": "#a078ff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "background": "#0b1421",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#18202e",
+                    "primary": "#adc6ff",
+                    "surface-container-highest": "#2d3544",
+                    "secondary-fixed": "#ffddb8",
+                    "surface-bright": "#313948",
+                    "surface-variant": "#2d3544",
+                    "on-tertiary-container": "#340080",
+                    "error-container": "#93000a",
+                    "on-primary-container": "#00285d",
+                    "secondary-container": "#ee9800",
+                    "surface": "#0b1421",
+                    "on-secondary-container": "#5b3800",
+                    "inverse-surface": "#dae3f6",
+                    "error": "#ffb4ab",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-tertiary": "#3c0091",
+                    "on-background": "#dae3f6",
+                    "on-tertiary-fixed": "#23005c",
+                    "primary-fixed": "#d8e2ff",
+                    "inverse-on-surface": "#28313f",
+                    "surface-container-high": "#222a38",
+                    "on-surface": "#dae3f6",
+                    "on-secondary": "#472a00",
+                    "surface-container-low": "#131c29",
+                    "secondary": "#ffb95f",
+                    "tertiary": "#d0bcff",
+                    "on-tertiary-fixed-variant": "#5516be",
+                    "outline-variant": "#424754",
+                    "outline": "#8c909f",
+                    "on-surface-variant": "#c2c6d6",
+                    "surface-dim": "#0b1421",
+                    "primary-container": "#4d8eff",
+                    "inverse-primary": "#005ac2",
+                    "secondary-fixed-dim": "#ffb95f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Kanit", "Plus Jakarta Sans"],
+                    "body": ["Sarabun", "Be Vietnam Pro"],
+                    "label": ["Sarabun", "Be Vietnam Pro"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Sarabun', sans-serif; background-color: #050d1a; color: #dae3f6; }
+        .kanit-headline { font-family: 'Kanit', sans-serif; font-weight: 800; }
+        .glass-card { 
+            background: rgba(10, 22, 40, 0.75); 
+            backdrop-filter: blur(20px); 
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #adc6ff, #4d8eff);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-surface-dim selection:bg-primary selection:text-on-primary">
+<div class="mesh-gradient"></div>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 border-r-0 bg-[#050d1a] flex flex-col h-full py-6 z-50 hidden md:flex">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="auto_stories">auto_stories</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-blue-500 font-headline tracking-tight">Sacred Journal</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Mission Command</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-2">
+<a class="flex items-center px-4 py-3 text-slate-500 hover:text-slate-200 transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center bg-[#0a1628]/75 text-blue-400 rounded-lg mx-2 px-4 py-3 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="explore">explore</span>
+<span class="font-bold">Active Missions</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 hover:text-slate-200 transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="groups">groups</span>
+<span class="font-medium">People</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 hover:text-slate-200 transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="analytics">analytics</span>
+<span class="font-medium">Analytics</span>
+</a>
+</nav>
+<div class="mt-auto px-2 space-y-1">
+<button class="w-full flex items-center gap-2 px-4 py-4 mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full font-bold shadow-lg shadow-blue-900/20 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Mission
+            </button>
+<a class="flex items-center px-4 py-3 text-slate-500 hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="help">help</span>
+<span class="font-medium">Help</span>
+</a>
+<a class="flex items-center px-4 py-3 text-slate-500 hover:text-slate-200 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+<span class="font-medium">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 md:left-64 bg-[#050d1a]/80 backdrop-blur-xl z-40 flex justify-between items-center w-full px-8 py-4 max-w-full mx-auto">
+<div class="flex items-center gap-8">
+<h2 class="text-xl font-black tracking-tighter text-blue-500 dark:text-blue-400 font-headline md:hidden">The Sacred Journal</h2>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-300 transition-all duration-300 font-medium" href="#">Overview</a>
+<a class="text-blue-500 dark:text-blue-400 border-b-2 border-blue-500 pb-1 font-bold" href="#">Missions</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-300 transition-all duration-300 font-medium" href="#">Members</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-blue-300 transition-all duration-300 font-medium" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm" data-icon="search">search</span>
+<input class="bg-surface-container-lowest border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary w-48 transition-all focus:w-64" placeholder="Search mission..." type="text"/>
+</div>
+<button class="p-2 text-slate-400 hover:bg-[#0f2444] rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-400 hover:bg-[#0f2444] rounded-full transition-all duration-300">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="Mission Leader Profile" class="w-8 h-8 rounded-full border border-outline-variant/30" data-alt="portrait of a mature thai man with a kind expression and professional attire in a warm office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC807IACHaqnrN_fauIyEsEmyCNkiT0Bc-i4VCbpxC8N6QzNYjuhxfzftllHF9YpaN24WukFuspOlKjfj7AS6ior9pJB1mHrfd8VIt_zj7Gi1ms_BLMFW1bAfA21E7FClThh-8m1aWIvPGs5yqkoWi8Q9WrzIThuRZd9QXRcq2pzSNzQ2mpgONF7rgXhQwlZPNWZHEy25yAyQeBVutF1S4ps1m3PmxoEcmCJ1XWOUT_jIUlW0ulNkXlk4ZynZo28LweL9mUX5AatuI"/>
+</div>
+</header>
+<!-- Main Content -->
+<main class="pt-24 pb-12 px-6 md:ml-64 min-h-screen">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex gap-2 text-xs text-slate-500 mb-2 uppercase tracking-widest font-bold">
+<span>Dashboard</span>
+<span>/</span>
+<span class="text-primary">Missions</span>
+</nav>
+<h1 class="text-4xl md:text-5xl kanit-headline text-on-background">พันธกิจทั้งหมด</h1>
+</div>
+<button class="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-blue-500/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                    สร้างกลุ่มใหม่
+                </button>
+</div>
+<!-- Filter Bar -->
+<div class="glass-card rounded-2xl p-6 shadow-2xl">
+<div class="flex flex-col lg:flex-row gap-4">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-12 pr-4 text-on-surface focus:ring-2 focus:ring-primary/50 transition-all placeholder:text-slate-600" placeholder="ค้นหาชื่อกลุ่ม หรือ รหัส..." type="text"/>
+</div>
+<div class="flex gap-4">
+<div class="relative min-w-[160px]">
+<select class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-4 pr-10 text-on-surface focus:ring-2 focus:ring-primary/50 appearance-none">
+<option value="">ทุกเขต (District)</option>
+<option value="1">เขต 1 - พระโขนง</option>
+<option value="2">เขต 2 - บางนา</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="expand_more">expand_more</span>
+</div>
+<div class="relative min-w-[160px]">
+<select class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-4 pr-10 text-on-surface focus:ring-2 focus:ring-primary/50 appearance-none">
+<option value="">สถานะ (Status)</option>
+<option value="active">Active</option>
+<option value="care">Care Needed</option>
+<option value="on-hold">On Hold</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" data-icon="filter_list">filter_list</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Missions List: Bento Grid Style Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Mission Card 1 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col group hover:bg-[#0f2444] transition-all duration-300 shadow-[0_40px_40px_rgba(11,20,33,0.4)]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-xs font-bold text-primary tracking-widest mb-1 block">B-01</span>
+<h3 class="text-2xl font-black kanit-headline text-on-surface">กลุ่มบ้านดอน</h3>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="groups">groups</span>
+<span class="text-xl font-bold font-headline text-on-surface">12</span>
+</div>
+<div class="flex-1">
+<div class="text-[10px] text-slate-500 uppercase font-bold mb-2">Attendance (4w)</div>
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-amber-500/30"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Leader" class="w-10 h-10 rounded-full object-cover border border-primary/20" data-alt="portrait of a smiling thai man in glasses, community leader style, warm outdoor background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9x4egWM4iN2Xh_4UvEp24gFktaxIugzjrMDBEhA2PAg7F03FmngUTtdCj9R61liHUuyqNovssvN8zVwmsC-pmoPKObNDB6nB3Z6bJoYKZQEl3JUshNvNNgaNZo8v6ffajYl0Iax4MYGx1aERGKcrrK-C4aejTOM9eKk7wRAhliAvalqTYR21FKlz7xXbJCUdkPIp8Yc6_CYCL9yCbI_FAd19cuowTclTR1h18hKj79S_GOSL84C8H7i9ikLjWpUs6SISUAakLFM4"/>
+<div>
+<p class="text-xs text-slate-500 mb-0.5">ผู้นำกลุ่ม</p>
+<p class="text-sm font-semibold text-on-surface">คุณสมเกียรติ</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-500 mb-0.5">ประชุมล่าสุด</p>
+<p class="text-sm font-semibold text-on-surface">12 ต.ค. 2566</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Mission Card 2: Care Needed -->
+<div class="glass-card rounded-2xl p-6 flex flex-col group hover:bg-[#0f2444] transition-all duration-300 shadow-[0_40px_40px_rgba(11,20,33,0.4)]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-xs font-bold text-primary tracking-widest mb-1 block">M-04</span>
+<h3 class="text-2xl font-black kanit-headline text-on-surface">กลุ่มห้วยเม็ก</h3>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-error/10 text-error border border-error/20">Care Needed</span>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="groups">groups</span>
+<span class="text-xl font-bold font-headline text-on-surface">08</span>
+</div>
+<div class="flex-1">
+<div class="text-[10px] text-slate-500 uppercase font-bold mb-2">Attendance (4w)</div>
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-error shadow-lg shadow-error/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-error shadow-lg shadow-error/20"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Leader" class="w-10 h-10 rounded-full object-cover border border-primary/20" data-alt="thoughtful portrait of a thai woman in her 40s, teacher-like professional appearance, soft daylighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDxHqQfcOA9RzkAuPgp-78qV_tg8_eHra9UAJbeIKdTImf5K3tX9UQLaKaFma9O9BVNrtVRJn8CkZGSnqpUh3i06kpdMIMsSeCL4TeiT88hiGx_rn1dFFsA4keArQPOiTMVtEdIlc0-rr75yJHtMUX1dImKo5WL4qx9S0J8uFt_Q5AhsERq1z7TKxdZg8dojPv9f8_xbvOKyr1fC5wKw_fOZJFd-9_13K-7GqZMnPf4U574vektvanK9b_doFTPLAEnH37qa715Vs"/>
+<div>
+<p class="text-xs text-slate-500 mb-0.5">ผู้นำกลุ่ม</p>
+<p class="text-sm font-semibold text-on-surface">คุณรัตนา</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-500 mb-0.5">ประชุมล่าสุด</p>
+<p class="text-sm font-semibold text-on-surface">05 ต.ค. 2566</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Mission Card 3 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col group hover:bg-[#0f2444] transition-all duration-300 shadow-[0_40px_40px_rgba(11,20,33,0.4)]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-xs font-bold text-primary tracking-widest mb-1 block">R-12</span>
+<h3 class="text-2xl font-black kanit-headline text-on-surface">กลุ่มริมน้ำ</h3>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Active</span>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="groups">groups</span>
+<span class="text-xl font-bold font-headline text-on-surface">24</span>
+</div>
+<div class="flex-1">
+<div class="text-[10px] text-slate-500 uppercase font-bold mb-2">Attendance (4w)</div>
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<img alt="Leader" class="w-10 h-10 rounded-full object-cover border border-primary/20" data-alt="close-up portrait of a young thai woman, modern professional look, bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBapYYElEazOtmXZ2z1O4lpfbpwiIT_iemK4UNoKvqv0NYf1t8WILKTi5KR5W6P1VHcTiPeWeCrwQiGCsttWvOcnRDBF3kbmNNHJ6p-RkhG5lzM7o4FDkvk7X7XdibV8AsiJITrz8jkKQ31VY4ricRk62yjv3iiaxzaZcIX8u7kfknpCa4rDmf-QFScgPiyolYU_SJisxH4_TDZ488SzZRxaNCVK_0kBu7CGFLSHt1eAJRLW_sZ1Brei03SldudiDKPJaTYUD_Y_KM"/>
+<div>
+<p class="text-xs text-slate-500 mb-0.5">ผู้นำกลุ่ม</p>
+<p class="text-sm font-semibold text-on-surface">คุณนภัสสร</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-500 mb-0.5">ประชุมล่าสุด</p>
+<p class="text-sm font-semibold text-on-surface">14 ต.ค. 2566</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Add More Items to fill the list -->
+<!-- Mission Card 4 -->
+<div class="glass-card rounded-2xl p-6 flex flex-col group hover:bg-[#0f2444] transition-all duration-300 shadow-[0_40px_40px_rgba(11,20,33,0.4)]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-xs font-bold text-primary tracking-widest mb-1 block">B-02</span>
+<h3 class="text-2xl font-black kanit-headline text-on-surface">กลุ่มสุขุมวิท 101</h3>
+</div>
+<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-500/10 text-amber-400 border border-amber-500/20">New Growth</span>
+</div>
+<div class="flex items-center gap-4 mb-8">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="groups">groups</span>
+<span class="text-xl font-bold font-headline text-on-surface">06</span>
+</div>
+<div class="flex-1">
+<div class="text-[10px] text-slate-500 uppercase font-bold mb-2">Attendance (4w)</div>
+<div class="flex gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/20"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-slate-500/30"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-slate-500/30"></div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="person">person</span>
+</div>
+<div>
+<p class="text-xs text-slate-500 mb-0.5">ผู้นำกลุ่ม</p>
+<p class="text-sm font-semibold text-on-surface">คุณวิชิต</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-slate-500 mb-0.5">ประชุมล่าสุด</p>
+<p class="text-sm font-semibold text-on-surface">10 ต.ค. 2566</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State / Footer Tonal Shift -->
+<div class="text-center py-12">
+<p class="text-slate-500 text-sm font-medium">แสดงผล 4 จากทั้งหมด 32 กลุ่มมิชชัน</p>
+<div class="mt-6 flex justify-center gap-2">
+<button class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-primary border-none">1</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-slate-500 transition-all">2</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-slate-500 transition-all">3</button>
+<button class="w-10 h-10 rounded-full hover:bg-surface-container flex items-center justify-center text-slate-500 transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 glass-card z-50 px-6 py-4 flex justify-around items-center rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.4)]">
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="text-[10px] font-bold">Missions</span>
+</button>
+<button class="relative -top-8 w-14 h-14 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-full flex items-center justify-center text-white shadow-xl shadow-blue-500/40 border-4 border-[#050d1a]">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="text-[10px] font-bold">People</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</button>
+</nav>
+</body></html>

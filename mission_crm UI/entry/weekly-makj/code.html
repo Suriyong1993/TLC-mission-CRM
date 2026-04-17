@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>กรอก มาคจ. ประจำสัปดาห์ | TLC-mission CRM</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;800;900&amp;family=Sarabun:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'ink-deep': '#050d1a',
+                        'ink-mid': '#0a1628',
+                        'ink-lift': '#111d2e',
+                        'line': 'rgba(148, 163, 184, 0.15)',
+                        'text-main': '#e8f4ff',
+                        'text-soft': '#94a3b8',
+                        'text-ghost': '#64748b',
+                        'sky': '#3b82f6',
+                        'water': '#06b6d4',
+                        'growth': '#10b981',
+                        'alert': '#f43f5e',
+                        'spirit': '#8b5cf6',
+                        'gold': '#f59e0b',
+                        'body-1': '#3b82f6',
+                        'body-2': '#06b6d4',
+                        'body-3': '#8b5cf6',
+                        'body-4': '#10b981',
+                        'body-5': '#f59e0b',
+                        'body-6': '#ec4899',
+                    },
+                    fontFamily: {
+                        'display': ['Kanit', 'sans-serif'],
+                        'body': ['Sarabun', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .glass-1 {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .glass-2 {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        /* Light Input Mode */
+        .input-makj {
+            background: #f8f7ff;
+            color: #1a1a2e;
+            width: 72px;
+            height: 44px;
+            font-size: 20px;
+            font-weight: 600;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .input-makj:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+            outline: none;
+        }
+        /* Size badges */
+        .badge-big {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);
+        }
+        .badge-std {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            box-shadow: 0 0 8px rgba(6, 182, 212, 0.2);
+        }
+        .badge-mini {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
+        }
+        .badge-empty {
+            background: rgba(100, 116, 139, 0.15);
+            color: #64748b;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+        }
+        /* Group code neon pills */
+        .group-code {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        /* Save button */
+        .btn-save {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .btn-save:hover {
+            box-shadow: 0 15px 35px -5px rgba(59, 130, 246, 0.5);
+        }
+        /* Progress bar */
+        .progress-fill {
+            background: linear-gradient(90deg, #3b82f6, #06b6d4);
+        }
+        /* Row hover */
+        .group-row {
+            transition: background-color 0.15s ease;
+        }
+        .group-row:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+        /* Animation for size change */
+        .size-badge {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-28">
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none" style="z-index: -1;">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-water-500/5"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass-2 border-b border-line">
+        <div class="max-w-3xl mx-auto px-4 py-4">
+            <h1 class="text-xl font-display font-bold text-text-main">กรอก มาคจ. ประจำสัปดาห์</h1>
+            
+            <!-- Week Tabs -->
+            <div class="flex gap-2 mt-4 overflow-x-auto pb-1">
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สัปดาห์ 20</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สัปดาห์ 21</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-sky/20 text-sky border border-sky/30 whitespace-nowrap font-medium">สัปดาห์ 22</button>
+                <button class="px-3 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap">สัปดาห์ 23</button>
+            </div>
+            <p class="text-sm text-text-soft mt-2">สัปดาห์ที่ 22 | 15-21 มี.ค. 2569</p>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-6">
+        <!-- Progress -->
+        <div class="glass-1 rounded-lg p-4 mb-6">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-text-soft">ความคืบหน้า</span>
+                <span class="text-sm font-display font-semibold text-growth" id="progressText">18/20 กลุ่มบันทึกแล้ว</span>
+            </div>
+            <div class="h-2 bg-ink-lift rounded-full overflow-hidden">
+                <div class="h-full progress-fill rounded-full transition-all duration-500" id="progressBar" style="width: 90%;"></div>
+            </div>
+        </div>
+
+        <!-- Quick Entry Table -->
+        <div class="glass-1 rounded-lg overflow-hidden">
+            <!-- Table Header -->
+            <div class="grid grid-cols-12 gap-2 px-4 py-3 border-b border-line bg-ink-lift/50 text-xs font-semibold uppercase tracking-wider text-text-ghost">
+                <div class="col-span-2">รหัส</div>
+                <div class="col-span-5">กลุ่ม</div>
+                <div class="col-span-3 text-center">มาคจ.</div>
+                <div class="col-span-2 text-center">ขนาด</div>
+            </div>
+
+            <!-- Group Rows -->
+            <div class="divide-y divide-line/50" id="groupTable">
+                <!-- G01 -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">G01</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">ผุสดี</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G01" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="15"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-big text-xs font-display font-bold px-2 py-1 rounded-md">BIG ✨</span>
+                    </div>
+                </div>
+
+                <!-- G02 -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);">G02</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">เบญ</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G02" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="8"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-std text-xs font-display font-bold px-2 py-1 rounded-md">STD</span>
+                    </div>
+                </div>
+
+                <!-- G03 -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6; box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);">G03</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">ปุนนาภา</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G03" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="12"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-big text-xs font-display font-bold px-2 py-1 rounded-md">BIG ✨</span>
+                    </div>
+                </div>
+
+                <!-- G04 -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(16, 185, 129, 0.2); color: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);">G04</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">ทัศนา</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G04" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="6"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-mini text-xs font-display font-bold px-2 py-1 rounded-md">MINI</span>
+                    </div>
+                </div>
+
+                <!-- G05 -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; box-shadow: 0 0 8px rgba(236, 72, 153, 0.3);">G05</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">ดาวใจ</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G05" max="99" min="0" oninput="updateSize(this); updateProgress()" placeholder="0" type="number" value=""/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-empty text-xs font-display font-bold px-2 py-1 rounded-md">—</span>
+                    </div>
+                </div>
+
+                <!-- G06-G20 (abbreviated - would be all 20 groups) -->
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);">G06</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">สมชาย</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G06" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="14"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-big text-xs font-display font-bold px-2 py-1 rounded-md">BIG ✨</span>
+                    </div>
+                </div>
+
+                <div class="group-row grid grid-cols-12 gap-2 px-4 py-3 items-center">
+                    <div class="col-span-2">
+                        <span class="group-code" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">G07</span>
+                    </div>
+                    <div class="col-span-5">
+                        <span class="text-text-main font-body font-semibold text-base">กาญจนา</span>
+                    </div>
+                    <div class="col-span-3 flex justify-center">
+                        <input class="input-makj" data-group="G07" max="99" min="0" oninput="updateSize(this); updateProgress()" type="number" value="9"/>
+                    </div>
+                    <div class="col-span-2 flex justify-center">
+                        <span class="size-badge badge-std text-xs font-display font-bold px-2 py-1 rounded-md">STD</span>
+                    </div>
+                </div>
+
+                <!-- More rows G08-G20 would follow... -->
+                <div class="px-4 py-2 bg-ink-lift/30 text-center text-text-ghost text-sm">
+                    + อีก 13 กลุ่ม (G08-G20)
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="fixed bottom-0 left-0 right-0 glass-2 border-t border-line p-4 z-50">
+        <div class="max-w-3xl mx-auto">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-text-soft text-sm">รวม มาคจ. ทั้งหมด:</span>
+                <span class="text-text-main font-display font-bold text-xl" id="totalMakj">150 คน</span>
+            </div>
+            <button class="w-full h-12 btn-save rounded-full text-white font-display font-bold flex items-center justify-center gap-2 transition-all active:scale-95" onclick="saveAll()">
+                <span class="material-symbols-outlined">save</span>
+                <span>บันทึกทั้งหมด</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Success Toast -->
+    <div class="fixed top-24 left-1/2 -translate-x-1/2 bg-growth/90 backdrop-blur text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 z-50" id="successToast">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span class="font-medium">บันทึก มาคจ. ทั้งหมดสำเร็จ! ✓</span>
+    </div>
+
+    <script>
+        // Size calculation based on count
+        function getSize(count) {
+            if (count >= 12) return { type: 'BIG', class: 'badge-big', icon: '✨' };
+            if (count >= 7) return { type: 'STD', class: 'badge-std', icon: '' };
+            if (count >= 1) return { type: 'MINI', class: 'badge-mini', icon: '' };
+            return { type: '—', class: 'badge-empty', icon: '' };
+        }
+
+        // Update size badge when input changes
+        function updateSize(input) {
+            const count = parseInt(input.value) || 0;
+            const size = getSize(count);
+            const badge = input.closest('.group-row').querySelector('.size-badge');
+            
+            // Remove all size classes
+            badge.classList.remove('badge-big', 'badge-std', 'badge-mini', 'badge-empty');
+            // Add new class
+            badge.classList.add(size.class);
+            // Update text
+            badge.textContent = size.type + (size.icon ? ' ' + size.icon : '');
+            
+            // Update total
+            updateTotal();
+        }
+
+        // Calculate total
+        function updateTotal() {
+            let total = 0;
+            document.querySelectorAll('.input-makj').forEach(input => {
+                total += parseInt(input.value) || 0;
+            });
+            document.getElementById('totalMakj').textContent = total + ' คน';
+        }
+
+        // Update progress
+        function updateProgress() {
+            const inputs = document.querySelectorAll('.input-makj');
+            let filled = 0;
+            inputs.forEach(input => {
+                if (input.value && parseInt(input.value) >= 0) {
+                    filled++;
+                }
+            });
+            
+            const percent = (filled / 20) * 100;
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').textContent = filled + '/20 กลุ่มบันทึกแล้ว';
+            document.getElementById('progressText').className = percent >= 80 ? 
+                'text-sm font-display font-semibold text-growth' : 
+                percent >= 50 ? 'text-sm font-display font-semibold text-gold' : 
+                'text-sm font-display font-semibold text-alert';
+        }
+
+        // Save all data
+        function saveAll() {
+            const btn = document.querySelector('.btn-save');
+            const originalContent = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span><span>กำลังบันทึก...</span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+                
+                const toast = document.getElementById('successToast');
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                toast.classList.add('opacity-100');
+                
+                setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 3000);
+            }, 1500);
+        }
+
+        // Auto-save draft
+        setInterval(() => {
+            const data = {};
+            document.querySelectorAll('.input-makj').forEach(input => {
+                data[input.dataset.group] = input.value;
+            });
+            localStorage.setItem('weeklyMakjDraft', JSON.stringify(data));
+        }, 2000);
+
+        // Load draft
+        window.addEventListener('load', () => {
+            const draft = localStorage.getItem('weeklyMakjDraft');
+            if (draft) {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const input = document.querySelector(`input[data-group="${key}"]`);
+                    if (input && !input.value) {
+                        input.value = data[key];
+                        updateSize(input);
+                    }
+                });
+                updateProgress();
+                updateTotal();
+            }
+        });
+    </script>
+</body>
+</html>

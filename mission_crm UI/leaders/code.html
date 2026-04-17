@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ผู้นำ | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+              "rose": "#fb7185",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 100px;
+        }
+        .glass-header {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .summary-card {
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.15s;
+        }
+        .summary-card:hover {
+            transform: translateY(-2px);
+        }
+        .role-tab {
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .role-tab.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        .role-tab:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: #64748b;
+        }
+        .role-tab:not(.active):hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+        }
+        .leader-card {
+            background: rgba(19, 28, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
+            transition: all 0.15s;
+        }
+        .leader-card:hover {
+            background: rgba(19, 28, 46, 0.8);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+        .avatar-lg {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            font-family: 'Kanit', sans-serif;
+        }
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .kanban-column {
+            background: rgba(19, 28, 46, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            min-height: 200px;
+        }
+        .kanban-card {
+            background: rgba(10, 22, 40, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            cursor: grab;
+            transition: all 0.15s;
+        }
+        .kanban-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        .fab {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            z-index: 50;
+        }
+        .fab:hover {
+            transform: scale(1.05);
+        }
+        .fab:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Header -->
+<header class="glass-header sticky top-0 z-40">
+<div class="max-w-4xl mx-auto px-4 py-4">
+<div class="flex items-center justify-between mb-4">
+<button class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-text-secondary">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-primary font-display">ผู้นำ</h1>
+<div class="w-10"></div>
+</div>
+<!-- Summary Cards -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="summary-card" style="background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.2);">
+<p class="text-2xl font-bold text-spirit font-display">5/5<span class="text-sm">✓</span></p>
+<p class="text-xs text-text-secondary mt-1">หนบ.</p>
+<div class="progress-bar mt-2">
+<div class="progress-fill bg-spirit" style="width: 100%"></div>
+</div>
+</div>
+<div class="summary-card" style="background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.2);">
+<p class="text-2xl font-bold text-water font-display">17/25</p>
+<p class="text-xs text-text-secondary mt-1">หนค.</p>
+<div class="progress-bar mt-2">
+<div class="progress-fill bg-water" style="width: 68%"></div>
+</div>
+</div>
+<div class="summary-card" style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.2);">
+<p class="text-2xl font-bold text-sky font-display">17/26</p>
+<p class="text-xs text-text-secondary mt-1">พล.1</p>
+<div class="progress-bar mt-2">
+<div class="progress-fill bg-sky" style="width: 65%"></div>
+</div>
+</div>
+<div class="summary-card" style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.2);">
+<p class="text-2xl font-bold text-amber font-display">12/38<span class="text-sm">⚠</span></p>
+<p class="text-xs text-text-secondary mt-1">พล.2</p>
+<div class="progress-bar mt-2">
+<div class="progress-fill bg-amber" style="width: 32%"></div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Role Tabs -->
+<div class="sticky top-[180px] z-30 bg-ink-deep/95 backdrop-blur-md border-b border-glass-border">
+<div class="max-w-4xl mx-auto px-4 py-3">
+<div class="flex gap-2 overflow-x-auto scrollbar-hide">
+<button class="role-tab active" onclick="switchTab('hnub')">หนบ.</button>
+<button class="role-tab" onclick="switchTab('hnuk')">หนค.</button>
+<button class="role-tab" onclick="switchTab('pluk1')">พล.1</button>
+<button class="role-tab" onclick="switchTab('pluk2')">พล.2</button>
+<button class="role-tab" onclick="switchTab('building')">กำลังสร้าง</button>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="max-w-4xl mx-auto px-4 py-6">
+<!-- หนบ. Tab -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="tab-hnub">
+<div class="leader-card">
+<div class="flex items-center gap-3">
+<div class="avatar-lg" style="background: rgba(139,92,246,0.2); color: #8b5cf6;">เดช</div>
+<div>
+<p class="font-bold text-text-primary font-display">หมอเดช</p>
+<p class="text-xs text-spirit">สมเด็จ</p>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-spirit/10 text-spirit text-xs font-medium">หนบ.</span>
+<button class="text-text-ghost hover:text-sky text-sm flex items-center gap-1 transition-colors">
+<span>ดูรายงาน</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="leader-card">
+<div class="flex items-center gap-3">
+<div class="avatar-lg" style="background: rgba(16,185,129,0.2); color: #10b981;">เก่ง</div>
+<div>
+<p class="font-bold text-text-primary font-display">พี่เก่ง</p>
+<p class="text-xs text-growth">ท่าคันโท</p>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-spirit/10 text-spirit text-xs font-medium">หนบ.</span>
+<button class="text-text-ghost hover:text-sky text-sm flex items-center gap-1 transition-colors">
+<span>ดูรายงาน</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="leader-card">
+<div class="flex items-center gap-3">
+<div class="avatar-lg" style="background: rgba(245,158,11,0.2); color: #f59e0b;">เพลิน</div>
+<div>
+<p class="font-bold text-text-primary font-display">เพลิน</p>
+<p class="text-xs text-amber">กุฉินารายณ์</p>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-spirit/10 text-spirit text-xs font-medium">หนบ.</span>
+<button class="text-text-ghost hover:text-sky text-sm flex items-center gap-1 transition-colors">
+<span>ดูรายงาน</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="leader-card">
+<div class="flex items-center gap-3">
+<div class="avatar-lg" style="background: rgba(6,182,212,0.2); color: #06b6d4;">ตู่</div>
+<div>
+<p class="font-bold text-text-primary font-display">ตู่</p>
+<p class="text-xs text-water">เมือง 2</p>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-spirit/10 text-spirit text-xs font-medium">หนบ.</span>
+<button class="text-text-ghost hover:text-sky text-sm flex items-center gap-1 transition-colors">
+<span>ดูรายงาน</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="leader-card">
+<div class="flex items-center gap-3">
+<div class="avatar-lg" style="background: rgba(236,72,153,0.2); color: #ec4899;">ตูน</div>
+<div>
+<p class="font-bold text-text-primary font-display">ตูน</p>
+<p class="text-xs text-rose">คำใหญ่</p>
+</div>
+</div>
+<div class="mt-3 flex items-center justify-between">
+<span class="px-2 py-1 rounded bg-spirit/10 text-spirit text-xs font-medium">หนบ.</span>
+<button class="text-text-ghost hover:text-sky text-sm flex items-center gap-1 transition-colors">
+<span>ดูรายงาน</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- กำลังสร้าง Tab (Kanban) -->
+<div class="hidden" id="tab-building">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+<div class="kanban-column p-3">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-sm font-bold text-text-secondary">เริ่มสร้าง</h3>
+<span class="px-2 py-0.5 rounded bg-text-ghost/20 text-text-ghost text-xs">3</span>
+</div>
+<div class="space-y-2">
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-sky/20 flex items-center justify-center text-sky text-sm font-bold">นพ</div>
+<div>
+<p class="text-sm font-medium text-text-primary">นพ</p>
+<p class="text-xs text-text-ghost">→ หนค.</p>
+</div>
+</div>
+</div>
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-spirit/20 flex items-center justify-center text-spirit text-sm font-bold">เอก</div>
+<div>
+<p class="text-sm font-medium text-text-primary">เอก</p>
+<p class="text-xs text-text-ghost">→ พล.2</p>
+</div>
+</div>
+</div>
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center text-amber text-sm font-bold">บี</div>
+<div>
+<p class="text-sm font-medium text-text-primary">บี</p>
+<p class="text-xs text-text-ghost">→ พล.1</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column p-3">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-sm font-bold text-text-secondary">กำลังพัฒนา</h3>
+<span class="px-2 py-0.5 rounded bg-water/20 text-water text-xs">5</span>
+</div>
+<div class="space-y-2">
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-growth/20 flex items-center justify-center text-growth text-sm font-bold">ส้ม</div>
+<div>
+<p class="text-sm font-medium text-text-primary">ส้ม</p>
+<p class="text-xs text-text-ghost">→ หนค.</p>
+</div>
+</div>
+</div>
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-rose/20 flex items-center justify-center text-rose text-sm font-bold">อาย</div>
+<div>
+<p class="text-sm font-medium text-text-primary">อาย</p>
+<p class="text-xs text-text-ghost">→ หนค.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column p-3">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-sm font-bold text-text-secondary">ใกล้พร้อม</h3>
+<span class="px-2 py-0.5 rounded bg-growth/20 text-growth text-xs">2</span>
+</div>
+<div class="space-y-2">
+<div class="kanban-card">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-amber/20 flex items-center justify-center text-amber text-sm font-bold">ปู</div>
+<div>
+<p class="text-sm font-medium text-text-primary">ปู</p>
+<p class="text-xs text-text-ghost">→ หนบ.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="kanban-column p-3">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-sm font-bold text-water">พร้อม</h3>
+<span class="px-2 py-0.5 rounded bg-sky/20 text-sky text-xs">1</span>
+</div>
+<div class="space-y-2">
+<div class="kanban-card border-water/30">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-water/30 flex items-center justify-center text-water text-sm font-bold">นก</div>
+<div>
+<p class="text-sm font-medium text-text-primary">นก</p>
+<p class="text-xs text-water">→ หนบ.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Other tabs -->
+<div class="hidden grid grid-cols-1 md:grid-cols-3 gap-4" id="tab-hnuk">
+<p class="text-text-secondary text-center col-span-3 py-8">รายชื่อหัวหน้าแคร์กรุ๊ป 17 คน</p>
+</div>
+<div class="hidden grid grid-cols-1 md:grid-cols-3 gap-4" id="tab-pluk1">
+<p class="text-text-secondary text-center col-span-3 py-8">รายชื่อพี่เลี้ยงระดับ 1</p>
+</div>
+<div class="hidden grid grid-cols-1 md:grid-cols-3 gap-4" id="tab-pluk2">
+<p class="text-text-secondary text-center col-span-3 py-8">รายชื่อพี่เลี้ยงระดับ 2</p>
+</div>
+</main>
+<!-- FAB -->
+<button class="fab" onclick="addLeader()">
+<span class="material-symbols-outlined">add</span>
+</button>
+<!-- Bottom Nav -->
+<nav class="fixed bottom-0 left-0 right-0 glass-header z-40">
+<div class="max-w-lg mx-auto px-4 py-2 flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../mission_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">ภาพรวม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../leaderboard/code.html">
+<span class="material-symbols-outlined">emoji_events</span>
+<span class="text-xs">อันดับ</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-spirit" href="#">
+<span class="material-symbols-outlined">stars</span>
+<span class="text-xs">ผู้นำ</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../care/code.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs">ดูแล</span>
+</a>
+</div>
+</nav>
+<script>
+        function switchTab(tab) {
+            // Hide all tabs
+            ['hnub', 'hnuk', 'pluk1', 'pluk2', 'building'].forEach(t => {
+                document.getElementById('tab-' + t).classList.add('hidden');
+            });
+            // Show selected
+            document.getElementById('tab-' + tab).classList.remove('hidden');
+            
+            // Update buttons
+            document.querySelectorAll('.role-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        function addLeader() {
+            alert('เพิ่มผู้นำใหม่ - จะเปิดฟอร์มในเวอร์ชันเต็ม');
+        }
+    </script>
+</body></html>

@@ -1,26 +1,268 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════
+     Sacred Journal — Atmospheric Design System
+     "The Living Manuscript"
+     ═══════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink-deep:    #050d1a;  /* Void background */
+  --ink-mid:     rgba(10, 22, 40, 0.75); /* Card base */
+  --ink-lift:    #0f2444;  /* Interaction layer */
+  --ink-input:   #060e1b;  /* Surface lowest */
+
+  --sky:         #adc6ff;  /* Primary fixed dim */
+  --water:       #4d8eff;  /* Primary container */
+  --gold:        #ffb95f;  /* Secondary */
+  --growth:      #10b981;  /* Success */
+  --alert:       #ffb4ab;  /* Error */
+  --spirit:      #d0bcff;  /* Tertiary fixed dim */
+  /* ── Lines — borders ── */
+  --line:        rgba(218, 227, 246, 0.08);
+  --line-bright: rgba(218, 227, 246, 0.15);
+
+  /* ── Text — hierarchy ── */
+  --text-main:   #dae3f6;
+  --text-soft:   #c2c6d6;
+  --text-ghost:  #424754;
+
+  /* ── 8-Pillar accent colors ── */
+  --pillar-1:    #ffb95f;  /* การประกาศ - secondary */
+  --pillar-2:    #adc6ff;  /* การติดตามผล - primary */
+  --pillar-3:    #10b981;  /* การอภิบาล - success */
+  --pillar-4:    #d0bcff;  /* สร้างผู้นำ - tertiary */
+  --pillar-5:    #ffb4ab;  /* อธิษฐานพุธ - error/rose */
+  --pillar-6:    #4d8eff;  /* พพช. - primary-container */
+  --pillar-7:    #ee9800;  /* มาคจ. - secondary-container */
+  --pillar-8:    #ffdad6;  /* มาแคร์ - on-error-container */
+
+  /* ── Group size classification ── */
+  --size-big:    var(--growth);
+  --size-std:    var(--water);
+  --size-mini:   var(--spirit);
+
+  /* ── Body colors (for body badges) ── */
+  --body-1:      #3b82f6;  /* เมือง 1 */
+  --body-2:      #06b6d4;  /* เมือง 2 */
+  --body-3:      #8b5cf6;  /* สมเด็จ */
+  --body-4:      #10b981;  /* ท่าคันโท */
+  --body-5:      #f59e0b;  /* กุฉินารายณ์ */
+  --body-6:      #ec4899;  /* คำใหญ่ */
+  --on-surface:  #dae3f6;
+  --on-surface-variant: #c2c6d6;
+  --outline-variant: rgba(66, 71, 84, 0.15); /* Ghost border */
+}
+  /* ── Radius ── */
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    14px;
+  --radius-xl:    18px;
+  --radius-2xl:   24px;
+  --radius-full:  9999px;
+
+  /* ── Motion ── */
+  --motion-fast:    100ms;
+  --motion-normal:  200ms;
+  --motion-slow:    300ms;
+  --motion-count:   800ms;
+
+  /* ── Easing ── */
+  --ease-entry:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-bounce:    cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ── Background / Foreground (Tailwind compat) ── */
+  --background: var(--ink-deep);
+  --foreground: var(--text-main);
 }
 
+/* ── Tailwind v4 theme integration ── */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Ink layers */
+  --color-ink-deep: var(--ink-deep);
+  --color-ink-mid: var(--ink-mid);
+  --color-ink-lift: var(--ink-lift);
+  --color-ink-input: var(--ink-input);
+
+  /* Lines */
+  --color-line: var(--line);
+  --color-line-bright: var(--line-bright);
+
+  /* Text */
+  --color-text-main: var(--text-main);
+  --color-text-soft: var(--text-soft);
+  --color-text-ghost: var(--text-ghost);
+
+  /* Semantic accents */
+  --color-sky: var(--sky);
+  --color-water: var(--water);
+  --color-gold: var(--gold);
+  --color-growth: var(--growth);
+  --color-alert: var(--alert);
+  --color-spirit: var(--spirit);
+
+  /* Pillar colors */
+  --color-pillar-1: var(--pillar-1);
+  --color-pillar-2: var(--pillar-2);
+  --color-pillar-3: var(--pillar-3);
+  --color-pillar-4: var(--pillar-4);
+  --color-pillar-5: var(--pillar-5);
+  --color-pillar-6: var(--pillar-6);
+  --color-pillar-7: var(--pillar-7);
+  --color-pillar-8: var(--pillar-8);
+
+  /* Body colors */
+  --color-body-1: var(--body-1);
+  --color-body-2: var(--body-2);
+  --color-body-3: var(--body-3);
+  --color-body-4: var(--body-4);
+  --color-body-5: var(--body-5);
+  --color-body-6: var(--body-6);
+
+  /* Fonts */
+  --font-display: var(--font-kanit);
+  --font-body: var(--font-sarabun);
+  --font-mono: var(--font-jetbrains);
+
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ── Base body styles ── */
+body {
+  background: var(--ink-deep);
+  color: var(--text-main);
+  font-family: var(--font-sarabun), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Glass Layer System ── */
+.glass-0 {
+  background: transparent;
+}
+
+/* Layer 1: standard card */
+.glass-1 {
+  background: var(--ink-mid);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--outline-variant);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+}
+
+/* Layer 2: raised (hover, focus, active panels) */
+.glass-2 {
+  background: rgba(15, 36, 68, 0.85);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--line-bright);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.glass-3 {
+  background: rgba(5, 13, 26, 0.95);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid var(--line-bright);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* ── Light Input Mode (heavy data entry) ── */
+.input-heavy-entry {
+  background: #f8f7ff;
+  color: #1a1a2e;
+  min-height: 52px;
+  font-size: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.input-heavy-entry:focus {
+  border-color: var(--sky);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+  outline: none;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg,
+    var(--ink-mid) 25%,
+    var(--ink-lift) 50%,
+    var(--ink-mid) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Top accent line for cards ── */
+.accent-line-sky {
+  background: linear-gradient(90deg, var(--sky), var(--water));
+}
+.accent-line-gold {
+  background: linear-gradient(90deg, var(--gold), #f97316);
+}
+.accent-line-alert {
+  background: linear-gradient(90deg, var(--alert), #f97316);
+}
+.accent-line-spirit {
+  background: linear-gradient(90deg, var(--spirit), #ec4899);
+}
+
+/* ── Pulse animation for "น้อย" attitude ── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.3); }
+}
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Count-up number glow ── */
+.text-glow-sky {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+.text-glow-growth {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+}
+.text-glow-alert {
+  text-shadow: 0 0 20px rgba(244, 63, 94, 0.5);
+}
+.text-glow-spirit {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+/* ── Thai text: prevent mid-word breaks ── */
+.thai-text {
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }

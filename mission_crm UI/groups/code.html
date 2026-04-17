@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="dark" lang="th">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>กลุ่มแคร์ | TLC-mission CRM</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;800;900&amp;family=Sarabun:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        'ink-deep': '#050d1a',
+                        'ink-mid': '#0a1628',
+                        'ink-lift': '#111d2e',
+                        'line': 'rgba(148, 163, 184, 0.15)',
+                        'text-main': '#e8f4ff',
+                        'text-soft': '#94a3b8',
+                        'text-ghost': '#64748b',
+                        'sky': '#3b82f6',
+                        'water': '#06b6d4',
+                        'growth': '#10b981',
+                        'alert': '#f43f5e',
+                        'spirit': '#8b5cf6',
+                        'gold': '#f59e0b',
+                        'body-1': '#3b82f6',
+                        'body-2': '#06b6d4',
+                        'body-3': '#8b5cf6',
+                        'body-4': '#10b981',
+                        'body-5': '#f59e0b',
+                        'body-6': '#ec4899',
+                    },
+                    fontFamily: {
+                        'display': ['Kanit', 'sans-serif'],
+                        'body': ['Sarabun', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'lg': '14px',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+        }
+        .glass-1 {
+            background: rgba(10, 22, 40, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .glass-2 {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+        .group-card {
+            border-top: 2px solid;
+            transition: all 0.2s ease;
+        }
+        .group-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.2);
+        }
+        .group-code {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 800;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .attendance-bar {
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(148, 163, 184, 0.2);
+            overflow: hidden;
+        }
+        .attendance-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+        .size-big { border-color: #10b981; }
+        .size-std { border-color: #06b6d4; }
+        .size-mini { border-color: #8b5cf6; }
+        .badge-size-big {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .badge-size-std {
+            background: rgba(6, 182, 212, 0.15);
+            color: #06b6d4;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .badge-size-mini {
+            background: rgba(139, 92, 246, 0.15);
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .avatar-stack {
+            display: flex;
+        }
+        .avatar-stack > * {
+            margin-left: -8px;
+            border: 2px solid #0a1628;
+        }
+        .avatar-stack > *:first-child {
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-24">
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none" style="z-index: -1;">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-water-500/5"></div>
+        <div class="absolute top-0 right-0 w-96 h-96 bg-spirit/10 rounded-full blur-[150px]"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-growth/10 rounded-full blur-[150px]"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 glass-2 border-b border-line">
+        <div class="max-w-5xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-display font-bold text-text-main">กลุ่มแคร์ทั้งหมด</h1>
+                    <p class="text-sm text-text-soft mt-0.5">20 กลุ่ม · 165 สมาชิก · 6 Body Network</p>
+                </div>
+                <button class="p-2 rounded-lg bg-sky/20 text-sky hover:bg-sky/30 transition-colors">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex gap-2 mt-4 overflow-x-auto pb-1">
+                <button class="px-4 py-1.5 rounded-full text-sm bg-sky/20 text-sky border border-sky/30 font-medium whitespace-nowrap">ทั้งหมด</button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-1"></span> เมือง 1
+                </button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-2"></span> เมือง 2
+                </button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-3"></span> สมเด็จ
+                </button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-4"></span> ท่าคันโท
+                </button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-5"></span> กุฉินารายณ์
+                </button>
+                <button class="px-4 py-1.5 rounded-full text-sm bg-ink-lift text-text-soft hover:text-text-main transition-colors whitespace-nowrap flex items-center gap-1">
+                    <span class="w-2 h-2 rounded-full bg-body-6"></span> คำใหญ่
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-6">
+        <!-- Stats Row -->
+        <div class="grid grid-cols-4 gap-3 mb-6">
+            <div class="glass-1 rounded-lg p-3 text-center">
+                <div class="text-2xl font-display font-bold text-growth">20</div>
+                <div class="text-xs text-text-ghost uppercase tracking-wider">กลุ่ม</div>
+            </div>
+            <div class="glass-1 rounded-lg p-3 text-center">
+                <div class="text-2xl font-display font-bold text-sky">165</div>
+                <div class="text-xs text-text-ghost uppercase tracking-wider">สมาชิก</div>
+            </div>
+            <div class="glass-1 rounded-lg p-3 text-center">
+                <div class="text-2xl font-display font-bold text-gold">8.3</div>
+                <div class="text-xs text-text-ghost uppercase tracking-wider">เฉลี่ย/กลุ่ม</div>
+            </div>
+            <div class="glass-1 rounded-lg p-3 text-center">
+                <div class="text-2xl font-display font-bold text-water">87%</div>
+                <div class="text-xs text-text-ghost uppercase tracking-wider">มาคจ. เฉลี่ย</div>
+            </div>
+        </div>
+
+        <!-- Groups Grid -->
+        <div class="grid gap-3 md:grid-cols-2">
+            <!-- Group G01 - BIG -->
+            <div class="glass-1 rounded-lg p-4 group-card size-big cursor-pointer">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="group-code" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b; box-shadow: 0 0 8px rgba(245, 158, 11, 0.3);">G01</span>
+                        <div>
+                            <h3 class="text-text-main font-display font-semibold text-lg">ผุสดี</h3>
+                            <span class="text-xs text-text-ghost flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-body-5"></span> กุฉินารายณ์
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-size-big text-xs font-display font-bold px-2 py-1 rounded-md">BIG ✨</span>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-main">15</div>
+                            <div class="text-xs text-text-ghost">สมาชิก</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-growth">13</div>
+                            <div class="text-xs text-text-ghost">มาคจ.</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-water">87%</div>
+                            <div class="text-xs text-text-ghost">เข้าเฉลี่ย</div>
+                        </div>
+                    </div>
+                    <div class="avatar-stack">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-growth to-water flex items-center justify-center text-xs font-bold text-white">ส</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky to-spirit flex items-center justify-center text-xs font-bold text-white">ก</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-alert flex items-center justify-center text-xs font-bold text-white">น</div>
+                        <div class="w-8 h-8 rounded-full bg-ink-mid flex items-center justify-center text-xs font-bold text-text-ghost">+12</div>
+                    </div>
+                </div>
+
+                <!-- Mini Attendance Bar -->
+                <div class="mt-3">
+                    <div class="flex items-center justify-between text-xs text-text-ghost mb-1">
+                        <span>มาคจ. สัปดาห์นี้</span>
+                        <span class="text-growth">13/15</span>
+                    </div>
+                    <div class="attendance-bar">
+                        <div class="attendance-fill bg-growth" style="width: 87%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group G02 - STD -->
+            <div class="glass-1 rounded-lg p-4 group-card size-std cursor-pointer">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="group-code" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);">G02</span>
+                        <div>
+                            <h3 class="text-text-main font-display font-semibold text-lg">เบญ</h3>
+                            <span class="text-xs text-text-ghost flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-body-1"></span> เมือง 1
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-size-std text-xs font-display font-bold px-2 py-1 rounded-md">STD</span>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-main">8</div>
+                            <div class="text-xs text-text-ghost">สมาชิก</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-growth">7</div>
+                            <div class="text-xs text-text-ghost">มาคจ.</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-water">88%</div>
+                            <div class="text-xs text-text-ghost">เข้าเฉลี่ย</div>
+                        </div>
+                    </div>
+                    <div class="avatar-stack">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-growth to-water flex items-center justify-center text-xs font-bold text-white">อ</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky to-spirit flex items-center justify-center text-xs font-bold text-white">น</div>
+                        <div class="w-8 h-8 rounded-full bg-ink-mid flex items-center justify-center text-xs font-bold text-text-ghost">+6</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <div class="flex items-center justify-between text-xs text-text-ghost mb-1">
+                        <span>มาคจ. สัปดาห์นี้</span>
+                        <span class="text-growth">7/8</span>
+                    </div>
+                    <div class="attendance-bar">
+                        <div class="attendance-fill bg-water" style="width: 88%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group G03 - BIG -->
+            <div class="glass-1 rounded-lg p-4 group-card size-big cursor-pointer">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="group-code" style="background: rgba(139, 92, 246, 0.2); color: #8b5cf6; box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);">G03</span>
+                        <div>
+                            <h3 class="text-text-main font-display font-semibold text-lg">ปุนนาภา</h3>
+                            <span class="text-xs text-text-ghost flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-body-3"></span> สมเด็จ
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-size-big text-xs font-display font-bold px-2 py-1 rounded-md">BIG ✨</span>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-main">12</div>
+                            <div class="text-xs text-text-ghost">สมาชิก</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-growth">10</div>
+                            <div class="text-xs text-text-ghost">มาคจ.</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-water">83%</div>
+                            <div class="text-xs text-text-ghost">เข้าเฉลี่ย</div>
+                        </div>
+                    </div>
+                    <div class="avatar-stack">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-growth to-water flex items-center justify-center text-xs font-bold text-white">ป</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky to-spirit flex items-center justify-center text-xs font-bold text-white">น</div>
+                        <div class="w-8 h-8 rounded-full bg-ink-mid flex items-center justify-center text-xs font-bold text-text-ghost">+10</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <div class="flex items-center justify-between text-xs text-text-ghost mb-1">
+                        <span>มาคจ. สัปดาห์นี้</span>
+                        <span class="text-growth">10/12</span>
+                    </div>
+                    <div class="attendance-bar">
+                        <div class="attendance-fill bg-growth" style="width: 83%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group G04 - MINI -->
+            <div class="glass-1 rounded-lg p-4 group-card size-mini cursor-pointer">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="group-code" style="background: rgba(16, 185, 129, 0.2); color: #10b981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);">G04</span>
+                        <div>
+                            <h3 class="text-text-main font-display font-semibold text-lg">ทัศนา</h3>
+                            <span class="text-xs text-text-ghost flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-body-4"></span> ท่าคันโท
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-size-mini text-xs font-display font-bold px-2 py-1 rounded-md">MINI</span>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-main">6</div>
+                            <div class="text-xs text-text-ghost">สมาชิก</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-growth">5</div>
+                            <div class="text-xs text-text-ghost">มาคจ.</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-water">83%</div>
+                            <div class="text-xs text-text-ghost">เข้าเฉลี่ย</div>
+                        </div>
+                    </div>
+                    <div class="avatar-stack">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-growth to-water flex items-center justify-center text-xs font-bold text-white">ท</div>
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-sky to-spirit flex items-center justify-center text-xs font-bold text-white">ส</div>
+                        <div class="w-8 h-8 rounded-full bg-ink-mid flex items-center justify-center text-xs font-bold text-text-ghost">+4</div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <div class="flex items-center justify-between text-xs text-text-ghost mb-1">
+                        <span>มาคจ. สัปดาห์นี้</span>
+                        <span class="text-spirit">5/6</span>
+                    </div>
+                    <div class="attendance-bar">
+                        <div class="attendance-fill bg-spirit" style="width: 83%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group G05 - Empty/MINI -->
+            <div class="glass-1 rounded-lg p-4 group-card size-mini cursor-pointer opacity-75">
+                <div class="flex items-start justify-between mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="group-code" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; box-shadow: 0 0 8px rgba(236, 72, 153, 0.3);">G05</span>
+                        <div>
+                            <h3 class="text-text-main font-display font-semibold text-lg">ดาวใจ</h3>
+                            <span class="text-xs text-text-ghost flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-body-6"></span> คำใหญ่
+                            </span>
+                        </div>
+                    </div>
+                    <span class="badge-size-mini text-xs font-display font-bold px-2 py-1 rounded-md">MINI</span>
+                </div>
+                
+                <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-4">
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-main">—</div>
+                            <div class="text-xs text-text-ghost">สมาชิก</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-ghost">—</div>
+                            <div class="text-xs text-text-ghost">มาคจ.</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-display font-bold text-text-ghost">—</div>
+                            <div class="text-xs text-text-ghost">เข้าเฉลี่ย</div>
+                        </div>
+                    </div>
+                    <div class="text-text-ghost text-sm">ยังไม่มีข้อมูล</div>
+                </div>
+
+                <div class="mt-3">
+                    <div class="attendance-bar">
+                        <div class="attendance-fill bg-text-ghost" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More groups indicator -->
+            <div class="glass-1 rounded-lg p-8 text-center border border-dashed border-line">
+                <span class="material-symbols-outlined text-4xl text-text-ghost mb-2">groups</span>
+                <p class="text-text-ghost">+ อีก 15 กลุ่ม (G06-G20)</p>
+                <p class="text-xs text-text-ghost mt-1">เลื่อนลงเพื่อดูทั้งหมด</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Quick Actions FAB -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+        <button class="w-14 h-14 rounded-full bg-sky hover:bg-sky/80 text-white shadow-lg shadow-sky/30 flex items-center justify-center transition-all hover:scale-110">
+            <span class="material-symbols-outlined text-2xl">add</span>
+        </button>
+    </div>
+</body>
+</html>

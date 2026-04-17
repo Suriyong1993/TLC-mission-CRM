@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เข้าสู่ระบบ | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+              "rose": "#fb7185",
+              "body-1": "#3b82f6",
+              "body-2": "#06b6d4",
+              "body-3": "#8b5cf6",
+              "body-4": "#10b981",
+              "body-5": "#f59e0b",
+              "body-6": "#ec4899",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            overflow-x: hidden;
+        }
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(245, 158, 11, 0.03) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+        }
+        .dot-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 2px solid transparent;
+            border-image: linear-gradient(to right, #3b82f6, #06b6d4) 1;
+        }
+        .glass-card-admin {
+            border-image: linear-gradient(to right, #8b5cf6, #3b82f6) 1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .btn-body {
+            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            box-shadow: 0 8px 20px -5px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .btn-admin {
+            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+            box-shadow: 0 8px 20px -5px rgba(139, 92, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(6, 182, 212, 0.9));
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .tab-inactive {
+            background: transparent;
+            color: #64748b;
+        }
+        .tab-inactive:hover {
+            color: #94a3b8;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        .shake-error {
+            animation: shake 0.3s ease-in-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-down {
+            animation: fadeInDown 0.3s ease-out;
+        }
+        .logo-glow {
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+        .custom-dropdown {
+            appearance: none;
+            -webkit-appearance: none;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6">
+<!-- Background Elements -->
+<div class="mesh-gradient"></div>
+<div class="dot-grid"></div>
+<!-- Error Message (hidden by default) -->
+<div class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm font-medium fade-in-down" id="error-message">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">error</span>
+        <span>รหัสผ่านไม่ถูกต้อง — ลองใหม่อีกครั้ง</span>
+    </div>
+</div>
+<!-- Login Container -->
+<main class="w-full max-w-[440px] flex flex-col items-center gap-6 relative z-10">
+<!-- Hero Section -->
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full p-[2px] bg-gradient-to-br from-sky to-water logo-glow">
+<div class="w-full h-full rounded-full bg-ink-deep flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl text-sky">church</span>
+</div>
+</div>
+<div class="space-y-1">
+<h1 class="text-xl sm:text-2xl font-extrabold text-text-primary tracking-tight font-display">
+                    ระบบติดตามกลุ่มพันธกิจ
+                </h1>
+<p class="text-sm text-text-secondary font-body">
+                    คริสตจักรกาฬสินธุ์ — 6 Body Network
+                </p>
+</div>
+</div>
+<!-- Main Form Card -->
+<div class="glass-card w-full rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-2xl" id="login-card">
+<!-- Tab Switcher -->
+<div class="flex p-1 bg-ink-light/80 rounded-full mb-6 border border-glass-border">
+<button class="flex-1 py-2.5 text-sm font-semibold rounded-full tab-active transition-all duration-150 flex items-center justify-center gap-2" id="tab-body" onclick="switchTab('body')">
+<span class="w-2 h-2 rounded-full bg-white/80"></span>
+                    Body
+                </button>
+<button class="flex-1 py-2.5 text-sm font-medium rounded-full tab-inactive transition-all duration-150" id="tab-admin" onclick="switchTab('admin')">
+                    Admin
+                </button>
+</div>
+<form class="space-y-5" id="login-form">
+<!-- Body Select (shown only in Body tab) -->
+<div class="space-y-2" id="body-select-container">
+<label class="text-xs font-semibold uppercase tracking-wider text-text-ghost ml-1">กลุ่มพันธกิจ (Body)</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<div class="w-2.5 h-2.5 rounded-full bg-sky shadow-[0_0_8px_rgba(59,130,246,0.6)]" id="body-color-indicator"></div>
+</div>
+<select class="custom-dropdown w-full h-12 pl-11 pr-12 bg-ink-light/60 border border-glass-border rounded-xl text-text-primary focus:ring-2 focus:ring-sky/50 focus:border-sky/50 transition-all cursor-pointer font-body" id="body-select" onchange="updateBodyColor()">
+<option data-color="body-1" value="body1">Body 1 เมือง 1</option>
+<option data-color="body-2" value="body2">Body 2 เมือง 2</option>
+<option data-color="body-3" value="body3">Body 3 สมเด็จ</option>
+<option data-color="body-4" value="body4">Body 4 ท่าคันโท</option>
+<option data-color="body-5" value="body5">Body 5 กุฉินารายณ์</option>
+<option data-color="body-6" value="body6">Body 6 คำใหญ่</option>
+</select>
+<div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-ghost">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Admin Select (hidden by default) -->
+<div class="hidden space-y-2" id="admin-select-container">
+<label class="text-xs font-semibold uppercase tracking-wider text-text-ghost ml-1">ผู้ดูแลระบบ</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-spirit">shield</span>
+</div>
+<select class="custom-dropdown w-full h-12 pl-11 pr-12 bg-ink-light/60 border border-glass-border rounded-xl text-text-primary focus:ring-2 focus:ring-spirit/50 transition-all cursor-pointer font-body">
+<option>ผู้ดูแลระบบ (Super Admin)</option>
+<option>ผู้ช่วยดูแล (Assistant)</option>
+</select>
+<div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-ghost">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<label class="text-xs font-semibold uppercase tracking-wider text-text-ghost ml-1">รหัสผ่าน</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-text-ghost text-xl">lock</span>
+</div>
+<input class="w-full h-12 pl-12 pr-12 bg-ink-light/60 border border-glass-border rounded-xl text-text-primary placeholder:text-text-ghost focus:ring-2 focus:ring-sky/50 focus:border-sky/50 transition-all font-body" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-4 flex items-center text-text-ghost hover:text-sky transition-colors" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-xl" id="eye-icon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-12 btn-body rounded-full text-white font-bold tracking-wide flex items-center justify-center gap-2 transition-transform active:scale-95 hover:opacity-90" id="submit-btn" onclick="handleLogin(event)" type="submit">
+<span class="font-display">เข้าสู่ระบบ</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+</div>
+<!-- Demo Passwords Hint -->
+<div class="w-full p-4 rounded-xl bg-ink-light/50 backdrop-blur-md border border-glass-border">
+<div class="flex items-start gap-3">
+<div class="p-2 rounded-lg bg-sky/10 text-sky flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-lg">lightbulb</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="text-xs font-bold text-text-secondary uppercase tracking-tighter block mb-1">รหัสผ่านทดลอง (Demo)</span>
+<div class="text-sm text-text-ghost space-y-1">
+<p class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-sky/20 text-sky text-xs font-mono">body123</span>
+<span>สำหรับ Body (หนบ./หนค.)</span>
+</p>
+<p class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-spirit/20 text-spirit text-xs font-mono">admin456</span>
+<span>สำหรับ Admin</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Decorative Background Elements -->
+<div class="fixed inset-0 pointer-events-none opacity-20">
+<div class="absolute top-1/4 -left-20 w-96 h-96 bg-sky/30 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-water/20 rounded-full blur-[120px]"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-spirit/10 rounded-full blur-[150px]"></div>
+</div>
+<script>
+        let currentTab = 'body';
+        
+        const bodyColors = {
+            'body1': { bg: '#3b82f6', glow: 'rgba(59,130,246,0.6)' },
+            'body2': { bg: '#06b6d4', glow: 'rgba(6,182,212,0.6)' },
+            'body3': { bg: '#8b5cf6', glow: 'rgba(139,92,246,0.6)' },
+            'body4': { bg: '#10b981', glow: 'rgba(16,185,129,0.6)' },
+            'body5': { bg: '#f59e0b', glow: 'rgba(245,158,11,0.6)' },
+            'body6': { bg: '#ec4899', glow: 'rgba(236,72,153,0.6)' }
+        };
+        
+        function switchTab(tab) {
+            currentTab = tab;
+            const bodyTab = document.getElementById('tab-body');
+            const adminTab = document.getElementById('tab-admin');
+            const bodySelect = document.getElementById('body-select-container');
+            const adminSelect = document.getElementById('admin-select-container');
+            const submitBtn = document.getElementById('submit-btn');
+            const loginCard = document.getElementById('login-card');
+            
+            if (tab === 'body') {
+                bodyTab.classList.add('tab-active');
+                bodyTab.classList.remove('tab-inactive');
+                adminTab.classList.remove('tab-active');
+                adminTab.classList.add('tab-inactive');
+                bodySelect.classList.remove('hidden');
+                adminSelect.classList.add('hidden');
+                submitBtn.classList.remove('btn-admin');
+                submitBtn.classList.add('btn-body');
+                loginCard.classList.remove('glass-card-admin');
+            } else {
+                adminTab.classList.add('tab-active');
+                adminTab.classList.remove('tab-inactive');
+                bodyTab.classList.remove('tab-active');
+                bodyTab.classList.add('tab-inactive');
+                bodySelect.classList.add('hidden');
+                adminSelect.classList.remove('hidden');
+                submitBtn.classList.remove('btn-body');
+                submitBtn.classList.add('btn-admin');
+                loginCard.classList.add('glass-card-admin');
+            }
+        }
+        
+        function updateBodyColor() {
+            const select = document.getElementById('body-select');
+            const selectedOption = select.options[select.selectedIndex];
+            const colorKey = selectedOption.dataset.color;
+            const indicator = document.getElementById('body-color-indicator');
+            
+            const colors = {
+                'body-1': { bg: '#3b82f6', glow: 'rgba(59,130,246,0.6)' },
+                'body-2': { bg: '#06b6d4', glow: 'rgba(6,182,212,0.6)' },
+                'body-3': { bg: '#8b5cf6', glow: 'rgba(139,92,246,0.6)' },
+                'body-4': { bg: '#10b981', glow: 'rgba(16,185,129,0.6)' },
+                'body-5': { bg: '#f59e0b', glow: 'rgba(245,158,11,0.6)' },
+                'body-6': { bg: '#ec4899', glow: 'rgba(236,72,153,0.6)' }
+            };
+            
+            const color = colors[colorKey];
+            indicator.style.backgroundColor = color.bg;
+            indicator.style.boxShadow = `0 0 8px ${color.glow}`;
+        }
+        
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (password.type === 'password') {
+                password.type = 'text';
+                eyeIcon.textContent = 'visibility_off';
+            } else {
+                password.type = 'password';
+                eyeIcon.textContent = 'visibility';
+            }
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-message');
+            const loginCard = document.getElementById('login-card');
+            
+            // Demo validation
+            const correctPassword = currentTab === 'body' ? 'body123' : 'admin456';
+            
+            if (password !== correctPassword) {
+                // Show error
+                errorMsg.classList.remove('hidden');
+                loginCard.classList.add('shake-error');
+                
+                setTimeout(() => {
+                    loginCard.classList.remove('shake-error');
+                }, 300);
+                
+                setTimeout(() => {
+                    errorMsg.classList.add('hidden');
+                }, 3000);
+            } else {
+                // Success - redirect to dashboard
+                window.location.href = '/mission_dashboard/code.html';
+            }
+        }
+        
+        // Initialize
+        updateBodyColor();
+    </script>
+</body></html>

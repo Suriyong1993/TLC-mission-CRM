@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>สมาชิก | TLC-mission CRM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700;800;900&amp;family=Sarabun:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "ink-deep": "#050d1a",
+              "ink-mid": "#0a1628",
+              "ink-light": "#131c2e",
+              "glass-border": "rgba(255, 255, 255, 0.08)",
+              "text-primary": "#f0f4f8",
+              "text-secondary": "#94a3b8",
+              "text-ghost": "#64748b",
+              "growth": "#10b981",
+              "water": "#06b6d4",
+              "sky": "#3b82f6",
+              "spirit": "#8b5cf6",
+              "amber": "#f59e0b",
+              "alert": "#ef4444",
+              "rose": "#fb7185",
+            },
+            fontFamily: {
+              display: ["Kanit", "sans-serif"],
+              body: ["Sarabun", "sans-serif"],
+            },
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #050d1a;
+            font-family: 'Sarabun', sans-serif;
+            padding-bottom: 80px;
+        }
+        .glass-header {
+            background: rgba(5, 13, 26, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card {
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .filter-bar {
+            background: rgba(19, 28, 46, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .member-row {
+            background: rgba(19, 28, 46, 0.5);
+            border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+        }
+        .member-row:hover {
+            background: rgba(19, 28, 46, 0.8);
+        }
+        .member-row.attitude-good { border-left-color: #10b981; }
+        .member-row.attitude-medium { border-left-color: #06b6d4; }
+        .member-row.attitude-low { border-left-color: #fb7185; }
+        .attitude-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .attitude-badge.good { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+        .attitude-badge.medium { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+        .attitude-badge.low { background: rgba(251, 113, 133, 0.15); color: #fb7185; }
+        .attitude-badge.low-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(251, 113, 133, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(251, 113, 133, 0); }
+        }
+        .frequency-dots {
+            display: flex;
+            gap: 3px;
+        }
+        .frequency-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .frequency-dot.filled {
+            background: #3b82f6;
+        }
+        .action-bar {
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.1s ease;
+        }
+        .member-row:hover .action-bar {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .view-btn {
+            transition: all 0.15s;
+        }
+        .view-btn.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+        .search-input {
+            background: rgba(19, 28, 46, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .search-input:focus {
+            border-color: rgba(59, 130, 246, 0.5);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+<!-- Sticky Header -->
+<header class="sticky top-0 z-40 glass-header">
+<div class="max-w-6xl mx-auto px-4 py-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-3">
+<button class="p-2 -ml-2 rounded-full hover:bg-white/5 transition-colors" onclick="history.back()">
+<span class="material-symbols-outlined text-text-secondary">arrow_back</span>
+</button>
+<h1 class="text-xl font-bold text-text-primary font-display">สมาชิก</h1>
+</div>
+<button class="p-2 rounded-full bg-sky/10 text-sky hover:bg-sky/20 transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Filter Bar -->
+<div class="filter-bar rounded-xl p-3 space-y-3">
+<!-- Search -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-ghost">search</span>
+<input class="search-input w-full h-11 pl-11 pr-4 rounded-lg text-text-primary placeholder:text-text-ghost text-sm font-body" id="search-input" oninput="filterMembers()" placeholder="ค้นหาชื่อ อาชีพ ที่อยู่..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+<select class="px-3 py-2 rounded-lg bg-ink-light/60 border border-glass-border text-text-primary text-sm focus:ring-2 focus:ring-sky/50" id="group-filter" onchange="filterMembers()">
+<option value="">ทุกกลุ่ม</option>
+<option value="G01">G01 ผุสดี</option>
+<option value="G02">G02 เบญ</option>
+<option value="G03">G03 ปุนนาภา</option>
+<option value="G04">G04 ทัศนา</option>
+</select>
+<select class="px-3 py-2 rounded-lg bg-ink-light/60 border border-glass-border text-text-primary text-sm focus:ring-2 focus:ring-sky/50" id="attitude-filter" onchange="filterMembers()">
+<option value="">ท่าทีทั้งหมด</option>
+<option value="good">ดี</option>
+<option value="medium">ปานกลาง</option>
+<option value="low">น้อย</option>
+</select>
+<select class="px-3 py-2 rounded-lg bg-ink-light/60 border border-glass-border text-text-primary text-sm focus:ring-2 focus:ring-sky/50">
+<option value="">ความถี่ทั้งหมด</option>
+<option value="weekly">ทุกสัปดาห์</option>
+<option value="monthly">1-2/เดือน</option>
+<option value="rare">นานครั้ง</option>
+</select>
+</div>
+<!-- View Toggle -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<button class="view-btn active p-2 rounded-lg text-text-secondary" id="view-table" onclick="switchView('table')">
+<span class="material-symbols-outlined">table_rows</span>
+</button>
+<button class="view-btn p-2 rounded-lg text-text-secondary" id="view-card" onclick="switchView('card')">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+</div>
+<div class="flex items-center gap-3 text-xs">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-growth"></span> ดี 89</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-water"></span> ปานกลาง 52</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-rose"></span> น้อย 24</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-6xl mx-auto px-4 py-6">
+<!-- Table View -->
+<div class="space-y-2" id="table-view">
+<!-- Table Header -->
+<div class="hidden md:grid grid-cols-12 gap-4 px-4 py-2 text-xs font-semibold text-text-ghost uppercase tracking-wider">
+<div class="col-span-4">สมาชิก</div>
+<div class="col-span-2">ท่าที</div>
+<div class="col-span-2">ความถี่</div>
+<div class="col-span-2">เยี่ยมล่าสุด</div>
+<div class="col-span-2 text-right">จัดการ</div>
+</div>
+<!-- Member Rows -->
+<div id="member-rows"></div>
+</div>
+<!-- Card View (hidden by default) -->
+<div class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="card-view"></div>
+</main>
+<!-- Bottom Nav (Mobile) -->
+<nav class="fixed bottom-0 left-0 right-0 glass-header z-50 md:hidden">
+<div class="max-w-lg mx-auto px-4 py-2 flex justify-around">
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../mission_dashboard/code.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs">ภาพรวม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-sky" href="#">
+<span class="material-symbols-outlined">people</span>
+<span class="text-xs">สมาชิก</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../groups/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-xs">กลุ่ม</span>
+</a>
+<a class="flex flex-col items-center gap-1 p-2 text-text-ghost" href="../care/code.html">
+<span class="material-symbols-outlined">favorite</span>
+<span class="text-xs">ดูแล</span>
+</a>
+</div>
+</nav>
+<script>
+        const members = [
+            { id: 1, name: 'ทัศนา ชื่นจิต', nickname: 'ทัศ', group: 'G04', groupName: 'ทัศนา', attitude: 'good', frequency: 4, lastVisit: 3, attendance: 12 },
+            { id: 2, name: 'สมชาย แก้วกังวาล', nickname: 'ชาย', group: 'G03', groupName: 'ปุนนาภา', attitude: 'low', frequency: 2, lastVisit: 45, attendance: 6 },
+            { id: 3, name: 'สมศรี รัตนะ', nickname: 'ศรี', group: 'G01', groupName: 'ผุสดี', attitude: 'medium', frequency: 3, lastVisit: 14, attendance: 10 },
+            { id: 4, name: 'พรทิพย์ สวยสด', nickname: 'ทิพ', group: 'G01', groupName: 'ผุสดี', attitude: 'good', frequency: 4, lastVisit: 7, attendance: 15 },
+            { id: 5, name: 'วิชัย รุ่งเรือง', nickname: 'ชัย', group: 'G02', groupName: 'เบญ', attitude: 'medium', frequency: 3, lastVisit: 21, attendance: 11 },
+            { id: 6, name: 'นงลักษณ์ มีสุข', nickname: 'ลักษณ์', group: 'G03', groupName: 'ปุนนาภา', attitude: 'good', frequency: 4, lastVisit: 5, attendance: 14 },
+            { id: 7, name: 'ประเสริฐ ดีใจ', nickname: 'เสริฐ', group: 'G02', groupName: 'เบญ', attitude: 'low', frequency: 1, lastVisit: 60, attendance: 4 },
+            { id: 8, name: 'อมรรัตน์ งาม', nickname: 'อมร', group: 'G04', groupName: 'ทัศนา', attitude: 'good', frequency: 4, lastVisit: 2, attendance: 16 },
+        ];
+        
+        let currentView = 'table';
+        
+        function getAttitudeBadge(attitude) {
+            const labels = { good: 'ดี', medium: 'ปานกลาง', low: 'น้อย' };
+            const pulse = attitude === 'low' ? 'low-pulse' : '';
+            return `<span class="attitude-badge ${attitude} ${pulse}">${labels[attitude]}</span>`;
+        }
+        
+        function getFrequencyDots(frequency) {
+            return `<div class="frequency-dots">
+                ${[1,2,3,4].map(i => `<div class="frequency-dot ${i <= frequency ? 'filled' : ''}"></div>`).join('')}
+            </div>`;
+        }
+        
+        function getFrequencyLabel(frequency) {
+            if (frequency === 4) return 'ทุกสป.';
+            if (frequency === 3) return '2-3/เดือน';
+            if (frequency === 2) return '1-2/เดือน';
+            return 'นานครั้ง';
+        }
+        
+        function getVisitBadge(days) {
+            if (days > 30) {
+                return `<span class="px-2 py-0.5 rounded bg-rose/10 text-rose text-xs font-medium">${days} วัน ⚠</span>`;
+            } else if (days < 7) {
+                return `<span class="px-2 py-0.5 rounded bg-growth/10 text-growth text-xs font-medium">${days} วัน</span>`;
+            }
+            return `<span class="text-text-secondary text-sm">${days} วัน</span>`;
+        }
+        
+        function renderTableView(data) {
+            const container = document.getElementById('member-rows');
+            container.innerHTML = data.map(m => `
+                <div class="member-row attitude-${m.attitude} rounded-xl p-4 flex flex-col md:grid md:grid-cols-12 md:items-center gap-3">
+                    <div class="col-span-4 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sky/10 flex items-center justify-center text-sky font-bold font-display">
+                            ${m.nickname.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="font-bold text-text-primary font-display">${m.name}</p>
+                            <p class="text-xs text-text-ghost">${m.group} ${m.groupName}</p>
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        ${getAttitudeBadge(m.attitude)}
+                    </div>
+                    <div class="col-span-2">
+                        <div class="flex items-center gap-2">
+                            ${getFrequencyDots(m.frequency)}
+                            <span class="text-xs text-text-ghost">${getFrequencyLabel(m.frequency)}</span>
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        ${getVisitBadge(m.lastVisit)}
+                    </div>
+                    <div class="col-span-2 flex justify-end">
+                        <div class="action-bar flex items-center gap-1 glass-card rounded-lg p-1">
+                            <button class="p-1.5 rounded hover:bg-white/10 text-text-ghost hover:text-sky transition-colors">
+                                <span class="material-symbols-outlined text-lg">edit</span>
+                            </button>
+                            <a class="p-1.5 rounded hover:bg-white/10 text-text-ghost hover:text-sky transition-colors" href="../members/code.html">
+                                <span class="material-symbols-outlined text-lg">person</span>
+                            </a>
+                            <button class="p-1.5 rounded hover:bg-white/10 text-text-ghost hover:text-growth transition-colors">
+                                <span class="material-symbols-outlined text-lg">assignment</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function renderCardView(data) {
+            const container = document.getElementById('card-view');
+            container.innerHTML = data.map(m => `
+                <div class="glass-card rounded-xl p-4 space-y-4">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="w-12 h-12 rounded-full bg-sky/10 flex items-center justify-center text-sky font-bold font-display text-xl mb-2">
+                            ${m.nickname.charAt(0)}
+                        </div>
+                        <h3 class="font-bold text-text-primary font-display">${m.name}</h3>
+                        <span class="px-2 py-0.5 rounded-full bg-sky/10 text-sky text-xs mt-1">${m.group} ${m.groupName}</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-ink-light rounded-full overflow-hidden">
+                        <div class="h-full rounded-full ${m.attitude === 'good' ? 'bg-growth' : m.attitude === 'medium' ? 'bg-water' : 'bg-rose'}" style="width: ${m.frequency * 25}%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-text-secondary">
+                        <span>ประชุม ${m.attendance}</span>
+                        <span>เยี่ยม ${Math.floor(m.attendance / 4)}</span>
+                        <span>วันล่าสุด ${m.lastVisit}</span>
+                    </div>
+                    <div class="flex justify-center gap-2 pt-2 border-t border-glass-border">
+                        <button class="p-2 rounded-lg bg-ink-light/60 text-text-secondary hover:text-sky transition-colors">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
+                        <a class="p-2 rounded-lg bg-ink-light/60 text-text-secondary hover:text-sky transition-colors" href="../members/code.html">
+                            <span class="material-symbols-outlined">person</span>
+                        </a>
+                        <button class="p-2 rounded-lg bg-ink-light/60 text-text-secondary hover:text-growth transition-colors">
+                            <span class="material-symbols-outlined">assignment</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function filterMembers() {
+            const search = document.getElementById('search-input').value.toLowerCase();
+            const group = document.getElementById('group-filter').value;
+            const attitude = document.getElementById('attitude-filter').value;
+            
+            let filtered = members.filter(m => {
+                const matchSearch = m.name.toLowerCase().includes(search) || m.nickname.toLowerCase().includes(search);
+                const matchGroup = !group || m.group === group;
+                const matchAttitude = !attitude || m.attitude === attitude;
+                return matchSearch && matchGroup && matchAttitude;
+            });
+            
+            if (currentView === 'table') {
+                renderTableView(filtered);
+            } else {
+                renderCardView(filtered);
+            }
+        }
+        
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('view-table').classList.toggle('active', view === 'table');
+            document.getElementById('view-card').classList.toggle('active', view === 'card');
+            document.getElementById('table-view').classList.toggle('hidden', view !== 'table');
+            document.getElementById('card-view').classList.toggle('hidden', view !== 'card');
+            filterMembers();
+        }
+        
+        // Initialize
+        filterMembers();
+    </script>
+</body></html>

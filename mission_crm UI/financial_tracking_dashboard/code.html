@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="th"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;800;900&amp;family=Sarabun:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;700&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #050d1a;
+            color: #dae3f6;
+        }
+        h1, h2, h3, .kanit {
+            font-family: 'Kanit', sans-serif;
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .mask-gradient {
+            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#5516be",
+                      "tertiary-container": "#a078ff",
+                      "surface-container-lowest": "#060e1b",
+                      "surface-container": "#18202e",
+                      "surface": "#0b1421",
+                      "on-tertiary-fixed": "#23005c",
+                      "inverse-primary": "#005ac2",
+                      "tertiary-fixed-dim": "#d0bcff",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-secondary": "#472a00",
+                      "surface-container-low": "#131c29",
+                      "error": "#ffb4ab",
+                      "background": "#0b1421",
+                      "surface-container-highest": "#2d3544",
+                      "primary-fixed-dim": "#adc6ff",
+                      "outline": "#8c909f",
+                      "secondary-container": "#ee9800",
+                      "primary": "#adc6ff",
+                      "surface-tint": "#adc6ff",
+                      "error-container": "#93000a",
+                      "surface-variant": "#2d3544",
+                      "outline-variant": "#424754",
+                      "on-tertiary": "#3c0091",
+                      "surface-dim": "#0b1421",
+                      "on-error": "#690005",
+                      "on-background": "#dae3f6",
+                      "on-primary": "#002e6a",
+                      "on-surface": "#dae3f6",
+                      "on-primary-container": "#00285d",
+                      "inverse-surface": "#dae3f6",
+                      "on-tertiary-container": "#340080",
+                      "surface-container-high": "#222a38",
+                      "secondary": "#ffb95f",
+                      "surface-bright": "#313948",
+                      "on-surface-variant": "#c2c6d6",
+                      "on-primary-fixed": "#001a42",
+                      "primary-container": "#4d8eff",
+                      "primary-fixed": "#d8e2ff",
+                      "inverse-on-surface": "#28313f",
+                      "on-secondary-fixed": "#2a1700",
+                      "on-secondary-container": "#5b3800",
+                      "secondary-fixed-dim": "#ffb95f",
+                      "tertiary-fixed": "#e9ddff",
+                      "tertiary": "#d0bcff",
+                      "on-primary-fixed-variant": "#004395",
+                      "secondary-fixed": "#ffddb8",
+                      "on-error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans", "Kanit"],
+                      "body": ["Be Vietnam Pro", "Sarabun"],
+                      "label": ["Be Vietnam Pro", "Sarabun"]
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="bg-surface-container-lowest text-on-background min-h-screen overflow-x-hidden">
+<!-- Background Mesh Gradients -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#8b5cf6] opacity-[0.05] blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[#f59e0b] opacity-[0.05] blur-[120px]"></div>
+</div>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col z-50 bg-[#0a1628]/75 backdrop-blur-xl h-screen w-64 border-r border-white/10 shadow-[0_40px_40px_rgba(11,20,33,0.4)]">
+<div class="p-8 flex flex-col items-center">
+<div class="w-16 h-16 rounded-2xl bg-primary-container/20 flex items-center justify-center mb-4 relative overflow-hidden group">
+<img alt="Church Logo" class="w-12 h-12 object-contain" data-alt="minimalist spiritual logo with abstract golden geometric pattern on a deep navy background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZndNsL9Lw79e2pbwCjZXWMytYgbPTrb9dGj597pwHD0fLIDbfXRAqSKAcFeSLTTcyC7FZ0RyxCiy1b8xxoUcba6qo0FwkM0yX84YlsOz6FzFbWCLj7Xe77Q6IyB6p7p54w4K-YU3p2YKZhyvx8B5i26iBZ9jOKvafEyU096mPF9RWxnHNk3ManSX0gJ8CpiheRSvSX7cW66XoKwUfh_L6f4SOe2bfiwKiDYndD0LXNXH2dIbrfVsMqduNDAT4jy3HvX3tLb9Nzj4"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent"></div>
+</div>
+<span class="text-xl font-black text-blue-500 tracking-tight leading-none mb-1 kanit">The Sacred Journal</span>
+<span class="text-xs uppercase tracking-[0.2em] text-slate-500 font-bold">Mission CRM</span>
+</div>
+<nav class="mt-8 flex-1">
+<div class="px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/10 hover:text-blue-300 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="kanit text-lg">หน้าหลัก</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/10 hover:text-blue-300 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="kanit text-lg">ภารกิจ</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-400 font-medium hover:bg-white/10 hover:text-blue-300 transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="kanit text-lg">สมาชิก</span>
+</a>
+<!-- Active Tab: การเงิน (Financials) -->
+<a class="flex items-center gap-4 px-4 py-3 rounded-xl text-blue-400 font-bold border-r-4 border-blue-500 bg-white/5 active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="kanit text-lg">การเงิน</span>
+</a>
+</div>
+</nav>
+<div class="p-8 border-t border-white/5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary/30 overflow-hidden">
+<img alt="User Profile" data-alt="professional headshot of a middle-aged man with a warm smile and gentle eyes in front of a soft office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYBqA4Bo8kj7HEeIh1VIFBvAZVybMz3gQLu0FvDuinTl29xcyu9GYmGLoIrnk-5SRRVUG2bfkKPGrVToeSg2-k9f3M6eIO3oSf9IUe8yQRNh4VO68pNpyk6uPXFtH9TSxnGKCDXChazWIrwNw0DWpRoERenMuQH_tbI0HQo-gaQYvwJHByeX0agkiV0qgBmFlatwDuHoOGM3tbiFswzqzCjZ_IvHtnPT8CKQkkNhf_S7OS5lfTBoRHKKl3-c8T3IeopaiCANmN_4w"/>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-bold text-on-surface">ศจ. ดร. มานะ</span>
+<span class="text-[10px] text-slate-500">ผู้ดูแลระบบ</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 z-40 bg-transparent flex justify-between items-center px-8 w-full ml-64 max-w-[calc(100%-16rem)] h-16">
+<div class="flex-1 max-w-md">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-500 group-focus-within:text-blue-500 transition-colors">
+<span class="material-symbols-outlined text-sm">search</span>
+</span>
+<input class="w-full bg-surface-container-low/50 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-1 focus:ring-blue-500 placeholder:text-slate-600 transition-all" placeholder="ค้นหารายการ..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-slate-400 hover:text-blue-300 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-secondary rounded-full border-2 border-surface"></span>
+</button>
+<button class="text-slate-400 hover:text-blue-300 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 pt-24 px-10 pb-20 relative z-10">
+<!-- Page Header -->
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-black text-on-surface tracking-tight kanit mb-2">การเงินและงบประมาณ</h1>
+<p class="text-on-surface-variant font-medium opacity-80">ภาพรวมสถานะการเงินของพันธกิจและบัญชีส่วนกลาง</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full bg-surface-container-high border border-outline-variant/20 hover:bg-surface-container-highest transition-all active:scale-95 text-on-surface text-sm font-medium">
+<span class="material-symbols-outlined text-sm">download</span>
+                    ดาวน์โหลดรายงาน
+                </button>
+</div>
+</div>
+<!-- KPI Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+<!-- Total Giving -->
+<div class="relative group overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-6 transition-all hover:bg-surface-container-high active:scale-98">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-emerald-400/80 material-symbols-outlined text-3xl">payments</span>
+<span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-1 rounded-full font-bold">+12.5%</span>
+</div>
+<p class="text-slate-400 text-sm mb-1 kanit">ยอดเงินถวายรวม</p>
+<p class="text-3xl font-black text-white kanit tracking-tight">฿ 1,245,800</p>
+</div>
+<!-- Total Expenses -->
+<div class="relative group overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-6 transition-all hover:bg-surface-container-high active:scale-98">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-rose-500 to-amber-400"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-rose-400/80 material-symbols-outlined text-3xl">shopping_cart_checkout</span>
+<span class="text-[10px] bg-rose-500/10 text-rose-400 px-2 py-1 rounded-full font-bold">+4.2%</span>
+</div>
+<p class="text-slate-400 text-sm mb-1 kanit">ค่าใช้จ่ายรวม</p>
+<p class="text-3xl font-black text-white kanit tracking-tight">฿ 842,350</p>
+</div>
+<!-- Balance -->
+<div class="relative group overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-6 transition-all hover:bg-surface-container-high active:scale-98">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 to-sky-400"></div>
+<div class="flex justify-between items-start mb-4">
+<span class="text-blue-400/80 material-symbols-outlined text-3xl">account_balance_wallet</span>
+<span class="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-1 rounded-full font-bold">Stable</span>
+</div>
+<p class="text-slate-400 text-sm mb-1 kanit">คงเหลือ</p>
+<p class="text-3xl font-black text-white kanit tracking-tight">฿ 403,450</p>
+</div>
+<!-- Target Progress -->
+<div class="relative group overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-6 transition-all hover:bg-surface-container-high active:scale-98">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-tertiary-container to-on-tertiary-fixed-variant"></div>
+<div class="flex items-center gap-4">
+<div class="relative w-16 h-16 flex items-center justify-center">
+<svg class="w-16 h-16 -rotate-90">
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="rgba(160, 120, 255, 0.1)" stroke-width="4"></circle>
+<circle cx="32" cy="32" fill="transparent" r="28" stroke="#a078ff" stroke-dasharray="175" stroke-dashoffset="45" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<span class="absolute text-xs font-black text-tertiary-container kanit">74%</span>
+</div>
+<div>
+<p class="text-slate-400 text-xs mb-1 kanit leading-tight">ความคืบหน้าเป้าหมายปีนี้</p>
+<p class="text-xl font-black text-white kanit">฿ 1.5M</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+<!-- Financial Trend Chart (2/3) -->
+<div class="lg:col-span-2 relative overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-8 transition-all hover:bg-surface-container-high border border-outline-variant/10">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-primary to-primary-container"></div>
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="text-xl font-bold text-on-surface kanit">แนวโน้มรายรับ-รายจ่าย</h3>
+<p class="text-slate-500 text-xs font-medium">สถิติย้อนหลัง 6 เดือนที่ผ่านมา</p>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-slate-400">เงินถวาย</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-rose-500"></span>
+<span class="text-xs text-slate-400">รายจ่าย</span>
+</div>
+</div>
+</div>
+<!-- Visual Chart Representation -->
+<div class="h-64 relative flex items-end gap-1">
+<div class="flex-1 flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-emerald-500/20 rounded-t-lg h-[40%] hover:bg-emerald-500/40 transition-colors"></div>
+<div class="w-full bg-rose-500/20 rounded-b-lg h-[25%] hover:bg-rose-500/40 transition-colors"></div>
+<p class="text-[10px] text-slate-600 text-center mt-2 kanit">ม.ค.</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-emerald-500/20 rounded-t-lg h-[55%] hover:bg-emerald-500/40 transition-colors"></div>
+<div class="w-full bg-rose-500/20 rounded-b-lg h-[30%] hover:bg-rose-500/40 transition-colors"></div>
+<p class="text-[10px] text-slate-600 text-center mt-2 kanit">ก.พ.</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-emerald-500/20 rounded-t-lg h-[70%] hover:bg-emerald-500/40 transition-colors"></div>
+<div class="w-full bg-rose-500/20 rounded-b-lg h-[40%] hover:bg-rose-500/40 transition-colors"></div>
+<p class="text-[10px] text-slate-600 text-center mt-2 kanit">มี.ค.</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-emerald-500/30 rounded-t-lg h-[60%] hover:bg-emerald-500/50 transition-colors"></div>
+<div class="w-full bg-rose-500/30 rounded-b-lg h-[50%] hover:bg-rose-500/50 transition-colors"></div>
+<p class="text-[10px] text-slate-600 text-center mt-2 kanit">เม.ย.</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full">
+<div class="w-full bg-emerald-500/20 rounded-t-lg h-[85%] hover:bg-emerald-500/40 transition-colors"></div>
+<div class="w-full bg-rose-500/20 rounded-b-lg h-[35%] hover:bg-rose-500/40 transition-colors"></div>
+<p class="text-[10px] text-slate-600 text-center mt-2 kanit">พ.ค.</p>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 h-full relative">
+<div class="absolute inset-x-0 bottom-6 h-[95%] bg-blue-500/10 blur-xl"></div>
+<div class="w-full bg-emerald-500 rounded-t-lg h-[95%] shadow-[0_0_20px_rgba(16,185,129,0.3)]"></div>
+<div class="w-full bg-rose-500 rounded-b-lg h-[45%] shadow-[0_0_20px_rgba(244,63,94,0.3)]"></div>
+<p class="text-[10px] text-blue-400 font-bold text-center mt-2 kanit">มิ.ย.</p>
+</div>
+</div>
+</div>
+<!-- Category Breakdown Donut (1/3) -->
+<div class="relative overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl p-8 border border-outline-variant/10">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-secondary-container"></div>
+<h3 class="text-xl font-bold text-on-surface kanit mb-6">สัดส่วนเงินถวาย</h3>
+<div class="relative flex items-center justify-center mb-8">
+<div class="w-40 h-40 rounded-full border-[12px] border-surface-container flex items-center justify-center relative">
+<!-- Simulated Donut Segments -->
+<div class="absolute inset-0 rounded-full border-[12px] border-primary border-t-transparent border-r-transparent border-l-transparent rotate-45"></div>
+<div class="absolute inset-0 rounded-full border-[12px] border-emerald-500 border-b-transparent border-r-transparent border-l-transparent -rotate-12"></div>
+<div class="absolute inset-0 rounded-full border-[12px] border-tertiary border-t-transparent border-b-transparent border-l-transparent"></div>
+<div class="flex flex-col items-center">
+<span class="text-xs text-slate-500 font-bold uppercase tracking-widest leading-none">Total</span>
+<span class="text-2xl font-black text-white kanit">1.2M</span>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-sm text-slate-400 font-medium">ถวายทั่วไป</span>
+</div>
+<span class="text-sm font-bold text-white">45%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-sm text-slate-400 font-medium">พันธกิจกาฬสินธุ์</span>
+</div>
+<span class="text-sm font-bold text-white">30%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-sm text-slate-400 font-medium">สงเคราะห์</span>
+</div>
+<span class="text-sm font-bold text-white">15%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-slate-600"></span>
+<span class="text-sm text-slate-400 font-medium">อื่นๆ</span>
+</div>
+<span class="text-sm font-bold text-white">10%</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Transactions Table -->
+<div class="relative overflow-hidden rounded-[14px] bg-[#131c29]/75 backdrop-blur-xl border border-outline-variant/10">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500/50 to-emerald-500/50"></div>
+<div class="p-8 flex justify-between items-center border-b border-white/5">
+<h3 class="text-xl font-bold text-on-surface kanit">รายการล่าสุด</h3>
+<button class="text-primary text-sm font-bold hover:underline">ดูทั้งหมด</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-slate-500 text-xs uppercase tracking-wider font-bold">
+<th class="px-8 py-4">วันที่</th>
+<th class="px-8 py-4">รายการ</th>
+<th class="px-8 py-4">หมวดหมู่</th>
+<th class="px-8 py-4">จำนวนเงิน</th>
+<th class="px-8 py-4">สถานะ</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-8 py-5 text-sm text-slate-400">12 มิ.ย. 2024</td>
+<td class="px-8 py-5 text-sm font-bold text-on-surface">เงินถวายรอยพระบาท</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] bg-emerald-500/10 text-emerald-400 font-bold">ถวายทั่วไป</span>
+</td>
+<td class="px-8 py-5 text-sm font-black text-emerald-400 kanit">+ ฿ 45,000</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-emerald-500/80 font-bold">Complete</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-8 py-5 text-sm text-slate-400">10 มิ.ย. 2024</td>
+<td class="px-8 py-5 text-sm font-bold text-on-surface">ค่าน้ำไฟอาคารพันธกิจ</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] bg-rose-500/10 text-rose-400 font-bold">ค่าใช้จ่าย</span>
+</td>
+<td class="px-8 py-5 text-sm font-black text-rose-400 kanit">- ฿ 12,400</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-emerald-500/80 font-bold">Complete</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-8 py-5 text-sm text-slate-400">08 มิ.ย. 2024</td>
+<td class="px-8 py-5 text-sm font-bold text-on-surface">อุปกรณ์การเรียนโครงการเด็ก</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] bg-blue-500/10 text-blue-400 font-bold">พันธกิจกาฬสินธุ์</span>
+</td>
+<td class="px-8 py-5 text-sm font-black text-rose-400 kanit">- ฿ 8,500</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+<span class="text-xs text-amber-500/80 font-bold">Pending</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-8 py-5 text-sm text-slate-400">05 มิ.ย. 2024</td>
+<td class="px-8 py-5 text-sm font-bold text-on-surface">เงินบริจาคช่วยเหลือน้ำท่วม</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full text-[10px] bg-tertiary/10 text-tertiary font-bold">สงเคราะห์</span>
+</td>
+<td class="px-8 py-5 text-sm font-black text-rose-400 kanit">- ฿ 20,000</td>
+<td class="px-8 py-5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="text-xs text-emerald-500/80 font-bold">Complete</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#3b82f6] to-[#06b6d4] text-white shadow-[0_20px_40px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95 transition-all z-50 group">
+<div class="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined font-black" style="font-variation-settings: 'wght' 700;">add</span>
+<span class="kanit text-lg font-bold">+ บันทึกรายการใหม่</span>
+</button>
+</body></html>
