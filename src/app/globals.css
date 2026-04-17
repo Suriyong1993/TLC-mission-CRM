@@ -1,139 +1,102 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════
      Sacred Journal — Atmospheric Design System
      "The Living Manuscript"
      ═══════════════════════════════════════════════════════════ */
 
-:root {
-  --ink-deep:    #050d1a;  /* Void background */
-  --ink-mid:     rgba(10, 22, 40, 0.75); /* Card base */
-  --ink-lift:    #0f2444;  /* Interaction layer */
-  --ink-input:   #060e1b;  /* Surface lowest */
+@layer base {
+  :root {
+    --ink-deep:    #050d1a;  /* Void background */
+    --ink-mid:     rgba(10, 22, 40, 0.75); /* Card base */
+    --ink-lift:    #0f2444;  /* Interaction layer */
+    --ink-input:   #060e1b;  /* Surface lowest */
 
-  --sky:         #adc6ff;  /* Primary fixed dim */
-  --water:       #4d8eff;  /* Primary container */
-  --gold:        #ffb95f;  /* Secondary */
-  --growth:      #10b981;  /* Success */
-  --alert:       #ffb4ab;  /* Error */
-  --spirit:      #d0bcff;  /* Tertiary fixed dim */
-  /* ── Lines — borders ── */
-  --line:        rgba(218, 227, 246, 0.08);
-  --line-bright: rgba(218, 227, 246, 0.15);
+    --sky:         #adc6ff;  /* Primary fixed dim */
+    --water:       #4d8eff;  /* Primary container */
+    --gold:        #ffb95f;  /* Secondary */
+    --growth:      #10b981;  /* Success */
+    --alert:       #ffb4ab;  /* Error */
+    --spirit:      #d0bcff;  /* Tertiary fixed dim */
+    /* ── Lines — borders ── */
+    --line:        rgba(218, 227, 246, 0.08);
+    --line-bright: rgba(218, 227, 246, 0.15);
 
-  /* ── Text — hierarchy ── */
-  --text-main:   #dae3f6;
-  --text-soft:   #c2c6d6;
-  --text-ghost:  #424754;
+    /* ── Text — hierarchy ── */
+    --text-main:   #dae3f6;
+    --text-soft:   #c2c6d6;
+    --text-ghost:  #424754;
 
-  /* ── 8-Pillar accent colors ── */
-  --pillar-1:    #ffb95f;  /* การประกาศ - secondary */
-  --pillar-2:    #adc6ff;  /* การติดตามผล - primary */
-  --pillar-3:    #10b981;  /* การอภิบาล - success */
-  --pillar-4:    #d0bcff;  /* สร้างผู้นำ - tertiary */
-  --pillar-5:    #ffb4ab;  /* อธิษฐานพุธ - error/rose */
-  --pillar-6:    #4d8eff;  /* พพช. - primary-container */
-  --pillar-7:    #ee9800;  /* มาคจ. - secondary-container */
-  --pillar-8:    #ffdad6;  /* มาแคร์ - on-error-container */
+    /* ── 8-Pillar accent colors ── */
+    --pillar-1:    #ffb95f;  /* การประกาศ - secondary */
+    --pillar-2:    #adc6ff;  /* การติดตามผล - primary */
+    --pillar-3:    #10b981;  /* การอภิบาล - success */
+    --pillar-4:    #d0bcff;  /* สร้างผู้นำ - tertiary */
+    --pillar-5:    #ffb4ab;  /* อธิษฐานพุธ - error/rose */
+    --pillar-6:    #4d8eff;  /* พพช. - primary-container */
+    --pillar-7:    #ee9800;  /* มาคจ. - secondary-container */
+    --pillar-8:    #ffdad6;  /* มาแคร์ - on-error-container */
 
-  /* ── Group size classification ── */
-  --size-big:    var(--growth);
-  --size-std:    var(--water);
-  --size-mini:   var(--spirit);
+    /* ── Group size classification ── */
+    --size-big:    var(--growth);
+    --size-std:    var(--water);
+    --size-mini:   var(--spirit);
 
-  /* ── Body colors (for body badges) ── */
-  --body-1:      #3b82f6;  /* เมือง 1 */
-  --body-2:      #06b6d4;  /* เมือง 2 */
-  --body-3:      #8b5cf6;  /* สมเด็จ */
-  --body-4:      #10b981;  /* ท่าคันโท */
-  --body-5:      #f59e0b;  /* กุฉินารายณ์ */
-  --body-6:      #ec4899;  /* คำใหญ่ */
-  --on-surface:  #dae3f6;
-  --on-surface-variant: #c2c6d6;
-  --outline-variant: rgba(66, 71, 84, 0.15); /* Ghost border */
-}
-  /* ── Radius ── */
-  --radius-sm:    6px;
-  --radius-md:    10px;
-  --radius-lg:    14px;
-  --radius-xl:    18px;
-  --radius-2xl:   24px;
-  --radius-full:  9999px;
+    /* ── Body colors (for body badges) ── */
+    --body-1:      #3b82f6;  /* เมือง 1 */
+    --body-2:      #06b6d4;  /* เมือง 2 */
+    --body-3:      #8b5cf6;  /* สมเด็จ */
+    --body-4:      #10b981;  /* ท่าคันโท */
+    --body-5:      #f59e0b;  /* กุฉินารายณ์ */
+    --body-6:      #ec4899;  /* คำใหญ่ */
+    --on-surface:  #dae3f6;
+    --on-surface-variant: #c2c6d6;
+    --outline-variant: rgba(66, 71, 84, 0.15); /* Ghost border */
 
-  /* ── Motion ── */
-  --motion-fast:    100ms;
-  --motion-normal:  200ms;
-  --motion-slow:    300ms;
-  --motion-count:   800ms;
+    /* ── Radius ── */
+    --radius-sm:    6px;
+    --radius-md:    10px;
+    --radius-lg:    14px;
+    --radius-xl:    18px;
+    --radius-2xl:   24px;
+    --radius-full:  9999px;
 
-  /* ── Easing ── */
-  --ease-entry:     cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);
-  --ease-bounce:    cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* ── Motion ── */
+    --motion-fast:    100ms;
+    --motion-normal:  200ms;
+    --motion-slow:    300ms;
+    --motion-count:   800ms;
 
-  /* ── Background / Foreground (Tailwind compat) ── */
-  --background: var(--ink-deep);
-  --foreground: var(--text-main);
-}
+    /* ── Easing ── */
+    --ease-entry:     cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-exit:      cubic-bezier(0.4, 0, 1, 1);
+    --ease-bounce:    cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-/* ── Tailwind v4 theme integration ── */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+    /* ── Background / Foreground (Tailwind compat) ── */
+    --background: var(--ink-deep);
+    --foreground: var(--text-main);
 
-  /* Ink layers */
-  --color-ink-deep: var(--ink-deep);
-  --color-ink-mid: var(--ink-mid);
-  --color-ink-lift: var(--ink-lift);
-  --color-ink-input: var(--ink-input);
-
-  /* Lines */
-  --color-line: var(--line);
-  --color-line-bright: var(--line-bright);
-
-  /* Text */
-  --color-text-main: var(--text-main);
-  --color-text-soft: var(--text-soft);
-  --color-text-ghost: var(--text-ghost);
-
-  /* Semantic accents */
-  --color-sky: var(--sky);
-  --color-water: var(--water);
-  --color-gold: var(--gold);
-  --color-growth: var(--growth);
-  --color-alert: var(--alert);
-  --color-spirit: var(--spirit);
-
-  /* Pillar colors */
-  --color-pillar-1: var(--pillar-1);
-  --color-pillar-2: var(--pillar-2);
-  --color-pillar-3: var(--pillar-3);
-  --color-pillar-4: var(--pillar-4);
-  --color-pillar-5: var(--pillar-5);
-  --color-pillar-6: var(--pillar-6);
-  --color-pillar-7: var(--pillar-7);
-  --color-pillar-8: var(--pillar-8);
-
-  /* Body colors */
-  --color-body-1: var(--body-1);
-  --color-body-2: var(--body-2);
-  --color-body-3: var(--body-3);
-  --color-body-4: var(--body-4);
-  --color-body-5: var(--body-5);
-  --color-body-6: var(--body-6);
-
-  /* Fonts */
-  --font-display: var(--font-kanit);
-  --font-body: var(--font-sarabun);
-  --font-mono: var(--font-jetbrains);
-
-  /* Radius */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
-  --radius-xl: var(--radius-xl);
-  --radius-2xl: var(--radius-2xl);
-  --radius-full: var(--radius-full);
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 14% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 14% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 14% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 14% 10%;
+    --radius: 0.5rem;
+  }
 }
 
 /* ── Base body styles ── */
